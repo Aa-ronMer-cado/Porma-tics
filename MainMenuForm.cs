@@ -16,12 +16,12 @@ namespace Pormatics
 {
     public partial class MainMenuForm : Form
     {
-        // ── Fields ───────────────────────────────────────────────────
+        // ── Fields 
         private Button currentBottomButton;
         private Button currentTopButton;
         private Form activeForm;
 
-        // ── Constructor ──────────────────────────────────────────────
+        // ── Constructor 
         public MainMenuForm()
         {
             InitializeComponent();
@@ -32,14 +32,14 @@ namespace Pormatics
             closetTitle.MouseDown += closetTitle_MouseDown;
         }
 
-        // ── DLL Imports for Drag ─────────────────────────────────────
+        // ── DLL Imports for Drag
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
 
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
 
-        // ── Resize & Button Scaling ──────────────────────────────────
+        // ── Resize & Button Scaling 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
@@ -85,7 +85,7 @@ namespace Pormatics
             }
         }
 
-        // ── Open Child Form ──────────────────────────────────────────
+        // ── Open Child Form 
         private void OpenChildForm(Form childForm)
         {
             if (activeForm != null)
@@ -105,7 +105,7 @@ namespace Pormatics
             childForm.Show();
         }
 
-        // ── Bottom Panel Logic ───────────────────────────────────────
+        // Bottom Panel Logic
         private void ActivateBottomButton(object btnSender)
         {
             if (btnSender != null)
@@ -137,7 +137,7 @@ namespace Pormatics
             }
         }
 
-        // ── Top Panel Logic ──────────────────────────────────────────
+        // ── Top Panel Logic 
         private void ActivateTopButton(object btnSender)
         {
             if (btnSender != null)
@@ -169,19 +169,20 @@ namespace Pormatics
             }
         }
 
-        // ── Auto-Load from StartForm ─────────────────────────────────
+        //  Auto-Load from StartForm 
         public void LoadDefault()
         {
             closetBtn.PerformClick();
         }
 
-        // ── Bottom Panel Buttons ─────────────────────────────────────
+        // Bottom Panel Buttons 
         private void settingBtn_Click(object sender, EventArgs e)
         {
             ActivateBottomButton(sender);
             OpenChildForm(new Settings());
             clothesBtnPanel.Visible = false;
-            bottomPanel.Enabled = true; // Disable only while the settings form is open
+            closetTitle.Visible = false;
+            bottomPanel.Enabled = true; 
         }
 
         private void closetBtn_Click(object sender, EventArgs e)
@@ -190,13 +191,14 @@ namespace Pormatics
             OpenChildForm(new AllCloset());
             allClothesBtn.PerformClick();
             clothesBtnPanel.Visible = true;
-            bottomPanel.Enabled = true; 
+            closetTitle.Visible = true;
+            bottomPanel.Enabled = true;
         }
 
         private void uploadClothesBtn_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
             clothesBtnPanel.Visible = false;
+            closetTitle.Visible = false;
             bottomPanel.Enabled = false;
 
             UploadClothes uploadForm = new UploadClothes();
@@ -214,6 +216,7 @@ namespace Pormatics
             ActivateBottomButton(sender);
             OpenChildForm(new GenerateFilter());
             clothesBtnPanel.Visible = false;
+            closetTitle.Visible = false;
             bottomPanel.Enabled = true;
         }
 
@@ -222,10 +225,21 @@ namespace Pormatics
             ActivateBottomButton(sender);
             OpenChildForm(new FavoriteOutfit());
             clothesBtnPanel.Visible = false;
+            closetTitle.Visible = false;
             bottomPanel.Enabled = true;
         }
 
-        // ── Top Category Buttons ─────────────────────────────────────
+        private void favBtn_Click(object sender, EventArgs e)
+        {
+            ActivateBottomButton(sender);
+            OpenChildForm(new FavoriteOutfit());
+            clothesBtnPanel.Visible = false;
+            bottomPanel.Enabled = true;
+        }
+        // FOR TESTING PICTURE BOX METHOD
+        
+
+        // Top Category Buttons 
         private void allClothesBtn_Click(object sender, EventArgs e)
         {
             ActivateTopButton(sender);
@@ -256,7 +270,7 @@ namespace Pormatics
             OpenChildForm(new AccessoriesCloset());
         }
 
-        // ── Window Controls ──────────────────────────────────────────
+        // Window Controls
         private void closetTitle_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
@@ -287,7 +301,5 @@ namespace Pormatics
         }
 
         private void label1_Click(object sender, EventArgs e) { }
-
-        
     }
 }

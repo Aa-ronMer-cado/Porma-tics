@@ -14,5 +14,18 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
         {
             InitializeComponent();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void doneBtn_Click(object sender, EventArgs e)
+        {
+            MainMenuForm form = new MainMenuForm();
+            form.Show();
+
+            this.Hide();
+        }
     }
 }

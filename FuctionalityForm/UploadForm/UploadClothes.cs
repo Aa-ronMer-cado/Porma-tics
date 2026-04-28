@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pormatics.FuctionalityForm.OutfitGenerationForm;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +14,15 @@ namespace Pormatics.FuctionalityForm
         public UploadClothes()
         {
             InitializeComponent();
-            this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            UploadFilter filter = new UploadFilter();
+            filter.Show();
+
+            this.Hide();
         }
     }
 }

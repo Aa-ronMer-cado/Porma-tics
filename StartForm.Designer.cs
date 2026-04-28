@@ -29,12 +29,17 @@
         private void InitializeComponent()
         {
             logoPic = new PictureBox();
-            startBtn = new Button();
-            startPanel = new Panel();
             logoPanel = new Panel();
+            rightPanel = new Panel();
+            leftPanel = new Panel();
+            panel3 = new Panel();
+            startBtn = new Button();
+            bottomPanel = new Panel();
+            btnPanel = new Panel();
             ((System.ComponentModel.ISupportInitialize)logoPic).BeginInit();
-            startPanel.SuspendLayout();
             logoPanel.SuspendLayout();
+            leftPanel.SuspendLayout();
+            btnPanel.SuspendLayout();
             SuspendLayout();
             // 
             // logoPic
@@ -44,10 +49,45 @@
             logoPic.Image = Properties.Resources.LOGO1;
             logoPic.Location = new Point(0, 0);
             logoPic.Name = "logoPic";
-            logoPic.Size = new Size(1173, 465);
+            logoPic.Size = new Size(1173, 450);
             logoPic.SizeMode = PictureBoxSizeMode.CenterImage;
             logoPic.TabIndex = 0;
             logoPic.TabStop = false;
+            logoPic.Click += logoPic_Click;
+            // 
+            // logoPanel
+            // 
+            logoPanel.Controls.Add(logoPic);
+            logoPanel.Dock = DockStyle.Top;
+            logoPanel.Location = new Point(0, 0);
+            logoPanel.Name = "logoPanel";
+            logoPanel.Size = new Size(1173, 450);
+            logoPanel.TabIndex = 3;
+            logoPanel.Paint += logoPanel_Paint;
+            // 
+            // rightPanel
+            // 
+            rightPanel.Dock = DockStyle.Right;
+            rightPanel.Location = new Point(680, 450);
+            rightPanel.Name = "rightPanel";
+            rightPanel.Size = new Size(493, 180);
+            rightPanel.TabIndex = 4;
+            // 
+            // leftPanel
+            // 
+            leftPanel.Controls.Add(panel3);
+            leftPanel.Dock = DockStyle.Left;
+            leftPanel.Location = new Point(0, 450);
+            leftPanel.Name = "leftPanel";
+            leftPanel.Size = new Size(505, 180);
+            leftPanel.TabIndex = 5;
+            // 
+            // panel3
+            // 
+            panel3.Location = new Point(250, 368);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(250, 125);
+            panel3.TabIndex = 7;
             // 
             // startBtn
             // 
@@ -57,51 +97,58 @@
             startBtn.FlatStyle = FlatStyle.Flat;
             startBtn.Location = new Point(0, 0);
             startBtn.Name = "startBtn";
-            startBtn.Size = new Size(1173, 165);
+            startBtn.Size = new Size(175, 85);
             startBtn.TabIndex = 1;
             startBtn.Text = "Start";
             startBtn.UseVisualStyleBackColor = false;
             startBtn.Click += startBtn_Click;
             // 
-            // startPanel
+            // bottomPanel
             // 
-            startPanel.Controls.Add(startBtn);
-            startPanel.Dock = DockStyle.Bottom;
-            startPanel.Location = new Point(0, 465);
-            startPanel.Name = "startPanel";
-            startPanel.Size = new Size(1173, 165);
-            startPanel.TabIndex = 2;
+            bottomPanel.Dock = DockStyle.Bottom;
+            bottomPanel.Location = new Point(505, 533);
+            bottomPanel.Name = "bottomPanel";
+            bottomPanel.Size = new Size(175, 97);
+            bottomPanel.TabIndex = 6;
             // 
-            // logoPanel
+            // btnPanel
             // 
-            logoPanel.Controls.Add(logoPic);
-            logoPanel.Dock = DockStyle.Fill;
-            logoPanel.Location = new Point(0, 0);
-            logoPanel.Name = "logoPanel";
-            logoPanel.Size = new Size(1173, 465);
-            logoPanel.TabIndex = 3;
+            btnPanel.Controls.Add(startBtn);
+            btnPanel.Dock = DockStyle.Bottom;
+            btnPanel.Location = new Point(505, 448);
+            btnPanel.Name = "btnPanel";
+            btnPanel.Size = new Size(175, 85);
+            btnPanel.TabIndex = 7;
             // 
             // StartForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
+            AutoSize = true;
             BackColor = Color.FromArgb(244, 233, 233);
             ClientSize = new Size(1173, 630);
+            Controls.Add(btnPanel);
+            Controls.Add(bottomPanel);
+            Controls.Add(leftPanel);
+            Controls.Add(rightPanel);
             Controls.Add(logoPanel);
-            Controls.Add(startPanel);
             Name = "StartForm";
             Text = "PORMATICS";
             ((System.ComponentModel.ISupportInitialize)logoPic).EndInit();
-            startPanel.ResumeLayout(false);
             logoPanel.ResumeLayout(false);
+            leftPanel.ResumeLayout(false);
+            btnPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private PictureBox logoPic;
-        private Button startBtn;
-        private Panel startPanel;
         private Panel logoPanel;
+        private Panel rightPanel;
+        private Panel leftPanel;
+        private Panel panel3;
+        private Button startBtn;
+        private Panel bottomPanel;
+        private Panel btnPanel;
     }
 }
