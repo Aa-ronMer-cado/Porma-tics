@@ -34,7 +34,6 @@
             // addLabel
             // 
             addLabel.AutoSize = true;
-            addLabel.Dock = DockStyle.Top;
             addLabel.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             addLabel.Location = new Point(0, 0);
             addLabel.Name = "addLabel";

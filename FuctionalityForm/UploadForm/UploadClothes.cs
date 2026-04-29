@@ -22,7 +22,7 @@ namespace Pormatics.FuctionalityForm
             UploadFilter filter = new UploadFilter();
             filter.Show();
 
-            this.Hide();
+            this.Close();
         }
     }
 }

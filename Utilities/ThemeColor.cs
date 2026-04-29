@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Pormatics
+namespace Pormatics.Utilities
 {
     public static class ThemeColor
     {

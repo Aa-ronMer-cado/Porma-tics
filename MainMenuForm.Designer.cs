@@ -29,12 +29,7 @@
         private void InitializeComponent()
         {
             bottomPanel = new Panel();
-            generateOutfitBtn = new Button();
             favBtn = new PictureBox();
-            uploadClothesBtn = new Button();
-            closetBtn = new Button();
-            settingBtn = new Button();
-            favoriteBtn = new Button();
             closetTitle = new Panel();
             minimizeBtn = new Button();
             maximizeBtn = new Button();
@@ -47,120 +42,46 @@
             topBtn = new Button();
             allClothesBtn = new Button();
             closetPanel = new Panel();
+            generateOutfit = new PictureBox();
+            uploadClothes = new PictureBox();
+            mainCloset = new PictureBox();
+            settings = new PictureBox();
             bottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)favBtn).BeginInit();
             closetTitle.SuspendLayout();
             clothesBtnPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)generateOutfit).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)uploadClothes).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)mainCloset).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)settings).BeginInit();
             SuspendLayout();
             // 
             // bottomPanel
             // 
             bottomPanel.BackColor = Color.FromArgb(244, 233, 233);
-            bottomPanel.Controls.Add(favoriteBtn);
-            bottomPanel.Controls.Add(generateOutfitBtn);
+            bottomPanel.Controls.Add(settings);
+            bottomPanel.Controls.Add(mainCloset);
+            bottomPanel.Controls.Add(uploadClothes);
+            bottomPanel.Controls.Add(generateOutfit);
             bottomPanel.Controls.Add(favBtn);
-            bottomPanel.Controls.Add(uploadClothesBtn);
-            bottomPanel.Controls.Add(closetBtn);
-            bottomPanel.Controls.Add(settingBtn);
             bottomPanel.Dock = DockStyle.Bottom;
             bottomPanel.Location = new Point(0, 564);
             bottomPanel.Name = "bottomPanel";
             bottomPanel.Size = new Size(1164, 80);
             bottomPanel.TabIndex = 0;
             // 
-            // generateOutfitBtn
-            // 
-            generateOutfitBtn.BackColor = Color.FromArgb(195, 180, 208);
-            generateOutfitBtn.Dock = DockStyle.Left;
-            generateOutfitBtn.FlatAppearance.BorderSize = 0;
-            generateOutfitBtn.FlatStyle = FlatStyle.Flat;
-            generateOutfitBtn.Font = new Font("Microsoft Sans Serif", 10.2F);
-            generateOutfitBtn.ForeColor = SystemColors.ActiveCaptionText;
-            generateOutfitBtn.Location = new Point(689, 0);
-            generateOutfitBtn.Name = "generateOutfitBtn";
-            generateOutfitBtn.Size = new Size(228, 80);
-            generateOutfitBtn.TabIndex = 3;
-            generateOutfitBtn.Text = "Generate Outfit";
-            generateOutfitBtn.UseVisualStyleBackColor = false;
-            generateOutfitBtn.Click += generateOutfitBtn_Click;
-            // 
             // favBtn
             // 
             favBtn.BackColor = Color.FromArgb(195, 180, 208);
             favBtn.Dock = DockStyle.Right;
             favBtn.Image = Properties.Resources.faver;
-            favBtn.Location = new Point(1049, 0);
+            favBtn.Location = new Point(926, 0);
             favBtn.Name = "favBtn";
-            favBtn.Size = new Size(115, 80);
+            favBtn.Size = new Size(238, 80);
             favBtn.SizeMode = PictureBoxSizeMode.Zoom;
             favBtn.TabIndex = 0;
             favBtn.TabStop = false;
             favBtn.Click += favBtn_Click;
-            // 
-            // uploadClothesBtn
-            // 
-            uploadClothesBtn.BackColor = Color.FromArgb(195, 180, 208);
-            uploadClothesBtn.Dock = DockStyle.Left;
-            uploadClothesBtn.FlatAppearance.BorderSize = 0;
-            uploadClothesBtn.FlatStyle = FlatStyle.Flat;
-            uploadClothesBtn.Font = new Font("Microsoft Sans Serif", 10.2F);
-            uploadClothesBtn.ForeColor = SystemColors.ActiveCaptionText;
-            uploadClothesBtn.Location = new Point(461, 0);
-            uploadClothesBtn.Name = "uploadClothesBtn";
-            uploadClothesBtn.Size = new Size(228, 80);
-            uploadClothesBtn.TabIndex = 2;
-            uploadClothesBtn.Text = "Upload Clothes";
-            uploadClothesBtn.UseVisualStyleBackColor = false;
-            uploadClothesBtn.Click += uploadClothesBtn_Click;
-            // 
-            // closetBtn
-            // 
-            closetBtn.BackColor = Color.FromArgb(195, 180, 208);
-            closetBtn.Dock = DockStyle.Left;
-            closetBtn.FlatAppearance.BorderSize = 0;
-            closetBtn.FlatStyle = FlatStyle.Flat;
-            closetBtn.Font = new Font("Microsoft Sans Serif", 10.2F);
-            closetBtn.ForeColor = SystemColors.ActiveCaptionText;
-            closetBtn.Location = new Point(233, 0);
-            closetBtn.Name = "closetBtn";
-            closetBtn.Size = new Size(228, 80);
-            closetBtn.TabIndex = 1;
-            closetBtn.Text = "Closet";
-            closetBtn.UseVisualStyleBackColor = false;
-            closetBtn.Click += closetBtn_Click;
-            // 
-            // settingBtn
-            // 
-            settingBtn.BackColor = Color.FromArgb(195, 180, 208);
-            settingBtn.Dock = DockStyle.Left;
-            settingBtn.FlatAppearance.BorderSize = 0;
-            settingBtn.FlatStyle = FlatStyle.Flat;
-            settingBtn.Font = new Font("Microsoft Sans Serif", 10.2F);
-            settingBtn.ForeColor = SystemColors.ActiveCaptionText;
-            settingBtn.Location = new Point(0, 0);
-            settingBtn.Name = "settingBtn";
-            settingBtn.Size = new Size(233, 80);
-            settingBtn.TabIndex = 0;
-            settingBtn.Text = "Settings";
-            settingBtn.UseVisualStyleBackColor = false;
-            settingBtn.Click += settingBtn_Click;
-            // 
-            // favoriteBtn
-            // 
-            favoriteBtn.BackColor = Color.FromArgb(195, 180, 208);
-            favoriteBtn.Dock = DockStyle.Right;
-            favoriteBtn.FlatAppearance.BorderSize = 0;
-            favoriteBtn.FlatStyle = FlatStyle.Flat;
-            favoriteBtn.Font = new Font("Microsoft Sans Serif", 10.2F);
-            favoriteBtn.ForeColor = SystemColors.ActiveCaptionText;
-            favoriteBtn.Image = Properties.Resources.faver;
-            favoriteBtn.Location = new Point(916, 0);
-            favoriteBtn.Name = "favoriteBtn";
-            favoriteBtn.Size = new Size(133, 80);
-            favoriteBtn.TabIndex = 4;
-            favoriteBtn.Text = "Favourites";
-            favoriteBtn.UseVisualStyleBackColor = false;
-            favoriteBtn.Click += favoriteBtn_Click;
             // 
             // closetTitle
             // 
@@ -206,6 +127,7 @@
             // 
             // closeBtn
             // 
+            closeBtn.BackgroundImage = Properties.Resources.close;
             closeBtn.Dock = DockStyle.Right;
             closeBtn.FlatAppearance.BorderSize = 0;
             closeBtn.FlatStyle = FlatStyle.Flat;
@@ -329,6 +251,58 @@
             closetPanel.Size = new Size(1164, 419);
             closetPanel.TabIndex = 3;
             // 
+            // generateOutfit
+            // 
+            generateOutfit.BackColor = Color.FromArgb(195, 180, 208);
+            generateOutfit.Dock = DockStyle.Right;
+            generateOutfit.Image = Properties.Resources.closet;
+            generateOutfit.Location = new Point(688, 0);
+            generateOutfit.Name = "generateOutfit";
+            generateOutfit.Size = new Size(238, 80);
+            generateOutfit.SizeMode = PictureBoxSizeMode.Zoom;
+            generateOutfit.TabIndex = 1;
+            generateOutfit.TabStop = false;
+            generateOutfit.Click += generateOutfit_Click;
+            // 
+            // uploadClothes
+            // 
+            uploadClothes.BackColor = Color.FromArgb(195, 180, 208);
+            uploadClothes.Dock = DockStyle.Right;
+            uploadClothes.Image = Properties.Resources.Add;
+            uploadClothes.Location = new Point(450, 0);
+            uploadClothes.Name = "uploadClothes";
+            uploadClothes.Size = new Size(238, 80);
+            uploadClothes.SizeMode = PictureBoxSizeMode.Zoom;
+            uploadClothes.TabIndex = 2;
+            uploadClothes.TabStop = false;
+            uploadClothes.Click += uploadClothes_Click;
+            // 
+            // mainCloset
+            // 
+            mainCloset.BackColor = Color.FromArgb(195, 180, 208);
+            mainCloset.Dock = DockStyle.Right;
+            mainCloset.Image = Properties.Resources.LogoRIl;
+            mainCloset.Location = new Point(212, 0);
+            mainCloset.Name = "mainCloset";
+            mainCloset.Size = new Size(238, 80);
+            mainCloset.SizeMode = PictureBoxSizeMode.Zoom;
+            mainCloset.TabIndex = 3;
+            mainCloset.TabStop = false;
+            mainCloset.Click += mainCloset_Click;
+            // 
+            // settings
+            // 
+            settings.BackColor = Color.FromArgb(195, 180, 208);
+            settings.Dock = DockStyle.Right;
+            settings.Image = Properties.Resources.Settings;
+            settings.Location = new Point(-26, 0);
+            settings.Name = "settings";
+            settings.Size = new Size(238, 80);
+            settings.SizeMode = PictureBoxSizeMode.Zoom;
+            settings.TabIndex = 4;
+            settings.TabStop = false;
+            settings.Click += settings_Click;
+            // 
             // MainMenuForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -345,6 +319,10 @@
             closetTitle.ResumeLayout(false);
             closetTitle.PerformLayout();
             clothesBtnPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)generateOutfit).EndInit();
+            ((System.ComponentModel.ISupportInitialize)uploadClothes).EndInit();
+            ((System.ComponentModel.ISupportInitialize)mainCloset).EndInit();
+            ((System.ComponentModel.ISupportInitialize)settings).EndInit();
             ResumeLayout(false);
         }
 
@@ -353,11 +331,6 @@
         private Panel bottomPanel;
         private Panel closetTitle;
         private Panel clothesBtnPanel;
-        private Button settingBtn;
-        private Button favoriteBtn;
-        private Button generateOutfitBtn;
-        private Button uploadClothesBtn;
-        private Button closetBtn;
         private Button accesoriesBtn;
         private Button shoesBtn;
         private Button bottomBtn;
@@ -369,5 +342,9 @@
         private Button closeBtn;
         private Button minimizeBtn;
         private PictureBox favBtn;
+        private PictureBox settings;
+        private PictureBox mainCloset;
+        private PictureBox uploadClothes;
+        private PictureBox generateOutfit;
     }
 }

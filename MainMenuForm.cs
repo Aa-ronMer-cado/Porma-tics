@@ -16,12 +16,12 @@ namespace Pormatics
 {
     public partial class MainMenuForm : Form
     {
-        // ── Fields 
-        private Button currentBottomButton;
-        private Button currentTopButton;
-        private Form activeForm;
+        // ── Fields ───────────────────────────────────────────────────
+        private PictureBox? currentBottomButton;
+        private Button? currentTopButton;
+        private Form? activeForm;
 
-        // ── Constructor 
+        // ── Constructor ──────────────────────────────────────────────
         public MainMenuForm()
         {
             InitializeComponent();
@@ -32,14 +32,14 @@ namespace Pormatics
             closetTitle.MouseDown += closetTitle_MouseDown;
         }
 
-        // ── DLL Imports for Drag
+        // ── DLL Imports for Drag ─────────────────────────────────────
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
 
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
 
-        // ── Resize & Button Scaling 
+        // ── Resize & Scaling ─────────────────────────────────────────
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
@@ -49,19 +49,19 @@ namespace Pormatics
 
         private void ResizeBottomButtons()
         {
-            var buttons = bottomPanel.Controls.OfType<Button>().OrderBy(b => b.Left).ToList();
-            if (buttons.Count == 0) return;
+            var pictureBoxes = bottomPanel.Controls.OfType<PictureBox>().OrderBy(b => b.Left).ToList();
+            if (pictureBoxes.Count == 0) return;
 
             int totalWidth = bottomPanel.Width;
-            int btnWidth = totalWidth / buttons.Count;
-            int remainder = totalWidth % buttons.Count;
+            int btnWidth = totalWidth / pictureBoxes.Count;
+            int remainder = totalWidth % pictureBoxes.Count;
 
             int xPos = 0;
-            for (int i = 0; i < buttons.Count; i++)
+            for (int i = 0; i < pictureBoxes.Count; i++)
             {
-                int width = (i == buttons.Count - 1) ? btnWidth + remainder : btnWidth;
-                buttons[i].Width = width;
-                buttons[i].Location = new Point(xPos, 0);
+                int width = (i == pictureBoxes.Count - 1) ? btnWidth + remainder : btnWidth;
+                pictureBoxes[i].Width = width;
+                pictureBoxes[i].Location = new Point(xPos, 0);
                 xPos += width;
             }
         }
@@ -85,7 +85,7 @@ namespace Pormatics
             }
         }
 
-        // ── Open Child Form 
+        // ── Open Child Form ──────────────────────────────────────────
         private void OpenChildForm(Form childForm)
         {
             if (activeForm != null)
@@ -105,21 +105,17 @@ namespace Pormatics
             childForm.Show();
         }
 
-        // Bottom Panel Logic
+        // ── Bottom Panel Logic ───────────────────────────────────────
         private void ActivateBottomButton(object btnSender)
         {
             if (btnSender != null)
             {
-                if (currentBottomButton != (Button)btnSender)
+                if (currentBottomButton != (PictureBox)btnSender)
                 {
                     DisableBottomButton();
 
-                    Color color = ColorTranslator.FromHtml("#635A83");
-
-                    currentBottomButton = (Button)btnSender;
-                    currentBottomButton.BackColor = color;
-                    currentBottomButton.ForeColor = Color.White;
-                    currentBottomButton.Font = new Font("Microsoft Sans Serif", 12.5F, FontStyle.Regular, GraphicsUnit.Point);
+                    currentBottomButton = (PictureBox)btnSender;
+                    currentBottomButton.BackColor = ColorTranslator.FromHtml("#635A83");
                 }
             }
         }
@@ -128,16 +124,14 @@ namespace Pormatics
         {
             foreach (Control previousBtn in bottomPanel.Controls)
             {
-                if (previousBtn is Button btn)
+                if (previousBtn is PictureBox pb)
                 {
-                    btn.BackColor = Color.FromArgb(195, 180, 208);
-                    btn.ForeColor = SystemColors.ActiveCaptionText;
-                    btn.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+                    pb.BackColor = Color.FromArgb(195, 180, 208);
                 }
             }
         }
 
-        // ── Top Panel Logic 
+        // ── Top Panel Logic ──────────────────────────────────────────
         private void ActivateTopButton(object btnSender)
         {
             if (btnSender != null)
@@ -146,12 +140,11 @@ namespace Pormatics
                 {
                     DisableTopButton();
 
-                    Color color = ColorTranslator.FromHtml("#C3B4D0");
-
                     currentTopButton = (Button)btnSender;
-                    currentTopButton.BackColor = color;
+                    currentTopButton.BackColor = ColorTranslator.FromHtml("#C3B4D0");
                     currentTopButton.ForeColor = Color.White;
-                    currentTopButton.Font = new Font("Microsoft Sans Serif", 12.5F, FontStyle.Regular, GraphicsUnit.Point);
+                    currentTopButton.Font = new Font("Microsoft Sans Serif", 12.5F,
+                        FontStyle.Regular, GraphicsUnit.Point);
                 }
             }
         }
@@ -164,28 +157,29 @@ namespace Pormatics
                 {
                     btn.BackColor = SystemColors.ButtonHighlight;
                     btn.ForeColor = SystemColors.Desktop;
-                    btn.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+                    btn.Font = new Font("Microsoft Sans Serif", 10.2F,
+                        FontStyle.Regular, GraphicsUnit.Point);
                 }
             }
         }
 
-        //  Auto-Load from StartForm 
+        // ── Auto-Load from StartForm ─────────────────────────────────
         public void LoadDefault()
         {
-            closetBtn.PerformClick();
+            mainCloset_Click(mainCloset, EventArgs.Empty);
         }
 
-        // Bottom Panel Buttons 
-        private void settingBtn_Click(object sender, EventArgs e)
+        // ── Bottom Panel PictureBox Clicks ───────────────────────────
+        private void settings_Click(object sender, EventArgs e)
         {
             ActivateBottomButton(sender);
             OpenChildForm(new Settings());
             clothesBtnPanel.Visible = false;
             closetTitle.Visible = false;
-            bottomPanel.Enabled = true; 
+            bottomPanel.Enabled = true;
         }
 
-        private void closetBtn_Click(object sender, EventArgs e)
+        private void mainCloset_Click(object sender, EventArgs e)
         {
             ActivateBottomButton(sender);
             OpenChildForm(new AllCloset());
@@ -195,7 +189,7 @@ namespace Pormatics
             bottomPanel.Enabled = true;
         }
 
-        private void uploadClothesBtn_Click(object sender, EventArgs e)
+        private void uploadClothes_Click(object sender, EventArgs e)
         {
             clothesBtnPanel.Visible = false;
             closetTitle.Visible = false;
@@ -206,27 +200,25 @@ namespace Pormatics
             {
                 this.WindowState = FormWindowState.Maximized;
                 bottomPanel.Enabled = true;
-                closetBtn.PerformClick();
+                mainCloset_Click(mainCloset, EventArgs.Empty);
             };
             uploadForm.Show();
         }
 
-        private void generateOutfitBtn_Click(object sender, EventArgs e)
-        {
-            ActivateBottomButton(sender);
-            OpenChildForm(new GenerateFilter());
+        private void generateOutfit_Click(object sender, EventArgs e)
+        { 
             clothesBtnPanel.Visible = false;
             closetTitle.Visible = false;
-            bottomPanel.Enabled = true;
-        }
+            bottomPanel.Enabled = false;
 
-        private void favoriteBtn_Click(object sender, EventArgs e)
-        {
-            ActivateBottomButton(sender);
-            OpenChildForm(new FavoriteOutfit());
-            clothesBtnPanel.Visible = false;
-            closetTitle.Visible = false;
-            bottomPanel.Enabled = true;
+            GenerateFilter generateForm = new GenerateFilter();
+            generateForm.FormClosed += (s, args) =>
+            {
+                this.WindowState = FormWindowState.Maximized;
+                bottomPanel.Enabled = true;
+                mainCloset_Click(mainCloset, EventArgs.Empty);
+            };
+            generateForm.Show();
         }
 
         private void favBtn_Click(object sender, EventArgs e)
@@ -234,12 +226,11 @@ namespace Pormatics
             ActivateBottomButton(sender);
             OpenChildForm(new FavoriteOutfit());
             clothesBtnPanel.Visible = false;
+            closetTitle.Visible = false;
             bottomPanel.Enabled = true;
         }
-        // FOR TESTING PICTURE BOX METHOD
-        
 
-        // Top Category Buttons 
+        // ── Top Category Buttons ─────────────────────────────────────
         private void allClothesBtn_Click(object sender, EventArgs e)
         {
             ActivateTopButton(sender);
@@ -270,8 +261,8 @@ namespace Pormatics
             OpenChildForm(new AccessoriesCloset());
         }
 
-        // Window Controls
-        private void closetTitle_MouseDown(object sender, MouseEventArgs e)
+        // ── Window Controls ──────────────────────────────────────────
+        private void closetTitle_MouseDown(object? sender, MouseEventArgs e)
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
