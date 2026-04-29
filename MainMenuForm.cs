@@ -182,7 +182,7 @@ namespace Pormatics
             OpenChildForm(new Settings());
             clothesBtnPanel.Visible = false;
             closetTitle.Visible = false;
-            bottomPanel.Enabled = true; 
+            bottomPanel.Enabled = true;
         }
 
         private void closetBtn_Click(object sender, EventArgs e)
@@ -237,7 +237,7 @@ namespace Pormatics
             bottomPanel.Enabled = true;
         }
         // FOR TESTING PICTURE BOX METHOD
-        
+
 
         // Top Category Buttons 
         private void allClothesBtn_Click(object sender, EventArgs e)
@@ -301,5 +301,15 @@ namespace Pormatics
         }
 
         private void label1_Click(object sender, EventArgs e) { }
+
+        private void closetPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

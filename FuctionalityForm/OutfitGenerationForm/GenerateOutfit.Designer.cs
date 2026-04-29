@@ -28,18 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
+            label1 = new Label();
+            linkLabel1 = new LinkLabel();
             SuspendLayout();
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(200, 127);
+            label1.Name = "label1";
+            label1.Size = new Size(0, 20);
+            label1.TabIndex = 0;
+            label1.Click += label1_Click;
+            // 
+            // linkLabel1
+            // 
+            linkLabel1.AutoSize = true;
+            linkLabel1.Location = new Point(45, 382);
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.Size = new Size(0, 20);
+            linkLabel1.TabIndex = 1;
             // 
             // GenerateOutfit
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1163, 631);
+            Controls.Add(linkLabel1);
+            Controls.Add(label1);
             Name = "GenerateOutfit";
             Text = "GenerateClothes";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label label1;
+        private LinkLabel linkLabel1;
     }
 }
