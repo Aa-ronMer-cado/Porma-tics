@@ -1,6 +1,7 @@
 ﻿using Pormatics.ClosetForm;
 using Pormatics.FuctionalityForm;
 using Pormatics.FuctionalityForm.OutfitGenerationForm;
+using Pormatics.FuctionalityForm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Pormatics.FuctionalityForm.UploadForm;
 
 namespace Pormatics
 {
@@ -19,7 +21,12 @@ namespace Pormatics
         // ── Fields ───────────────────────────────────────────────────
         private PictureBox? currentBottomButton;
         private Button? currentTopButton;
-        private Form? activeForm;
+
+        // ── CHANGED: activeForm → activeControl ─────────────────────
+        // ClosetBase is now a UserControl, not a Form.
+        // We track it as a UserControl so we can remove it from
+        // closetPanel before loading the next view.
+        private UserControl? activeControl;
 
         // ── Constructor ──────────────────────────────────────────────
         public MainMenuForm()
@@ -85,24 +92,25 @@ namespace Pormatics
             }
         }
 
-        // ── Open Child Form ──────────────────────────────────────────
-        private void OpenChildForm(Form childForm)
+        // ── CHANGED: OpenChildControl ────────────────────────────────
+        // Replaces the old OpenChildForm(Form).
+        // Accepts a UserControl (ClosetBase subclass), removes the
+        // previous control, docks the new one, and shows it.
+        private void OpenChildControl(UserControl childControl)
         {
-            if (activeForm != null)
+            // Remove & dispose the previous control
+            if (activeControl != null)
             {
-                activeForm.Close();
+                closetPanel.Controls.Remove(activeControl);
+                activeControl.Dispose();
+                activeControl = null;
             }
 
-            activeForm = childForm;
-            childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
+            activeControl = childControl;
+            childControl.Dock = DockStyle.Fill;
 
-            closetPanel.Controls.Add(childForm);
-            closetPanel.Tag = childForm;
-
-            childForm.BringToFront();
-            childForm.Show();
+            closetPanel.Controls.Add(childControl);
+            childControl.BringToFront();
         }
 
         // ── Bottom Panel Logic ───────────────────────────────────────
@@ -113,7 +121,6 @@ namespace Pormatics
                 if (currentBottomButton != (PictureBox)btnSender)
                 {
                     DisableBottomButton();
-
                     currentBottomButton = (PictureBox)btnSender;
                     currentBottomButton.BackColor = ColorTranslator.FromHtml("#635A83");
                 }
@@ -125,9 +132,7 @@ namespace Pormatics
             foreach (Control previousBtn in bottomPanel.Controls)
             {
                 if (previousBtn is PictureBox pb)
-                {
                     pb.BackColor = Color.FromArgb(195, 180, 208);
-                }
             }
         }
 
@@ -139,7 +144,6 @@ namespace Pormatics
                 if (currentTopButton != (Button)btnSender)
                 {
                     DisableTopButton();
-
                     currentTopButton = (Button)btnSender;
                     currentTopButton.BackColor = ColorTranslator.FromHtml("#C3B4D0");
                     currentTopButton.ForeColor = Color.White;
@@ -173,7 +177,23 @@ namespace Pormatics
         private void settings_Click(object sender, EventArgs e)
         {
             ActivateBottomButton(sender);
-            OpenChildForm(new Settings());
+
+            // Settings is still a Form — keep the old behaviour for it
+            if (activeControl != null)
+            {
+                closetPanel.Controls.Remove(activeControl);
+                activeControl.Dispose();
+                activeControl = null;
+            }
+
+            var settingsCtrl = new Settings();
+            settingsCtrl.TopLevel = false;
+            settingsCtrl.FormBorderStyle = FormBorderStyle.None;
+            settingsCtrl.Dock = DockStyle.Fill;
+            closetPanel.Controls.Add(settingsCtrl);
+            settingsCtrl.BringToFront();
+            settingsCtrl.Show();
+
             clothesBtnPanel.Visible = false;
             closetTitle.Visible = false;
             bottomPanel.Enabled = true;
@@ -182,7 +202,10 @@ namespace Pormatics
         private void mainCloset_Click(object sender, EventArgs e)
         {
             ActivateBottomButton(sender);
-            OpenChildForm(new AllCloset());
+
+            // CHANGED: OpenChildControl instead of OpenChildForm
+            OpenChildControl(new AllCloset());
+
             allClothesBtn.PerformClick();
             clothesBtnPanel.Visible = true;
             closetTitle.Visible = true;
@@ -200,18 +223,21 @@ namespace Pormatics
             {
                 this.WindowState = FormWindowState.Maximized;
                 bottomPanel.Enabled = true;
+                // CHANGED: this now calls mainCloset_Click which uses
+                // OpenChildControl — the closet auto-refreshes with
+                // the newly uploaded item already in clothes.json
                 mainCloset_Click(mainCloset, EventArgs.Empty);
             };
             uploadForm.Show();
         }
 
         private void generateOutfit_Click(object sender, EventArgs e)
-        { 
+        {
             clothesBtnPanel.Visible = false;
             closetTitle.Visible = false;
             bottomPanel.Enabled = false;
 
-            GenerateFilter generateForm = new GenerateFilter();
+            GenerateOutfit generateForm = new GenerateOutfit();
             generateForm.FormClosed += (s, args) =>
             {
                 this.WindowState = FormWindowState.Maximized;
@@ -224,41 +250,59 @@ namespace Pormatics
         private void favBtn_Click(object sender, EventArgs e)
         {
             ActivateBottomButton(sender);
-            OpenChildForm(new FavoriteOutfit());
+
+            // FavoriteOutfit is still a Form — embed it the same way as Settings
+            if (activeControl != null)
+            {
+                closetPanel.Controls.Remove(activeControl);
+                activeControl.Dispose();
+                activeControl = null;
+            }
+
+            var favForm = new FavoriteOutfit();
+            favForm.TopLevel = false;
+            favForm.FormBorderStyle = FormBorderStyle.None;
+            favForm.Dock = DockStyle.Fill;
+            closetPanel.Controls.Add(favForm);
+            favForm.BringToFront();
+            favForm.Show();
+
             clothesBtnPanel.Visible = false;
             closetTitle.Visible = false;
             bottomPanel.Enabled = true;
         }
 
         // ── Top Category Buttons ─────────────────────────────────────
+        // CHANGED: all five now call OpenChildControl instead of OpenChildForm
+
         private void allClothesBtn_Click(object sender, EventArgs e)
         {
             ActivateTopButton(sender);
-            OpenChildForm(new AllCloset());
+            OpenChildControl(new AllCloset());
         }
 
         private void topBtn_Click(object sender, EventArgs e)
         {
             ActivateTopButton(sender);
-            OpenChildForm(new TopCloset());
+            OpenChildControl(new TopCloset());
         }
 
         private void bottomBtn_Click(object sender, EventArgs e)
         {
             ActivateTopButton(sender);
-            OpenChildForm(new BottomCloset());
+            OpenChildControl(new BottomCloset());
         }
 
         private void shoesBtn_Click(object sender, EventArgs e)
         {
             ActivateTopButton(sender);
-            OpenChildForm(new ShoesCloset());
+            OpenChildControl(new ShoesCloset());
         }
 
         private void accesoriesBtn_Click(object sender, EventArgs e)
         {
             ActivateTopButton(sender);
-            OpenChildForm(new AccessoriesCloset());
+            OpenChildControl(new AccessoriesCloset());
         }
 
         // ── Window Controls ──────────────────────────────────────────

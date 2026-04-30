@@ -1,242 +1,262 @@
-﻿namespace Pormatics.FuctionalityForm.OutfitGenerationForm
+﻿namespace Pormatics.FuctionalityForm.UploadForm
 {
     partial class UploadFilter
     {
+        private System.ComponentModel.IContainer components = null;
+
+        // Controls
+        private System.Windows.Forms.PictureBox picturePreview;
+        private System.Windows.Forms.Panel topPanel;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Panel mainPanel;
+
+        // Fields
+        private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.Label lblCategory;
+        private System.Windows.Forms.ComboBox cmbCategory;
+
+        // Tag panels
+        private System.Windows.Forms.Label lblColors;
+        private System.Windows.Forms.FlowLayoutPanel panelColors;
+        private System.Windows.Forms.Label lblStyles;
+        private System.Windows.Forms.FlowLayoutPanel panelStyles;
+        private System.Windows.Forms.Label lblSeasons;
+        private System.Windows.Forms.FlowLayoutPanel panelSeasons;
+
+        // Buttons / progress
+        private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.Button btnUpload;
+        private System.Windows.Forms.ProgressBar progressBar;
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private void InitializeComponent()
+        {
+            this.picturePreview = new System.Windows.Forms.PictureBox();
+            this.topPanel = new System.Windows.Forms.Panel();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.mainPanel = new System.Windows.Forms.Panel();
+
+            this.lblName = new System.Windows.Forms.Label();
+            this.txtName = new System.Windows.Forms.TextBox();
+
+            this.lblCategory = new System.Windows.Forms.Label();
+            this.cmbCategory = new System.Windows.Forms.ComboBox();
+
+            this.lblColors = new System.Windows.Forms.Label();
+            this.panelColors = new System.Windows.Forms.FlowLayoutPanel();
+
+            this.lblStyles = new System.Windows.Forms.Label();
+            this.panelStyles = new System.Windows.Forms.FlowLayoutPanel();
+
+            this.lblSeasons = new System.Windows.Forms.Label();
+            this.panelSeasons = new System.Windows.Forms.FlowLayoutPanel();
+
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+
+            this.btnBack = new System.Windows.Forms.Button();
+            this.btnUpload = new System.Windows.Forms.Button();
+
+            ((System.ComponentModel.ISupportInitialize)(this.picturePreview)).BeginInit();
+            this.topPanel.SuspendLayout();
+            this.mainPanel.SuspendLayout();
+            this.SuspendLayout();
+
+            // Form
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(242, 235, 240);
+            this.ClientSize = new System.Drawing.Size(820, 640);
+            this.MinimumSize = new System.Drawing.Size(720, 540);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Upload Clothes - Step 2";
+
+            // topPanel
+            this.topPanel.BackColor = System.Drawing.Color.White;
+            this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.topPanel.Height = 54;
+            this.topPanel.Padding = new System.Windows.Forms.Padding(18, 0, 0, 0);
+
+            // lblTitle
+            this.lblTitle.Text = "Upload Clothes - Add Details";
+            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(99, 90, 131);
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+
+            this.topPanel.Controls.Add(this.lblTitle);
+
+            // picturePreview
+            this.picturePreview.BackColor = System.Drawing.Color.FromArgb(237, 230, 245);
+            this.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picturePreview.Location = new System.Drawing.Point(18, 68);
+            this.picturePreview.Name = "picturePreview";
+            this.picturePreview.Size = new System.Drawing.Size(240, 500);
+            this.picturePreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picturePreview.Anchor = System.Windows.Forms.AnchorStyles.Top
+                                        | System.Windows.Forms.AnchorStyles.Left
+                                        | System.Windows.Forms.AnchorStyles.Bottom;
+
+            // mainPanel
+            this.mainPanel.AutoScroll = true;
+            this.mainPanel.BackColor = System.Drawing.Color.FromArgb(242, 235, 240);
+            this.mainPanel.Location = new System.Drawing.Point(272, 68);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(524, 500);
+            this.mainPanel.Anchor = System.Windows.Forms.AnchorStyles.Top
+                                    | System.Windows.Forms.AnchorStyles.Left
+                                    | System.Windows.Forms.AnchorStyles.Right
+                                    | System.Windows.Forms.AnchorStyles.Bottom;
+
+            // lblName
+            this.lblName.AutoSize = true;
+            this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold);
+            this.lblName.ForeColor = System.Drawing.Color.FromArgb(139, 127, 163);
+            this.lblName.Location = new System.Drawing.Point(0, 10);
+            this.lblName.Text = "CLOTHING NAME";
+
+            // txtName
+            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.txtName.Location = new System.Drawing.Point(0, 35);
+            this.txtName.Size = new System.Drawing.Size(504, 28);
+
+            // lblCategory
+            this.lblCategory.AutoSize = true;
+            this.lblCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold);
+            this.lblCategory.ForeColor = System.Drawing.Color.FromArgb(139, 127, 163);
+            this.lblCategory.Location = new System.Drawing.Point(0, 80);
+            this.lblCategory.Text = "CATEGORY";
+
+            // cmbCategory
+            this.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.cmbCategory.Location = new System.Drawing.Point(0, 105);
+            this.cmbCategory.Size = new System.Drawing.Size(250, 30);
+
+            this.cmbCategory.Items.AddRange(new object[]
+            {
+                "TOPS",
+                "BOTTOMS",
+                "SHOES",
+                "ACCESSORIES"
+            });
+
+            // lblColors
+            this.lblColors.AutoSize = true;
+            this.lblColors.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold);
+            this.lblColors.ForeColor = System.Drawing.Color.FromArgb(139, 127, 163);
+            this.lblColors.Location = new System.Drawing.Point(0, 155);
+            this.lblColors.Text = "COLOR";
+
+            // panelColors
+            this.panelColors.Location = new System.Drawing.Point(0, 180);
+            this.panelColors.Size = new System.Drawing.Size(504, 80);
+            this.panelColors.WrapContents = true;
+            this.panelColors.BackColor = System.Drawing.Color.Transparent;
+
+            // lblStyles
+            this.lblStyles.AutoSize = true;
+            this.lblStyles.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold);
+            this.lblStyles.ForeColor = System.Drawing.Color.FromArgb(139, 127, 163);
+            this.lblStyles.Location = new System.Drawing.Point(0, 275);
+            this.lblStyles.Text = "STYLE";
+
+            // panelStyles
+            this.panelStyles.Location = new System.Drawing.Point(0, 300);
+            this.panelStyles.Size = new System.Drawing.Size(504, 80);
+            this.panelStyles.WrapContents = true;
+            this.panelStyles.BackColor = System.Drawing.Color.Transparent;
+
+            // lblSeasons
+            this.lblSeasons.AutoSize = true;
+            this.lblSeasons.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold);
+            this.lblSeasons.ForeColor = System.Drawing.Color.FromArgb(139, 127, 163);
+            this.lblSeasons.Location = new System.Drawing.Point(0, 395);
+            this.lblSeasons.Text = "SEASON";
+
+            // panelSeasons
+            this.panelSeasons.Location = new System.Drawing.Point(0, 420);
+            this.panelSeasons.Size = new System.Drawing.Size(504, 60);
+            this.panelSeasons.WrapContents = true;
+            this.panelSeasons.BackColor = System.Drawing.Color.Transparent;
+
+            // progressBar
+            this.progressBar.Location = new System.Drawing.Point(0, 495);
+            this.progressBar.Size = new System.Drawing.Size(504, 6);
+            this.progressBar.Visible = false;
+
+            // btnBack
+            this.btnBack.BackColor = System.Drawing.Color.White;
+            this.btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBack.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(195, 180, 208);
+            this.btnBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btnBack.Location = new System.Drawing.Point(0, 520);
+            this.btnBack.Size = new System.Drawing.Size(100, 38);
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+
+            // btnUpload
+            this.btnUpload.BackColor = System.Drawing.Color.FromArgb(99, 90, 131);
+            this.btnUpload.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpload.FlatAppearance.BorderSize = 0;
+            this.btnUpload.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.btnUpload.ForeColor = System.Drawing.Color.White;
+            this.btnUpload.Location = new System.Drawing.Point(334, 520);
+            this.btnUpload.Size = new System.Drawing.Size(170, 38);
+            this.btnUpload.Text = "Upload to Closet";
+            this.btnUpload.UseVisualStyleBackColor = false;
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
+
+            // Add controls to mainPanel
+            this.mainPanel.Controls.Add(this.lblName);
+            this.mainPanel.Controls.Add(this.txtName);
+
+            this.mainPanel.Controls.Add(this.lblCategory);
+            this.mainPanel.Controls.Add(this.cmbCategory);
+
+            this.mainPanel.Controls.Add(this.lblColors);
+            this.mainPanel.Controls.Add(this.panelColors);
+
+            this.mainPanel.Controls.Add(this.lblStyles);
+            this.mainPanel.Controls.Add(this.panelStyles);
+
+            this.mainPanel.Controls.Add(this.lblSeasons);
+            this.mainPanel.Controls.Add(this.panelSeasons);
+
+            this.mainPanel.Controls.Add(this.progressBar);
+
+            this.mainPanel.Controls.Add(this.btnBack);
+            this.mainPanel.Controls.Add(this.btnUpload);
+
+            // Add controls to form
+            this.Controls.Add(this.topPanel);
+            this.Controls.Add(this.picturePreview);
+            this.Controls.Add(this.mainPanel);
+
+            ((System.ComponentModel.ISupportInitialize)(this.picturePreview)).EndInit();
+            this.topPanel.ResumeLayout(false);
+            this.mainPanel.ResumeLayout(false);
+            this.mainPanel.PerformLayout();
+            this.ResumeLayout(false);
+        }
 
         /// <summary>
-        /// Clean up any resources being used.
+        /// Clean up resources.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
-
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            panel1 = new Panel();
-            filterLabel = new Label();
-            seasonPanel = new Panel();
-            button2 = new Button();
-            summerBtn = new Button();
-            seasonLabel = new Label();
-            stylePanel = new Panel();
-            styleLabel = new Label();
-            colorPanel = new Panel();
-            colorLabel = new Label();
-            typePanel = new Panel();
-            typeLabel = new Label();
-            doneBtn = new Button();
-            btnPanel = new Panel();
-            panel1.SuspendLayout();
-            seasonPanel.SuspendLayout();
-            stylePanel.SuspendLayout();
-            colorPanel.SuspendLayout();
-            typePanel.SuspendLayout();
-            btnPanel.SuspendLayout();
-            SuspendLayout();
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(filterLabel);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1160, 49);
-            panel1.TabIndex = 0;
-            // 
-            // filterLabel
-            // 
-            filterLabel.AutoSize = true;
-            filterLabel.Dock = DockStyle.Top;
-            filterLabel.Font = new Font("Stencil", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            filterLabel.Location = new Point(0, 0);
-            filterLabel.Name = "filterLabel";
-            filterLabel.Size = new Size(236, 33);
-            filterLabel.TabIndex = 0;
-            filterLabel.Text = "CLOTHES FILTER";
-            // 
-            // seasonPanel
-            // 
-            seasonPanel.Controls.Add(button2);
-            seasonPanel.Controls.Add(summerBtn);
-            seasonPanel.Controls.Add(seasonLabel);
-            seasonPanel.Dock = DockStyle.Top;
-            seasonPanel.Location = new Point(0, 49);
-            seasonPanel.Name = "seasonPanel";
-            seasonPanel.Size = new Size(1160, 152);
-            seasonPanel.TabIndex = 1;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(824, 59);
-            button2.Name = "button2";
-            button2.Size = new Size(94, 29);
-            button2.TabIndex = 3;
-            button2.Text = "Rainy";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // summerBtn
-            // 
-            summerBtn.Location = new Point(291, 59);
-            summerBtn.Name = "summerBtn";
-            summerBtn.Size = new Size(94, 29);
-            summerBtn.TabIndex = 2;
-            summerBtn.Text = "Summer";
-            summerBtn.UseVisualStyleBackColor = true;
-            // 
-            // seasonLabel
-            // 
-            seasonLabel.AutoSize = true;
-            seasonLabel.Dock = DockStyle.Top;
-            seasonLabel.FlatStyle = FlatStyle.Flat;
-            seasonLabel.Font = new Font("Stencil", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            seasonLabel.Location = new Point(0, 0);
-            seasonLabel.Name = "seasonLabel";
-            seasonLabel.Size = new Size(117, 33);
-            seasonLabel.TabIndex = 1;
-            seasonLabel.Text = "Season";
-            // 
-            // stylePanel
-            // 
-            stylePanel.Controls.Add(styleLabel);
-            stylePanel.Dock = DockStyle.Top;
-            stylePanel.Location = new Point(0, 201);
-            stylePanel.Name = "stylePanel";
-            stylePanel.Size = new Size(1160, 197);
-            stylePanel.TabIndex = 2;
-            // 
-            // styleLabel
-            // 
-            styleLabel.AutoSize = true;
-            styleLabel.Dock = DockStyle.Top;
-            styleLabel.FlatStyle = FlatStyle.Flat;
-            styleLabel.Font = new Font("Stencil", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            styleLabel.Location = new Point(0, 0);
-            styleLabel.Name = "styleLabel";
-            styleLabel.Size = new Size(96, 33);
-            styleLabel.TabIndex = 1;
-            styleLabel.Text = "Style";
-            // 
-            // colorPanel
-            // 
-            colorPanel.Controls.Add(colorLabel);
-            colorPanel.Dock = DockStyle.Top;
-            colorPanel.Location = new Point(0, 398);
-            colorPanel.Name = "colorPanel";
-            colorPanel.Size = new Size(1160, 101);
-            colorPanel.TabIndex = 4;
-            // 
-            // colorLabel
-            // 
-            colorLabel.AutoSize = true;
-            colorLabel.Dock = DockStyle.Top;
-            colorLabel.FlatStyle = FlatStyle.Flat;
-            colorLabel.Font = new Font("Stencil", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            colorLabel.Location = new Point(0, 0);
-            colorLabel.Name = "colorLabel";
-            colorLabel.Size = new Size(102, 33);
-            colorLabel.TabIndex = 1;
-            colorLabel.Text = "Color";
-            // 
-            // typePanel
-            // 
-            typePanel.Controls.Add(typeLabel);
-            typePanel.Dock = DockStyle.Top;
-            typePanel.Location = new Point(0, 499);
-            typePanel.Name = "typePanel";
-            typePanel.Size = new Size(1160, 93);
-            typePanel.TabIndex = 5;
-            // 
-            // typeLabel
-            // 
-            typeLabel.AutoSize = true;
-            typeLabel.CausesValidation = false;
-            typeLabel.Dock = DockStyle.Top;
-            typeLabel.FlatStyle = FlatStyle.Flat;
-            typeLabel.Font = new Font("Stencil", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            typeLabel.Location = new Point(0, 0);
-            typeLabel.Name = "typeLabel";
-            typeLabel.Size = new Size(83, 33);
-            typeLabel.TabIndex = 1;
-            typeLabel.Text = "Type";
-            // 
-            // doneBtn
-            // 
-            doneBtn.Location = new Point(1054, 19);
-            doneBtn.Name = "doneBtn";
-            doneBtn.Size = new Size(94, 29);
-            doneBtn.TabIndex = 6;
-            doneBtn.Text = "Done";
-            doneBtn.UseVisualStyleBackColor = true;
-            doneBtn.Click += doneBtn_Click;
-            // 
-            // btnPanel
-            // 
-            btnPanel.Controls.Add(doneBtn);
-            btnPanel.Dock = DockStyle.Bottom;
-            btnPanel.Location = new Point(0, 592);
-            btnPanel.Name = "btnPanel";
-            btnPanel.Size = new Size(1160, 75);
-            btnPanel.TabIndex = 7;
-            // 
-            // UploadFilter
-            // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(244, 233, 233);
-            ClientSize = new Size(1160, 667);
-            Controls.Add(btnPanel);
-            Controls.Add(typePanel);
-            Controls.Add(colorPanel);
-            Controls.Add(stylePanel);
-            Controls.Add(seasonPanel);
-            Controls.Add(panel1);
-            Name = "UploadFilter";
-            Text = "UploadFilter";
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            seasonPanel.ResumeLayout(false);
-            seasonPanel.PerformLayout();
-            stylePanel.ResumeLayout(false);
-            stylePanel.PerformLayout();
-            colorPanel.ResumeLayout(false);
-            colorPanel.PerformLayout();
-            typePanel.ResumeLayout(false);
-            typePanel.PerformLayout();
-            btnPanel.ResumeLayout(false);
-            ResumeLayout(false);
-        }
-
-        #endregion
-
-        private Panel panel1;
-        private Label filterLabel;
-        private Panel seasonPanel;
-        private Panel stylePanel;
-        private Panel colorPanel;
-        private Panel typePanel;
-        private Label seasonLabel;
-        private Label styleLabel;
-        private Label colorLabel;
-        private Label typeLabel;
-        private Button button2;
-        private Button summerBtn;
-        private Button doneBtn;
-        private Panel btnPanel;
     }
 }

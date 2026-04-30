@@ -8,11 +8,12 @@ using System.Windows.Forms;
 
 namespace Pormatics.ClosetForm
 {
-    public partial class AllCloset : Form
+    public partial class AllCloset : ClosetBase
     {
         public AllCloset()
         {
-            InitializeComponent();
+            CategoryFilter = null;   // null = all categories
+            LoadItems();
         }
     }
 }

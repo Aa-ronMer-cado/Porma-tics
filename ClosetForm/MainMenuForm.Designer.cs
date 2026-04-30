@@ -144,7 +144,7 @@
             // 
             label1.AutoSize = true;
             label1.FlatStyle = FlatStyle.Flat;
-            label1.Font = new Font("Stencil", 30F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Komikazoom", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.FromArgb(59, 58, 90);
             label1.Location = new Point(3, 7);
             label1.Name = "label1";

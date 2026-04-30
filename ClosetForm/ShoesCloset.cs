@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-namespace Pormatics.ClosetForm
+﻿namespace Pormatics.ClosetForm
 {
-    public partial class ShoesCloset : Form
+    public partial class ShoesCloset : ClosetBase
     {
         public ShoesCloset()
         {
-            InitializeComponent();
+            CategoryFilter = "SHOES";
+            LoadItems();
         }
     }
 }

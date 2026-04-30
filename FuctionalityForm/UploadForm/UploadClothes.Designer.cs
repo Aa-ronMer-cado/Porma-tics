@@ -1,97 +1,152 @@
-﻿namespace Pormatics.FuctionalityForm
+﻿namespace Pormatics.FuctionalityForm.UploadForm
 {
     partial class UploadClothes
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        // ── Controls ─────────────────────────────────────────────────
+        private System.Windows.Forms.PictureBox pictureBoxPreview;
+        private System.Windows.Forms.Label lblDrop;
+        private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Panel topPanel;
+        private System.Windows.Forms.Label lblTitle;
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            uploadBtn = new Button();
-            removeBtn = new Button();
-            mainPanel = new Panel();
-            pictureBox1 = new PictureBox();
-            mainPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            pictureBoxPreview = new PictureBox();
+            lblDrop = new Label();
+            btnBrowse = new Button();
+            btnReset = new Button();
+            btnNext = new Button();
+            topPanel = new Panel();
+            lblTitle = new Label();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxPreview).BeginInit();
+            pictureBoxPreview.SuspendLayout();
+            topPanel.SuspendLayout();
             SuspendLayout();
             // 
-            // uploadBtn
+            // pictureBoxPreview
             // 
-            uploadBtn.Location = new Point(727, 401);
-            uploadBtn.Name = "uploadBtn";
-            uploadBtn.Size = new Size(120, 106);
-            uploadBtn.TabIndex = 1;
-            uploadBtn.Text = "Upload";
-            uploadBtn.UseVisualStyleBackColor = true;
+            pictureBoxPreview.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBoxPreview.BackColor = Color.FromArgb(237, 230, 245);
+            pictureBoxPreview.BorderStyle = BorderStyle.FixedSingle;
+            pictureBoxPreview.Controls.Add(lblDrop);
+            pictureBoxPreview.Location = new Point(20, 74);
+            pictureBoxPreview.Name = "pictureBoxPreview";
+            pictureBoxPreview.Size = new Size(478, 360);
+            pictureBoxPreview.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxPreview.TabIndex = 1;
+            pictureBoxPreview.TabStop = false;
             // 
-            // removeBtn
+            // lblDrop
             // 
-            removeBtn.Location = new Point(342, 401);
-            removeBtn.Name = "removeBtn";
-            removeBtn.Size = new Size(121, 106);
-            removeBtn.TabIndex = 0;
-            removeBtn.Text = "Remove";
-            removeBtn.UseVisualStyleBackColor = true;
+            lblDrop.Cursor = Cursors.Hand;
+            lblDrop.Dock = DockStyle.Fill;
+            lblDrop.Font = new Font("Microsoft Sans Serif", 11F);
+            lblDrop.ForeColor = Color.FromArgb(139, 127, 163);
+            lblDrop.Location = new Point(0, 0);
+            lblDrop.Name = "lblDrop";
+            lblDrop.Size = new Size(476, 358);
+            lblDrop.TabIndex = 0;
+            lblDrop.Text = "Drop an image here\nor use Browse";
+            lblDrop.TextAlign = ContentAlignment.MiddleCenter;
+            lblDrop.Click += lblDrop_Click;
             // 
-            // mainPanel
+            // btnBrowse
             // 
-            mainPanel.Controls.Add(removeBtn);
-            mainPanel.Controls.Add(uploadBtn);
-            mainPanel.Controls.Add(pictureBox1);
-            mainPanel.Dock = DockStyle.Fill;
-            mainPanel.Location = new Point(0, 0);
-            mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(1099, 627);
-            mainPanel.TabIndex = 4;
+            btnBrowse.BackColor = Color.White;
+            btnBrowse.Cursor = Cursors.Hand;
+            btnBrowse.FlatAppearance.BorderColor = Color.FromArgb(195, 180, 208);
+            btnBrowse.FlatStyle = FlatStyle.Flat;
+            btnBrowse.Font = new Font("Microsoft Sans Serif", 10F);
+            btnBrowse.Location = new Point(20, 450);
+            btnBrowse.Name = "btnBrowse";
+            btnBrowse.Size = new Size(140, 38);
+            btnBrowse.TabIndex = 2;
+            btnBrowse.Text = "Browse…";
+            btnBrowse.UseVisualStyleBackColor = false;
+            btnBrowse.Click += btnBrowse_Click;
             // 
-            // pictureBox1
+            // btnReset
             // 
-            pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(1099, 627);
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            btnReset.BackColor = Color.White;
+            btnReset.Cursor = Cursors.Hand;
+            btnReset.FlatAppearance.BorderColor = Color.FromArgb(195, 180, 208);
+            btnReset.FlatStyle = FlatStyle.Flat;
+            btnReset.Font = new Font("Microsoft Sans Serif", 10F);
+            btnReset.Location = new Point(170, 450);
+            btnReset.Name = "btnReset";
+            btnReset.Size = new Size(100, 38);
+            btnReset.TabIndex = 3;
+            btnReset.Text = "Reset";
+            btnReset.UseVisualStyleBackColor = false;
+            btnReset.Click += btnReset_Click;
+            // 
+            // btnNext
+            // 
+            btnNext.BackColor = Color.FromArgb(99, 90, 131);
+            btnNext.Cursor = Cursors.Hand;
+            btnNext.Enabled = false;
+            btnNext.FlatAppearance.BorderSize = 0;
+            btnNext.FlatStyle = FlatStyle.Flat;
+            btnNext.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold);
+            btnNext.ForeColor = Color.White;
+            btnNext.Location = new Point(358, 450);
+            btnNext.Name = "btnNext";
+            btnNext.Size = new Size(140, 38);
+            btnNext.TabIndex = 4;
+            btnNext.Text = "Next →";
+            btnNext.UseVisualStyleBackColor = false;
+            btnNext.Click += btnNext_Click;
+            // 
+            // topPanel
+            // 
+            topPanel.BackColor = Color.White;
+            topPanel.Controls.Add(lblTitle);
+            topPanel.Dock = DockStyle.Top;
+            topPanel.Location = new Point(0, 0);
+            topPanel.Name = "topPanel";
+            topPanel.Padding = new Padding(18, 0, 0, 0);
+            topPanel.Size = new Size(502, 54);
+            topPanel.TabIndex = 0;
+            // 
+            // lblTitle
+            // 
+            lblTitle.Dock = DockStyle.Fill;
+            lblTitle.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(99, 90, 131);
+            lblTitle.Location = new Point(18, 0);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(484, 54);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "Upload Clothes";
+            lblTitle.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // UploadClothes
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(244, 233, 233);
-            ClientSize = new Size(1099, 627);
-            Controls.Add(mainPanel);
+            BackColor = Color.FromArgb(242, 235, 240);
+            ClientSize = new Size(502, 533);
+            Controls.Add(topPanel);
+            Controls.Add(pictureBoxPreview);
+            Controls.Add(btnBrowse);
+            Controls.Add(btnReset);
+            Controls.Add(btnNext);
+            MinimumSize = new Size(420, 480);
             Name = "UploadClothes";
-            Text = "UploadClothes";
-            mainPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Upload Clothes";
+            ((System.ComponentModel.ISupportInitialize)pictureBoxPreview).EndInit();
+            pictureBoxPreview.ResumeLayout(false);
+            topPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
-        #endregion
-        private Button uploadBtn;
-        private Button removeBtn;
-        private Panel mainPanel;
-        private PictureBox pictureBox1;
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && components != null) components.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }
