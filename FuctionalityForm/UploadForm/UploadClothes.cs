@@ -17,12 +17,20 @@ namespace Pormatics.FuctionalityForm
             this.Show();
         }
 
-        private void nextButton_Click(object sender, EventArgs e)
+        
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
         {
             UploadFilter filter = new UploadFilter();
             filter.Show();
 
             this.Hide();
+
         }
     }
 }

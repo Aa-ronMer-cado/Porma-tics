@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             bottomPanel = new Panel();
+            favoriteBtn = new Button();
             generateOutfitBtn = new Button();
             favBtn = new PictureBox();
             uploadClothesBtn = new Button();
             closetBtn = new Button();
             settingBtn = new Button();
-            favoriteBtn = new Button();
             closetTitle = new Panel();
             minimizeBtn = new Button();
             maximizeBtn = new Button();
@@ -47,10 +47,13 @@
             topBtn = new Button();
             allClothesBtn = new Button();
             closetPanel = new Panel();
+            pictureBox1 = new PictureBox();
             bottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)favBtn).BeginInit();
             closetTitle.SuspendLayout();
             clothesBtnPanel.SuspendLayout();
+            closetPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // bottomPanel
@@ -67,6 +70,23 @@
             bottomPanel.Name = "bottomPanel";
             bottomPanel.Size = new Size(1164, 80);
             bottomPanel.TabIndex = 0;
+            // 
+            // favoriteBtn
+            // 
+            favoriteBtn.BackColor = Color.FromArgb(195, 180, 208);
+            favoriteBtn.Dock = DockStyle.Right;
+            favoriteBtn.FlatAppearance.BorderSize = 0;
+            favoriteBtn.FlatStyle = FlatStyle.Flat;
+            favoriteBtn.Font = new Font("Microsoft Sans Serif", 10.2F);
+            favoriteBtn.ForeColor = SystemColors.ActiveCaptionText;
+            favoriteBtn.Image = Properties.Resources.faver;
+            favoriteBtn.Location = new Point(916, 0);
+            favoriteBtn.Name = "favoriteBtn";
+            favoriteBtn.Size = new Size(133, 80);
+            favoriteBtn.TabIndex = 4;
+            favoriteBtn.Text = "Favourites";
+            favoriteBtn.UseVisualStyleBackColor = false;
+            favoriteBtn.Click += favoriteBtn_Click;
             // 
             // generateOutfitBtn
             // 
@@ -144,23 +164,6 @@
             settingBtn.Text = "Settings";
             settingBtn.UseVisualStyleBackColor = false;
             settingBtn.Click += settingBtn_Click;
-            // 
-            // favoriteBtn
-            // 
-            favoriteBtn.BackColor = Color.FromArgb(195, 180, 208);
-            favoriteBtn.Dock = DockStyle.Right;
-            favoriteBtn.FlatAppearance.BorderSize = 0;
-            favoriteBtn.FlatStyle = FlatStyle.Flat;
-            favoriteBtn.Font = new Font("Microsoft Sans Serif", 10.2F);
-            favoriteBtn.ForeColor = SystemColors.ActiveCaptionText;
-            favoriteBtn.Image = Properties.Resources.faver;
-            favoriteBtn.Location = new Point(916, 0);
-            favoriteBtn.Name = "favoriteBtn";
-            favoriteBtn.Size = new Size(133, 80);
-            favoriteBtn.TabIndex = 4;
-            favoriteBtn.Text = "Favourites";
-            favoriteBtn.UseVisualStyleBackColor = false;
-            favoriteBtn.Click += favoriteBtn_Click;
             // 
             // closetTitle
             // 
@@ -323,11 +326,22 @@
             // closetPanel
             // 
             closetPanel.BackColor = Color.FromArgb(244, 233, 233);
+            closetPanel.Controls.Add(pictureBox1);
             closetPanel.Dock = DockStyle.Fill;
             closetPanel.Location = new Point(0, 145);
             closetPanel.Name = "closetPanel";
             closetPanel.Size = new Size(1164, 419);
             closetPanel.TabIndex = 3;
+            closetPanel.Paint += closetPanel_Paint;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Location = new Point(45, 34);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(125, 62);
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // MainMenuForm
             // 
@@ -345,6 +359,8 @@
             closetTitle.ResumeLayout(false);
             closetTitle.PerformLayout();
             clothesBtnPanel.ResumeLayout(false);
+            closetPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -369,5 +385,6 @@
         private Button closeBtn;
         private Button minimizeBtn;
         private PictureBox favBtn;
+        private PictureBox pictureBox1;
     }
 }
