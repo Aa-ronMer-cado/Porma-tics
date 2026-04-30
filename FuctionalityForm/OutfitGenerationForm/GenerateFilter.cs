@@ -37,7 +37,18 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
 
         private void btnNext_Click(object sender, EventArgs e)
         {
+            
+            // Create an instance of the next form
+            ConfirmGenerated nextForm = new ConfirmGenerated();
 
-        }
+            // Show the next form
+            nextForm.Show();
+
+            // Optionally hide or close the current form
+            this.Hide();   // hides current form
+                           // this.Close(); // closes current form completely
+        
+
     }
+}
 }
