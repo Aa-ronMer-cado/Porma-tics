@@ -32,13 +32,14 @@ namespace Pormatics.FuctionalityForm.UploadForm
 
         private void SetupComboBoxes()
         {
-            cmbTops.Tag = "Tops";
-            cmbBottoms.Tag = "Bottoms";
-            cmbShoes.Tag = "Shoes";
-            cmbAccesories.Tag = "Accessories";
+            cmbTops.Tag = "TOPS";
+            cmbBottoms.Tag = "BOTTOMS";
+            cmbShoes.Tag = "SHOES";
+            cmbAccesories.Tag = "ACCESSORIES";
 
             foreach (ComboBox cb in GetCategoryComboBoxes())
             {
+                cb.DropDownStyle = ComboBoxStyle.DropDownList;
                 cb.SelectedIndexChanged += CategoryComboBox_SelectedIndexChanged;
             }
         }
@@ -68,27 +69,84 @@ namespace Pormatics.FuctionalityForm.UploadForm
             }
         }
 
-        private string GetSelectedCategory()
+        private string GetSelectedClothingType()
         {
             foreach (ComboBox cb in GetCategoryComboBoxes())
             {
-                if (cb.SelectedIndex >= 0)
-                    return cb.SelectedItem.ToString()!;
+                if (cb.SelectedIndex >= 0 && cb.SelectedItem != null)
+                    return cb.SelectedItem.ToString()!.Trim();
             }
 
             return string.Empty;
+        }
+
+        private string GetCategoryFromClothingType(string clothingType)
+        {
+            clothingType = clothingType.Trim().ToLower();
+
+            switch (clothingType)
+            {
+                // TOPS
+                case "t-shirt":
+                case "t - shirt":
+                case "polo shirt":
+                case "blouse":
+                case "tank top":
+                case "cardigan":
+                case "coat":
+                case "hoodie":
+                case "crop top":
+                    return "TOPS";
+
+                // BOTTOMS
+                case "jeans":
+                case "shorts":
+                case "skirt":
+                case "trousers":
+                case "leggings":
+                case "sweatpants":
+                    return "BOTTOMS";
+
+                // SHOES
+                case "sneakers":
+                case "boots":
+                case "sandals":
+                case "loafers":
+                case "heels":
+                case "flats":
+                    return "SHOES";
+
+                // ACCESSORIES
+                case "hats":
+                case "belts":
+                case "bags":
+                case "jewelry":
+                case "sunglass":
+                case "sunglasses":
+                case "watches":
+                    return "ACCESSORIES";
+
+                default:
+                    return string.Empty;
+            }
         }
 
         private void LoadImagePreview()
         {
             try
             {
-                picturePreview.Image = Image.FromFile(_sourceImagePath);
+                picturePreview.Image?.Dispose();
+
+                using (Image tempImage = Image.FromFile(_sourceImagePath))
+                {
+                    picturePreview.Image = new Bitmap(tempImage);
+                }
+
                 picturePreview.SizeMode = PictureBoxSizeMode.Zoom;
             }
             catch
             {
-                // Preview is optional
+                picturePreview.Image = null;
             }
         }
 
@@ -119,16 +177,19 @@ namespace Pormatics.FuctionalityForm.UploadForm
             }, TagType.Season);
         }
 
-        private void BuildTagGroup(FlowLayoutPanel panel, string[] labels, TagType tagType)
+        private void BuildTagGroup(
+            FlowLayoutPanel panel,
+            string[] labels,
+            TagType tagType)
         {
             panel.Controls.Clear();
 
-            foreach (string lbl in labels)
+            foreach (string label in labels)
             {
                 Button btn = new Button
                 {
-                    Text = lbl,
-                    Size = new Size(90, 30),
+                    Text = label,
+                    Size = new Size(100, 32),
                     Margin = new Padding(4),
                     BackColor = Color.White,
                     ForeColor = Color.FromArgb(99, 90, 131),
@@ -138,7 +199,9 @@ namespace Pormatics.FuctionalityForm.UploadForm
                     Tag = tagType
                 };
 
-                btn.FlatAppearance.BorderColor = Color.FromArgb(195, 180, 208);
+                btn.FlatAppearance.BorderColor =
+                    Color.FromArgb(195, 180, 208);
+
                 btn.Click += TagButton_Click;
 
                 panel.Controls.Add(btn);
@@ -189,35 +252,50 @@ namespace Pormatics.FuctionalityForm.UploadForm
 
         private async void btnUpload_Click(object sender, EventArgs e)
         {
-            string selectedCategory = GetSelectedCategory();
+            string selectedClothingType = GetSelectedClothingType();
+            string mainCategory =
+                GetCategoryFromClothingType(selectedClothingType);
 
-            if (string.IsNullOrEmpty(selectedCategory))
+            if (string.IsNullOrWhiteSpace(selectedClothingType))
             {
                 ShowError("Please select a clothing type.");
                 return;
             }
 
-            if (string.IsNullOrEmpty(_selectedColor))
+            if (string.IsNullOrWhiteSpace(mainCategory))
+            {
+                ShowError("Invalid clothing type selected.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(_selectedColor))
             {
                 ShowError("Please select a color.");
                 return;
             }
 
-            if (string.IsNullOrEmpty(_selectedStyle))
+            if (string.IsNullOrWhiteSpace(_selectedStyle))
             {
                 ShowError("Please select a style.");
                 return;
             }
 
-            if (string.IsNullOrEmpty(_selectedSeason))
+            if (string.IsNullOrWhiteSpace(_selectedSeason))
             {
                 ShowError("Please select a season.");
                 return;
             }
 
+            if (string.IsNullOrWhiteSpace(_sourceImagePath))
+            {
+                ShowError("Please select an image.");
+                return;
+            }
+
             ClothingItem item = new ClothingItem
             {
-                Category = selectedCategory,
+                Category = mainCategory,
+                ClothingType = selectedClothingType,
                 Color = _selectedColor,
                 Style = _selectedStyle,
                 Season = _selectedSeason
@@ -259,6 +337,7 @@ namespace Pormatics.FuctionalityForm.UploadForm
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 
+                _previousForm.Close();
                 Close();
             }
             catch (Exception ex)
@@ -298,7 +377,7 @@ namespace Pormatics.FuctionalityForm.UploadForm
         {
             base.OnFormClosing(e);
 
-            if (!UploadSuccessful && _previousForm != null)
+            if (!UploadSuccessful && _previousForm != null && !_previousForm.IsDisposed)
             {
                 _previousForm.Show();
             }

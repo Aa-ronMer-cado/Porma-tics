@@ -46,10 +46,10 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(244, 233, 233);
-            ClientSize = new Size(1179, 631);
             Controls.Add(addLabel);
             Name = "AllCloset";
-            Text = "AllClosetForm";
+            Size = new Size(1494, 801);
+            Controls.SetChildIndex(addLabel, 0);
             ResumeLayout(false);
             PerformLayout();
         }
