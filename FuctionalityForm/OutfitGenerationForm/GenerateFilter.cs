@@ -25,7 +25,6 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
         {
             btnSummer.Click += (s, e) => SelectSeason("Summer", btnSummer);
             btnRainy.Click += (s, e) => SelectSeason("Rainy", btnRainy);
-
             btnStyleSummer.Click += (s, e) => SelectStyle("Casual", btnStyleSummer);
             btnStWear.Click += (s, e) => SelectStyle("Streetwear", btnStWear);
             btnMinimal.Click += (s, e) => SelectStyle("Minimalist", btnMinimal);
