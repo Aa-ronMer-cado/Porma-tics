@@ -8,28 +8,18 @@ using Pormatics.Models;
 
 namespace Pormatics.ClosetForm
 {
-    /// <summary>
-    /// Base class shared by AllCloset, TopCloset, BottomCloset, ShoesCloset,
-    /// AccessoriesCloset.  Subclasses just set CategoryFilter and call
-    /// LoadItems() — all rendering lives here.
-    /// </summary>
     public class ClosetBase : UserControl
     {
-        // ── Configuration ────────────────────────────────────────────
-        /// <summary>null = show all categories</summary>
         protected string? CategoryFilter { get; set; } = null;
 
-        // ── Controls ─────────────────────────────────────────────────
         private FlowLayoutPanel _flowPanel = null!;
         private Label _emptyLabel = null!;
 
-        // ── Card dimensions ──────────────────────────────────────────
         private const int CardW = 160;
         private const int CardH = 210;
         private const int CardImgH = 140;
         private const int CardPad = 12;
 
-        // ── Constructor ──────────────────────────────────────────────
         public ClosetBase()
         {
             InitControls();
@@ -37,9 +27,9 @@ namespace Pormatics.ClosetForm
 
         private void InitControls()
         {
-            this.Dock = DockStyle.Fill;
-            this.BackColor = Color.FromArgb(242, 235, 240);
-            this.Padding = new Padding(14);
+            Dock = DockStyle.Fill;
+            BackColor = Color.FromArgb(242, 235, 240);
+            Padding = new Padding(14);
 
             _flowPanel = new FlowLayoutPanel
             {
@@ -59,17 +49,14 @@ namespace Pormatics.ClosetForm
                 Visible = false
             };
 
-            this.Controls.Add(_flowPanel);
-            this.Controls.Add(_emptyLabel);
+            Controls.Add(_flowPanel);
+            Controls.Add(_emptyLabel);
         }
 
-        // ── Public API ───────────────────────────────────────────────
-        /// <summary>
-        /// Reads storage and rebuilds the card grid.
-        /// Call this after uploading a new item so the view refreshes.
-        /// </summary>
         public void LoadItems()
         {
+            DisposeFlowPanelImages();
+
             List<ClothingItem> items = string.IsNullOrEmpty(CategoryFilter)
                 ? StorageService.LoadAll()
                 : StorageService.LoadByCategory(CategoryFilter);
@@ -87,110 +74,108 @@ namespace Pormatics.ClosetForm
             _flowPanel.Visible = true;
 
             foreach (ClothingItem item in items)
+            {
                 _flowPanel.Controls.Add(BuildCard(item));
+            }
         }
 
-        // ── Card builder ─────────────────────────────────────────────
         private Panel BuildCard(ClothingItem item)
         {
-            var card = new Panel
+            Panel card = new Panel
             {
                 Size = new Size(CardW, CardH),
                 BackColor = Color.White,
                 Margin = new Padding(CardPad),
                 Cursor = Cursors.Hand
             };
+
             card.Paint += (s, e) => DrawCardBorder(e.Graphics, card);
 
-            // ── Image area ────────────────────────────────────────
-            var imgBox = new PictureBox
+            PictureBox imgBox = new PictureBox
             {
                 Size = new Size(CardW, CardImgH),
                 Location = new Point(0, 0),
                 SizeMode = PictureBoxSizeMode.Zoom,
-                BackColor = Color.FromArgb(237, 230, 245)
+                BackColor = Color.FromArgb(237, 230, 245),
+                Cursor = Cursors.Hand
             };
 
-            if (!string.IsNullOrEmpty(item.ImageFileName) && File.Exists(item.ImageFullPath))
-            {
-                try { imgBox.Image = Image.FromFile(item.ImageFullPath); }
-                catch { /* show placeholder color on error */ }
-            }
+            LoadImageToPictureBox(imgBox, item);
 
-            // ── Category badge ────────────────────────────────────
-            var badge = new Label
+            Label badge = new Label
             {
-                Text = item.Category.Length > 3 ? item.Category[..3] : item.Category,
+                Text = GetBadgeText(item),
                 Font = new Font("Microsoft Sans Serif", 7.5F, FontStyle.Bold),
                 ForeColor = Color.White,
                 BackColor = Color.FromArgb(99, 90, 131),
                 AutoSize = false,
-                Size = new Size(36, 18),
-                Location = new Point(CardW - 42, 6),
-                TextAlign = ContentAlignment.MiddleCenter
+                Size = new Size(42, 18),
+                Location = new Point(CardW - 48, 6),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Cursor = Cursors.Hand
             };
 
-            // ── Name label ────────────────────────────────────────
-            var lblName = new Label
+            Label lblName = new Label
             {
-                Text = item.Name,
+                Text = string.IsNullOrWhiteSpace(item.ClothingType)
+                    ? item.Category
+                    : item.ClothingType,
                 Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(45, 38, 64),
                 Location = new Point(8, CardImgH + 6),
                 Size = new Size(CardW - 16, 20),
-                AutoEllipsis = true
+                AutoEllipsis = true,
+                Cursor = Cursors.Hand
             };
 
-            // ── Meta label ────────────────────────────────────────
-            var lblMeta = new Label
+            Label lblMeta = new Label
             {
                 Text = $"{item.Color}  ·  {item.Style}",
                 Font = new Font("Microsoft Sans Serif", 8F),
                 ForeColor = Color.FromArgb(139, 127, 163),
                 Location = new Point(8, CardImgH + 28),
                 Size = new Size(CardW - 16, 18),
-                AutoEllipsis = true
+                AutoEllipsis = true,
+                Cursor = Cursors.Hand
             };
 
-            // ── Season label ──────────────────────────────────────
-            var lblSeason = new Label
+            Label lblSeason = new Label
             {
                 Text = item.Season,
                 Font = new Font("Microsoft Sans Serif", 7.5F),
                 ForeColor = Color.FromArgb(195, 180, 208),
                 Location = new Point(8, CardImgH + 46),
-                Size = new Size(CardW - 16, 16)
+                Size = new Size(CardW - 16, 16),
+                AutoEllipsis = true,
+                Cursor = Cursors.Hand
             };
 
-            // ── Delete button (shown on hover) ────────────────────
-            var btnDelete = new Button
+            void OpenItemDetails(object? sender, EventArgs e)
             {
-                Text = "✕",
-                Size = new Size(22, 22),
-                Location = new Point(6, 6),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = Color.FromArgb(240, 149, 149),
-                ForeColor = Color.White,
-                Font = new Font("Microsoft Sans Serif", 8F, FontStyle.Bold),
-                Cursor = Cursors.Hand,
-                Visible = false
-            };
-            btnDelete.FlatAppearance.BorderSize = 0;
-            btnDelete.Click += (s, e) => DeleteItem(item.Id, card);
-
-            // ── Hover show/hide delete ────────────────────────────
-            void ShowDelete(object? s, EventArgs e) { btnDelete.Visible = true; card.Invalidate(); }
-            void HideDelete(object? s, EventArgs e) { btnDelete.Visible = false; card.Invalidate(); }
-
-            foreach (Control c in new Control[] { card, imgBox, lblName, lblMeta, lblSeason })
-            {
-                c.MouseEnter += ShowDelete;
-                c.MouseLeave += HideDelete;
+                OpenDetails(item);
             }
 
-            // ── Assemble ──────────────────────────────────────────
+            card.Click += OpenItemDetails;
+            imgBox.Click += OpenItemDetails;
+            badge.Click += OpenItemDetails;
+            lblName.Click += OpenItemDetails;
+            lblMeta.Click += OpenItemDetails;
+            lblSeason.Click += OpenItemDetails;
+
+            card.MouseEnter += (s, e) =>
+            {
+                card.BackColor = Color.FromArgb(250, 247, 252);
+                card.Invalidate();
+            };
+
+            card.MouseLeave += (s, e) =>
+            {
+                card.BackColor = Color.White;
+                card.Invalidate();
+            };
+
             imgBox.Controls.Add(badge);
-            imgBox.Controls.Add(btnDelete);
+
             card.Controls.Add(imgBox);
             card.Controls.Add(lblName);
             card.Controls.Add(lblMeta);
@@ -199,49 +184,59 @@ namespace Pormatics.ClosetForm
             return card;
         }
 
-        // ── Delete ───────────────────────────────────────────────────
-        private void DeleteItem(string id, Panel card)
+        private void OpenDetails(ClothingItem item)
         {
-            var result = MessageBox.Show(
-                "Remove this item from your closet?",
-                "Delete item",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
+            using ClothingDetailsForm detailsForm = new ClothingDetailsForm(item);
 
-            if (result != DialogResult.Yes)
+            detailsForm.ShowDialog();
+
+            if (detailsForm.ItemChanged)
+            {
+                LoadItems();
+            }
+        }
+
+        private static string GetBadgeText(ClothingItem item)
+        {
+            if (string.IsNullOrWhiteSpace(item.Category))
+                return "";
+
+            return item.Category.Length > 3
+                ? item.Category[..3]
+                : item.Category;
+        }
+
+        private static void LoadImageToPictureBox(PictureBox pictureBox, ClothingItem item)
+        {
+            pictureBox.Image?.Dispose();
+            pictureBox.Image = null;
+
+            if (string.IsNullOrWhiteSpace(item.ImageFileName))
+                return;
+
+            if (!File.Exists(item.ImageFullPath))
                 return;
 
             try
             {
-                // Dispose all PictureBox images recursively
-                DisposeImages(card);
-
-                // Delete from storage
-                StorageService.DeleteItem(id);
-
-                // Remove UI card
-                _flowPanel.Controls.Remove(card);
-
-                card.Dispose();
-
-                // Show empty label if no more items
-                if (_flowPanel.Controls.Count == 0)
-                {
-                    _emptyLabel.Visible = true;
-                    _flowPanel.Visible = false;
-                }
+                using Image tempImage = Image.FromFile(item.ImageFullPath);
+                pictureBox.Image = new Bitmap(tempImage);
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(
-                    $"Failed to delete item.\n{ex.Message}",
-                    "Delete Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                pictureBox.Image = null;
             }
         }
 
-        private void DisposeImages(Control parent)
+        private void DisposeFlowPanelImages()
+        {
+            foreach (Control control in _flowPanel.Controls)
+            {
+                DisposeImages(control);
+            }
+        }
+
+        private static void DisposeImages(Control parent)
         {
             foreach (Control control in parent.Controls)
             {
@@ -251,7 +246,6 @@ namespace Pormatics.ClosetForm
                     pb.Image = null;
                 }
 
-                // Recursively check child controls
                 if (control.HasChildren)
                 {
                     DisposeImages(control);
@@ -259,24 +253,19 @@ namespace Pormatics.ClosetForm
             }
         }
 
-        // ── Card border ───────────────────────────────────────────────
         private static void DrawCardBorder(Graphics g, Panel card)
         {
-            using var pen = new Pen(Color.FromArgb(40, 99, 90, 131), 1f);
+            using Pen pen = new Pen(Color.FromArgb(40, 99, 90, 131), 1f);
             g.DrawRectangle(pen, 0, 0, card.Width - 1, card.Height - 1);
         }
 
-        // ── Cleanup ───────────────────────────────────────────────────
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                foreach (Control c in _flowPanel.Controls)
-                    if (c is Panel card)
-                        foreach (Control inner in card.Controls)
-                            if (inner is PictureBox pb)
-                                pb.Image?.Dispose();
+                DisposeFlowPanelImages();
             }
+
             base.Dispose(disposing);
         }
     }
