@@ -44,7 +44,6 @@
             topBtn = new Button();
             allClothesBtn = new Button();
             closetPanel = new Panel();
-            pictureBox1 = new PictureBox();
             bottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)favBtn).BeginInit();
             ((System.ComponentModel.ISupportInitialize)generateOutfit).BeginInit();
@@ -56,8 +55,6 @@
             ((System.ComponentModel.ISupportInitialize)MaxiBtn).BeginInit();
             ((System.ComponentModel.ISupportInitialize)EkisBtn).BeginInit();
             clothesBtnPanel.SuspendLayout();
-            closetPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // bottomPanel
@@ -297,21 +294,11 @@
             // closetPanel
             // 
             closetPanel.BackColor = Color.FromArgb(244, 233, 233);
-            closetPanel.Controls.Add(pictureBox1);
             closetPanel.Dock = DockStyle.Fill;
             closetPanel.Location = new Point(0, 145);
             closetPanel.Name = "closetPanel";
             closetPanel.Size = new Size(1164, 419);
             closetPanel.TabIndex = 3;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Location = new Point(45, 34);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(125, 125);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
             // 
             // MainMenuForm
             // 
@@ -336,8 +323,6 @@
             ((System.ComponentModel.ISupportInitialize)MaxiBtn).EndInit();
             ((System.ComponentModel.ISupportInitialize)EkisBtn).EndInit();
             clothesBtnPanel.ResumeLayout(false);
-            closetPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -361,7 +346,6 @@
         private PictureBox uploadClothes;
         private PictureBox mainCloset;
         private PictureBox settings;
-        private PictureBox pictureBox1;
         private PictureBox MiniBtn;
         private PictureBox EkisBtn;
         private PictureBox MaxiBtn;
