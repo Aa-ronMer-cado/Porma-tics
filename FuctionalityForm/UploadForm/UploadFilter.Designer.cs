@@ -81,13 +81,13 @@
             // lblTitle
             // 
             lblTitle.Dock = DockStyle.Fill;
-            lblTitle.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold);
-            lblTitle.ForeColor = Color.FromArgb(99, 90, 131);
+            lblTitle.Font = new Font("Komikazoom", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.ForeColor = Color.Indigo;
             lblTitle.Location = new Point(18, 0);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(1064, 68);
             lblTitle.TabIndex = 0;
-            lblTitle.Text = "Upload Clothes - Add Details";
+            lblTitle.Text = " Add Details";
             lblTitle.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // mainPanel
@@ -169,22 +169,22 @@
             // lblColors
             // 
             lblColors.AutoSize = true;
-            lblColors.Font = new Font("Microsoft Sans Serif", 8.5F, FontStyle.Bold);
-            lblColors.ForeColor = Color.FromArgb(139, 127, 163);
+            lblColors.Font = new Font("Pontano Sans", 10.2F, FontStyle.Bold);
+            lblColors.ForeColor = Color.Indigo;
             lblColors.Location = new Point(12, 470);
             lblColors.Name = "lblColors";
-            lblColors.Size = new Size(67, 18);
+            lblColors.Size = new Size(69, 22);
             lblColors.TabIndex = 4;
             lblColors.Text = "COLOR";
             // 
             // lblCategory
             // 
             lblCategory.AutoSize = true;
-            lblCategory.Font = new Font("Microsoft Sans Serif", 8.5F, FontStyle.Bold);
-            lblCategory.ForeColor = Color.FromArgb(139, 127, 163);
+            lblCategory.Font = new Font("Pontano Sans", 10.2F, FontStyle.Bold);
+            lblCategory.ForeColor = Color.Indigo;
             lblCategory.Location = new Point(12, 317);
             lblCategory.Name = "lblCategory";
-            lblCategory.Size = new Size(50, 18);
+            lblCategory.Size = new Size(52, 22);
             lblCategory.TabIndex = 2;
             lblCategory.Text = "TYPE";
             // 
@@ -216,11 +216,11 @@
             // lblStyles
             // 
             lblStyles.AutoSize = true;
-            lblStyles.Font = new Font("Microsoft Sans Serif", 8.5F, FontStyle.Bold);
-            lblStyles.ForeColor = Color.FromArgb(139, 127, 163);
+            lblStyles.Font = new Font("Pontano Sans", 10.2F, FontStyle.Bold);
+            lblStyles.ForeColor = Color.Indigo;
             lblStyles.Location = new Point(12, 153);
             lblStyles.Name = "lblStyles";
-            lblStyles.Size = new Size(59, 18);
+            lblStyles.Size = new Size(61, 22);
             lblStyles.TabIndex = 6;
             lblStyles.Text = "STYLE";
             // 
@@ -236,11 +236,11 @@
             // lblSeasons
             // 
             lblSeasons.AutoSize = true;
-            lblSeasons.Font = new Font("Microsoft Sans Serif", 8.5F, FontStyle.Bold);
-            lblSeasons.ForeColor = Color.FromArgb(139, 127, 163);
+            lblSeasons.Font = new Font("Pontano Sans", 10.2F, FontStyle.Bold);
+            lblSeasons.ForeColor = Color.Indigo;
             lblSeasons.Location = new Point(12, 13);
             lblSeasons.Name = "lblSeasons";
-            lblSeasons.Size = new Size(76, 18);
+            lblSeasons.Size = new Size(79, 22);
             lblSeasons.TabIndex = 8;
             lblSeasons.Text = "SEASON";
             // 
@@ -259,7 +259,7 @@
             btnBack.Cursor = Cursors.Hand;
             btnBack.FlatAppearance.BorderColor = Color.FromArgb(195, 180, 208);
             btnBack.FlatStyle = FlatStyle.Flat;
-            btnBack.Font = new Font("Microsoft Sans Serif", 10F);
+            btnBack.Font = new Font("Pontano Sans", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnBack.Location = new Point(30, 686);
             btnBack.Margin = new Padding(3, 4, 3, 4);
             btnBack.Name = "btnBack";
@@ -275,7 +275,7 @@
             btnUpload.Cursor = Cursors.Hand;
             btnUpload.FlatAppearance.BorderSize = 0;
             btnUpload.FlatStyle = FlatStyle.Flat;
-            btnUpload.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold);
+            btnUpload.Font = new Font("Pontano Sans", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnUpload.ForeColor = Color.White;
             btnUpload.Location = new Point(207, 686);
             btnUpload.Margin = new Padding(3, 4, 3, 4);

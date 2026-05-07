@@ -32,23 +32,19 @@
             uploadClothes = new PictureBox();
             mainCloset = new PictureBox();
             settings = new PictureBox();
-
             closetTitle = new Panel();
-            minimizeBtn = new Button();
-            maximizeBtn = new Button();
-            closeBtn = new Button();
+            MiniBtn = new PictureBox();
+            MaxiBtn = new PictureBox();
             label1 = new Label();
-
+            EkisBtn = new PictureBox();
             clothesBtnPanel = new Panel();
             accesoriesBtn = new Button();
             shoesBtn = new Button();
             bottomBtn = new Button();
             topBtn = new Button();
             allClothesBtn = new Button();
-
             closetPanel = new Panel();
             pictureBox1 = new PictureBox();
-
             bottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)favBtn).BeginInit();
             ((System.ComponentModel.ISupportInitialize)generateOutfit).BeginInit();
@@ -56,11 +52,13 @@
             ((System.ComponentModel.ISupportInitialize)mainCloset).BeginInit();
             ((System.ComponentModel.ISupportInitialize)settings).BeginInit();
             closetTitle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)MiniBtn).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)MaxiBtn).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)EkisBtn).BeginInit();
             clothesBtnPanel.SuspendLayout();
             closetPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
-
             // 
             // bottomPanel
             // 
@@ -75,63 +73,6 @@
             bottomPanel.Name = "bottomPanel";
             bottomPanel.Size = new Size(1164, 80);
             bottomPanel.TabIndex = 0;
-
-            // 
-            // settings
-            // 
-            settings.BackColor = Color.FromArgb(195, 180, 208);
-            settings.Dock = DockStyle.Left;
-            settings.Image = Properties.Resources.Settings;
-            settings.Location = new Point(0, 0);
-            settings.Name = "settings";
-            settings.Size = new Size(233, 80);
-            settings.SizeMode = PictureBoxSizeMode.Zoom;
-            settings.TabIndex = 0;
-            settings.TabStop = false;
-            settings.Click += settings_Click;
-
-            // 
-            // mainCloset
-            // 
-            mainCloset.BackColor = Color.FromArgb(195, 180, 208);
-            mainCloset.Dock = DockStyle.Left;
-            mainCloset.Image = Properties.Resources.LogoRIl;
-            mainCloset.Location = new Point(233, 0);
-            mainCloset.Name = "mainCloset";
-            mainCloset.Size = new Size(233, 80);
-            mainCloset.SizeMode = PictureBoxSizeMode.Zoom;
-            mainCloset.TabIndex = 1;
-            mainCloset.TabStop = false;
-            mainCloset.Click += mainCloset_Click;
-
-            // 
-            // uploadClothes
-            // 
-            uploadClothes.BackColor = Color.FromArgb(195, 180, 208);
-            uploadClothes.Dock = DockStyle.Left;
-            uploadClothes.Image = Properties.Resources.Add;
-            uploadClothes.Location = new Point(466, 0);
-            uploadClothes.Name = "uploadClothes";
-            uploadClothes.Size = new Size(233, 80);
-            uploadClothes.SizeMode = PictureBoxSizeMode.Zoom;
-            uploadClothes.TabIndex = 2;
-            uploadClothes.TabStop = false;
-            uploadClothes.Click += uploadClothes_Click;
-
-            // 
-            // generateOutfit
-            // 
-            generateOutfit.BackColor = Color.FromArgb(195, 180, 208);
-            generateOutfit.Dock = DockStyle.Left;
-            generateOutfit.Image = Properties.Resources.closet;
-            generateOutfit.Location = new Point(699, 0);
-            generateOutfit.Name = "generateOutfit";
-            generateOutfit.Size = new Size(233, 80);
-            generateOutfit.SizeMode = PictureBoxSizeMode.Zoom;
-            generateOutfit.TabIndex = 3;
-            generateOutfit.TabStop = false;
-            generateOutfit.Click += generateOutfit_Click;
-
             // 
             // favBtn
             // 
@@ -145,79 +86,119 @@
             favBtn.TabIndex = 4;
             favBtn.TabStop = false;
             favBtn.Click += favBtn_Click;
-
+            // 
+            // generateOutfit
+            // 
+            generateOutfit.BackColor = Color.FromArgb(195, 180, 208);
+            generateOutfit.Dock = DockStyle.Left;
+            generateOutfit.Image = Properties.Resources.closet;
+            generateOutfit.Location = new Point(699, 0);
+            generateOutfit.Name = "generateOutfit";
+            generateOutfit.Size = new Size(233, 80);
+            generateOutfit.SizeMode = PictureBoxSizeMode.Zoom;
+            generateOutfit.TabIndex = 3;
+            generateOutfit.TabStop = false;
+            generateOutfit.Click += generateOutfit_Click;
+            // 
+            // uploadClothes
+            // 
+            uploadClothes.BackColor = Color.FromArgb(195, 180, 208);
+            uploadClothes.Dock = DockStyle.Left;
+            uploadClothes.Image = Properties.Resources.Add;
+            uploadClothes.Location = new Point(466, 0);
+            uploadClothes.Name = "uploadClothes";
+            uploadClothes.Size = new Size(233, 80);
+            uploadClothes.SizeMode = PictureBoxSizeMode.Zoom;
+            uploadClothes.TabIndex = 2;
+            uploadClothes.TabStop = false;
+            uploadClothes.Click += uploadClothes_Click;
+            // 
+            // mainCloset
+            // 
+            mainCloset.BackColor = Color.FromArgb(195, 180, 208);
+            mainCloset.Dock = DockStyle.Left;
+            mainCloset.Image = Properties.Resources.LogoRIl;
+            mainCloset.Location = new Point(233, 0);
+            mainCloset.Name = "mainCloset";
+            mainCloset.Size = new Size(233, 80);
+            mainCloset.SizeMode = PictureBoxSizeMode.Zoom;
+            mainCloset.TabIndex = 1;
+            mainCloset.TabStop = false;
+            mainCloset.Click += mainCloset_Click;
+            // 
+            // settings
+            // 
+            settings.BackColor = Color.FromArgb(195, 180, 208);
+            settings.Dock = DockStyle.Left;
+            settings.Image = Properties.Resources.Settings;
+            settings.Location = new Point(0, 0);
+            settings.Name = "settings";
+            settings.Size = new Size(233, 80);
+            settings.SizeMode = PictureBoxSizeMode.Zoom;
+            settings.TabIndex = 0;
+            settings.TabStop = false;
+            settings.Click += settings_Click;
             // 
             // closetTitle
             // 
             closetTitle.BackColor = Color.FromArgb(244, 233, 233);
             closetTitle.BorderStyle = BorderStyle.FixedSingle;
-            closetTitle.Controls.Add(minimizeBtn);
-            closetTitle.Controls.Add(maximizeBtn);
-            closetTitle.Controls.Add(closeBtn);
+            closetTitle.Controls.Add(MiniBtn);
+            closetTitle.Controls.Add(MaxiBtn);
             closetTitle.Controls.Add(label1);
+            closetTitle.Controls.Add(EkisBtn);
             closetTitle.Dock = DockStyle.Top;
             closetTitle.Location = new Point(0, 0);
             closetTitle.Name = "closetTitle";
             closetTitle.Size = new Size(1164, 75);
             closetTitle.TabIndex = 1;
-
             // 
-            // minimizeBtn
+            // MiniBtn
             // 
-            minimizeBtn.Dock = DockStyle.Right;
-            minimizeBtn.FlatAppearance.BorderSize = 0;
-            minimizeBtn.FlatStyle = FlatStyle.Flat;
-            minimizeBtn.Font = new Font("Microsoft Sans Serif", 12F);
-            minimizeBtn.Location = new Point(1072, 0);
-            minimizeBtn.Name = "minimizeBtn";
-            minimizeBtn.Size = new Size(30, 73);
-            minimizeBtn.TabIndex = 2;
-            minimizeBtn.Text = "_";
-            minimizeBtn.UseVisualStyleBackColor = true;
-            minimizeBtn.Click += minimizeBtn_Click;
-
+            MiniBtn.Dock = DockStyle.Right;
+            MiniBtn.Image = Properties.Resources.mini;
+            MiniBtn.Location = new Point(1011, 0);
+            MiniBtn.Name = "MiniBtn";
+            MiniBtn.Size = new Size(50, 73);
+            MiniBtn.SizeMode = PictureBoxSizeMode.Zoom;
+            MiniBtn.TabIndex = 3;
+            MiniBtn.TabStop = false;
+            MiniBtn.Click += MiniBtn_Click;
             // 
-            // maximizeBtn
+            // MaxiBtn
             // 
-            maximizeBtn.Dock = DockStyle.Right;
-            maximizeBtn.FlatAppearance.BorderSize = 0;
-            maximizeBtn.FlatStyle = FlatStyle.Flat;
-            maximizeBtn.Font = new Font("Microsoft Sans Serif", 12F);
-            maximizeBtn.Location = new Point(1102, 0);
-            maximizeBtn.Name = "maximizeBtn";
-            maximizeBtn.Size = new Size(30, 73);
-            maximizeBtn.TabIndex = 1;
-            maximizeBtn.Text = "□";
-            maximizeBtn.UseVisualStyleBackColor = true;
-            maximizeBtn.Click += maximizeBtn_Click;
-
-            // 
-            // closeBtn
-            // 
-            closeBtn.Dock = DockStyle.Right;
-            closeBtn.FlatAppearance.BorderSize = 0;
-            closeBtn.FlatStyle = FlatStyle.Flat;
-            closeBtn.Font = new Font("Microsoft Sans Serif", 12F);
-            closeBtn.Location = new Point(1132, 0);
-            closeBtn.Name = "closeBtn";
-            closeBtn.Size = new Size(30, 73);
-            closeBtn.TabIndex = 0;
-            closeBtn.Text = "X";
-            closeBtn.UseVisualStyleBackColor = true;
-            closeBtn.Click += closeBtn_Click;
-
+            MaxiBtn.Dock = DockStyle.Right;
+            MaxiBtn.Image = Properties.Resources.maxi;
+            MaxiBtn.Location = new Point(1061, 0);
+            MaxiBtn.Name = "MaxiBtn";
+            MaxiBtn.Size = new Size(51, 73);
+            MaxiBtn.SizeMode = PictureBoxSizeMode.Zoom;
+            MaxiBtn.TabIndex = 1;
+            MaxiBtn.TabStop = false;
+            MaxiBtn.Click += MaxiBtn_Click;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Stencil", 30F);
+            label1.Font = new Font("Komikazoom", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.FromArgb(59, 58, 90);
-            label1.Location = new Point(3, 7);
+            label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(200, 59);
+            label1.Size = new Size(201, 79);
             label1.TabIndex = 0;
             label1.Text = "CLOSET";
-
+            // 
+            // EkisBtn
+            // 
+            EkisBtn.Dock = DockStyle.Right;
+            EkisBtn.Image = Properties.Resources.close;
+            EkisBtn.Location = new Point(1112, 0);
+            EkisBtn.Name = "EkisBtn";
+            EkisBtn.Size = new Size(50, 73);
+            EkisBtn.SizeMode = PictureBoxSizeMode.Zoom;
+            EkisBtn.TabIndex = 2;
+            EkisBtn.TabStop = false;
+            EkisBtn.Click += EkisBtn_Click;
             // 
             // clothesBtnPanel
             // 
@@ -232,67 +213,6 @@
             clothesBtnPanel.Name = "clothesBtnPanel";
             clothesBtnPanel.Size = new Size(1164, 70);
             clothesBtnPanel.TabIndex = 2;
-
-            // 
-            // allClothesBtn
-            // 
-            allClothesBtn.BackColor = Color.White;
-            allClothesBtn.Dock = DockStyle.Left;
-            allClothesBtn.FlatAppearance.BorderSize = 0;
-            allClothesBtn.FlatStyle = FlatStyle.Flat;
-            allClothesBtn.Location = new Point(0, 0);
-            allClothesBtn.Name = "allClothesBtn";
-            allClothesBtn.Size = new Size(233, 70);
-            allClothesBtn.TabIndex = 0;
-            allClothesBtn.Text = "ALL";
-            allClothesBtn.UseVisualStyleBackColor = false;
-            allClothesBtn.Click += allClothesBtn_Click;
-
-            // 
-            // topBtn
-            // 
-            topBtn.BackColor = Color.White;
-            topBtn.Dock = DockStyle.Left;
-            topBtn.FlatAppearance.BorderSize = 0;
-            topBtn.FlatStyle = FlatStyle.Flat;
-            topBtn.Location = new Point(233, 0);
-            topBtn.Name = "topBtn";
-            topBtn.Size = new Size(233, 70);
-            topBtn.TabIndex = 1;
-            topBtn.Text = "TOPS";
-            topBtn.UseVisualStyleBackColor = false;
-            topBtn.Click += topBtn_Click;
-
-            // 
-            // bottomBtn
-            // 
-            bottomBtn.BackColor = Color.White;
-            bottomBtn.Dock = DockStyle.Left;
-            bottomBtn.FlatAppearance.BorderSize = 0;
-            bottomBtn.FlatStyle = FlatStyle.Flat;
-            bottomBtn.Location = new Point(466, 0);
-            bottomBtn.Name = "bottomBtn";
-            bottomBtn.Size = new Size(233, 70);
-            bottomBtn.TabIndex = 2;
-            bottomBtn.Text = "BOTTOMS";
-            bottomBtn.UseVisualStyleBackColor = false;
-            bottomBtn.Click += bottomBtn_Click;
-
-            // 
-            // shoesBtn
-            // 
-            shoesBtn.BackColor = Color.White;
-            shoesBtn.Dock = DockStyle.Left;
-            shoesBtn.FlatAppearance.BorderSize = 0;
-            shoesBtn.FlatStyle = FlatStyle.Flat;
-            shoesBtn.Location = new Point(699, 0);
-            shoesBtn.Name = "shoesBtn";
-            shoesBtn.Size = new Size(233, 70);
-            shoesBtn.TabIndex = 3;
-            shoesBtn.Text = "SHOES";
-            shoesBtn.UseVisualStyleBackColor = false;
-            shoesBtn.Click += shoesBtn_Click;
-
             // 
             // accesoriesBtn
             // 
@@ -300,6 +220,8 @@
             accesoriesBtn.Dock = DockStyle.Left;
             accesoriesBtn.FlatAppearance.BorderSize = 0;
             accesoriesBtn.FlatStyle = FlatStyle.Flat;
+            accesoriesBtn.Font = new Font("Pontano Sans", 10.2F);
+            accesoriesBtn.ForeColor = Color.Indigo;
             accesoriesBtn.Location = new Point(932, 0);
             accesoriesBtn.Name = "accesoriesBtn";
             accesoriesBtn.Size = new Size(232, 70);
@@ -307,7 +229,70 @@
             accesoriesBtn.Text = "ACCESSORIES";
             accesoriesBtn.UseVisualStyleBackColor = false;
             accesoriesBtn.Click += accesoriesBtn_Click;
-
+            // 
+            // shoesBtn
+            // 
+            shoesBtn.BackColor = Color.White;
+            shoesBtn.Dock = DockStyle.Left;
+            shoesBtn.FlatAppearance.BorderSize = 0;
+            shoesBtn.FlatStyle = FlatStyle.Flat;
+            shoesBtn.Font = new Font("Pontano Sans", 10.2F);
+            shoesBtn.ForeColor = Color.Indigo;
+            shoesBtn.Location = new Point(699, 0);
+            shoesBtn.Name = "shoesBtn";
+            shoesBtn.Size = new Size(233, 70);
+            shoesBtn.TabIndex = 3;
+            shoesBtn.Text = "SHOES";
+            shoesBtn.UseVisualStyleBackColor = false;
+            shoesBtn.Click += shoesBtn_Click;
+            // 
+            // bottomBtn
+            // 
+            bottomBtn.BackColor = Color.White;
+            bottomBtn.Dock = DockStyle.Left;
+            bottomBtn.FlatAppearance.BorderSize = 0;
+            bottomBtn.FlatStyle = FlatStyle.Flat;
+            bottomBtn.Font = new Font("Pontano Sans", 10.2F);
+            bottomBtn.ForeColor = Color.Indigo;
+            bottomBtn.Location = new Point(466, 0);
+            bottomBtn.Name = "bottomBtn";
+            bottomBtn.Size = new Size(233, 70);
+            bottomBtn.TabIndex = 2;
+            bottomBtn.Text = "BOTTOMS";
+            bottomBtn.UseVisualStyleBackColor = false;
+            bottomBtn.Click += bottomBtn_Click;
+            // 
+            // topBtn
+            // 
+            topBtn.BackColor = Color.White;
+            topBtn.Dock = DockStyle.Left;
+            topBtn.FlatAppearance.BorderSize = 0;
+            topBtn.FlatStyle = FlatStyle.Flat;
+            topBtn.Font = new Font("Pontano Sans", 10.2F);
+            topBtn.ForeColor = Color.Indigo;
+            topBtn.Location = new Point(233, 0);
+            topBtn.Name = "topBtn";
+            topBtn.Size = new Size(233, 70);
+            topBtn.TabIndex = 1;
+            topBtn.Text = "TOPS";
+            topBtn.UseVisualStyleBackColor = false;
+            topBtn.Click += topBtn_Click;
+            // 
+            // allClothesBtn
+            // 
+            allClothesBtn.BackColor = Color.White;
+            allClothesBtn.Dock = DockStyle.Left;
+            allClothesBtn.FlatAppearance.BorderSize = 0;
+            allClothesBtn.FlatStyle = FlatStyle.Flat;
+            allClothesBtn.Font = new Font("Pontano Sans", 10.2F);
+            allClothesBtn.ForeColor = Color.Indigo;
+            allClothesBtn.Location = new Point(0, 0);
+            allClothesBtn.Name = "allClothesBtn";
+            allClothesBtn.Size = new Size(233, 70);
+            allClothesBtn.TabIndex = 0;
+            allClothesBtn.Text = "ALL";
+            allClothesBtn.UseVisualStyleBackColor = false;
+            allClothesBtn.Click += allClothesBtn_Click;
             // 
             // closetPanel
             // 
@@ -318,7 +303,6 @@
             closetPanel.Name = "closetPanel";
             closetPanel.Size = new Size(1164, 419);
             closetPanel.TabIndex = 3;
-
             // 
             // pictureBox1
             // 
@@ -328,7 +312,6 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
-
             // 
             // MainMenuForm
             // 
@@ -341,7 +324,6 @@
             Controls.Add(bottomPanel);
             Name = "MainMenuForm";
             Text = "MainMenuForm";
-
             bottomPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)favBtn).EndInit();
             ((System.ComponentModel.ISupportInitialize)generateOutfit).EndInit();
@@ -350,6 +332,9 @@
             ((System.ComponentModel.ISupportInitialize)settings).EndInit();
             closetTitle.ResumeLayout(false);
             closetTitle.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)MiniBtn).EndInit();
+            ((System.ComponentModel.ISupportInitialize)MaxiBtn).EndInit();
+            ((System.ComponentModel.ISupportInitialize)EkisBtn).EndInit();
             clothesBtnPanel.ResumeLayout(false);
             closetPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -369,10 +354,6 @@
         private Button topBtn;
         private Button allClothesBtn;
 
-        private Button maximizeBtn;
-        private Button minimizeBtn;
-        private Button closeBtn;
-
         private Label label1;
 
         private PictureBox favBtn;
@@ -381,6 +362,9 @@
         private PictureBox mainCloset;
         private PictureBox settings;
         private PictureBox pictureBox1;
+        private PictureBox MiniBtn;
+        private PictureBox EkisBtn;
+        private PictureBox MaxiBtn;
     }
 }
 
