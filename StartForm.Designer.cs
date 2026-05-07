@@ -69,11 +69,12 @@
             // startBtn
             // 
             startBtn.BackColor = Color.FromArgb(195, 180, 208);
+            startBtn.Dock = DockStyle.Fill;
             startBtn.FlatAppearance.BorderSize = 0;
             startBtn.FlatStyle = FlatStyle.Flat;
-            startBtn.Location = new Point(313, 456);
+            startBtn.Location = new Point(0, 0);
             startBtn.Name = "startBtn";
-            startBtn.Size = new Size(226, 85);
+            startBtn.Size = new Size(175, 85);
             startBtn.TabIndex = 1;
             startBtn.Text = "Start";
             startBtn.UseVisualStyleBackColor = false;
@@ -120,8 +121,11 @@
             AutoScaleMode = AutoScaleMode.Inherit;
             AutoSize = true;
             BackColor = Color.FromArgb(244, 233, 233);
-            ClientSize = new Size(850, 593);
-            Controls.Add(startBtn);
+            ClientSize = new Size(1173, 630);
+            Controls.Add(btnPanel);
+            Controls.Add(bottomPanel);
+            Controls.Add(leftPanel);
+            Controls.Add(rightPanel);
             Controls.Add(logoPanel);
             Name = "StartForm";
             Text = "PORMATICS";

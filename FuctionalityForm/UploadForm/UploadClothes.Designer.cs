@@ -2,84 +2,61 @@
 {
     partial class UploadClothes
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        private PictureBox pictureBoxPreview;
+        private Label lblTitle;
+        private Button btnNext;
+        private PictureBox picBrowse;
+        private PictureBox picReset;
+        private ProgressBar progressBar;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
+
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            rightPanel = new Panel();
-            label1 = new Label();
-            btnBrowse = new Button();
-            btnReset = new Button();
+            pictureBoxPreview = new PictureBox();
+            lblTitle = new Label();
             btnNext = new Button();
-            mainPanel = new Panel();
-            rightPanel = new Panel();
-            bottomPanel.SuspendLayout();
-            // pictureBox1
+            picBrowse = new PictureBox();
+            picReset = new PictureBox();
+            progressBar = new ProgressBar();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxPreview).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picBrowse).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picReset).BeginInit();
+            SuspendLayout();
             // 
-            pictureBox1.Location = new Point(341, 72);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(423, 354);
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            // pictureBoxPreview
             // 
-            // label1
+            pictureBoxPreview.BackColor = Color.Transparent;
+            pictureBoxPreview.BorderStyle = BorderStyle.FixedSingle;
+            pictureBoxPreview.Location = new Point(340, 91);
+            pictureBoxPreview.Name = "pictureBoxPreview";
+            pictureBoxPreview.Size = new Size(423, 354);
+            pictureBoxPreview.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxPreview.TabIndex = 0;
+            pictureBoxPreview.TabStop = false;
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Lucida Console", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(362, 36);
-            label1.Name = "label1";
-            label1.Size = new Size(388, 23);
-            label1.TabIndex = 1;
-            label1.Text = "Upload your clothes here...";
-            label1.Click += label1_Click;
+            // lblTitle
             // 
-            // btnBrowse
-            // 
-            btnBrowse.BackColor = Color.MediumOrchid;
-            btnBrowse.Font = new Font("Lucida Console", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnBrowse.Location = new Point(585, 450);
-            btnBrowse.Name = "btnBrowse";
-            btnBrowse.Size = new Size(269, 85);
-            btnBrowse.TabIndex = 2;
-            btnBrowse.Text = "Browse";
-            btnBrowse.UseVisualStyleBackColor = false;
-            // 
-            // btnReset
-            // 
-            btnReset.BackColor = Color.Thistle;
-            btnReset.Font = new Font("Lucida Console", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnReset.Location = new Point(265, 450);
-            btnReset.Name = "btnReset";
-            btnReset.Size = new Size(269, 85);
-            btnReset.TabIndex = 3;
-            btnReset.Text = "Reset";
-            btnReset.UseVisualStyleBackColor = false;
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTitle.Location = new Point(416, 46);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(299, 29);
+            lblTitle.TabIndex = 1;
+            lblTitle.Text = "Upload your clothes here...";
             // 
             // btnNext
             // 
             btnNext.BackColor = Color.SlateBlue;
+            btnNext.Enabled = false;
             btnNext.Font = new Font("Lucida Console", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnNext.ForeColor = Color.White;
             btnNext.Location = new Point(971, 569);
@@ -89,167 +66,39 @@
             btnNext.Text = "Next";
             btnNext.UseVisualStyleBackColor = false;
             btnNext.Click += btnNext_Click;
-            uploadBtn.Dock = DockStyle.Right;
-            uploadBtn.Location = new Point(333, 0);
-            uploadBtn.Name = "uploadBtn";
-            uploadBtn.Size = new Size(120, 106);
-            uploadBtn.TabIndex = 1;
-            uploadBtn.Text = "Upload";
-            uploadBtn.UseVisualStyleBackColor = true;
-            Controls.Add(btnNext);
-            Controls.Add(btnReset);
-            Controls.Add(btnBrowse);
-            Controls.Add(label1);
-            Controls.Add(pictureBox1);
-            removeBtn.Name = "removeBtn";
-            removeBtn.Size = new Size(121, 106);
-            removeBtn.Text = "Remove";
-            removeBtn.UseVisualStyleBackColor = true;
             // 
-            // mainPanel
+            // picBrowse
             // 
-            mainPanel.Controls.Add(pictureBox1);
-
-            mainPanel.Size = new Size(453, 417);
-            mainPanel.TabIndex = 4;
+            picBrowse.Cursor = Cursors.Hand;
+            picBrowse.Image = Properties.Resources.Upload;
+            picBrowse.Location = new Point(604, 479);
+            picBrowse.Name = "picBrowse";
+            picBrowse.Size = new Size(216, 119);
+            picBrowse.SizeMode = PictureBoxSizeMode.Zoom;
+            picBrowse.TabIndex = 5;
+            picBrowse.TabStop = false;
+            picBrowse.Click += btnBrowse_Click;
             // 
-            // pictureBox1
+            // picReset
             // 
-            pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(453, 417);
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            uploadBtn.Dock = DockStyle.Right;
-            uploadBtn.Location = new Point(333, 0);
-            uploadBtn.Name = "uploadBtn";
-            uploadBtn.Size = new Size(120, 106);
-            uploadBtn.TabIndex = 1;
-            uploadBtn.Text = "Upload";
-            uploadBtn.UseVisualStyleBackColor = true;
-            Controls.Add(mainPanel);
-            Controls.Add(buttonPanel);
-            Controls.Add(rightPanel);
-            Controls.Add(leftPanel);
-            Controls.Add(bottomPanel);
-            removeBtn.Name = "removeBtn";
-            removeBtn.Size = new Size(121, 106);
-            bottomPanel.ResumeLayout(false);
-            buttonPanel.ResumeLayout(false);
-            mainPanel.ResumeLayout(false);
-            removeBtn.Text = "Remove";
-            removeBtn.UseVisualStyleBackColor = true;
+            picReset.Cursor = Cursors.Hand;
+            picReset.Image = Properties.Resources.Restart;
+            picReset.Location = new Point(216, 479);
+            picReset.Name = "picReset";
+            picReset.Size = new Size(158, 119);
+            picReset.SizeMode = PictureBoxSizeMode.Zoom;
+            picReset.TabIndex = 6;
+            picReset.TabStop = false;
+            picReset.Click += btnReset_Click;
             // 
-            // mainPanel
+            // progressBar
             // 
-            mainPanel.Controls.Add(pictureBox1);
-
-        private Panel bottomPanel;
-        private Button nextButton;
-        private Panel leftPanel;
-        private Panel rightPanel;
-        private Panel buttonPanel;
-        private Button uploadBtn;
-        private Button removeBtn;
-        private Panel mainPanel;
-            mainPanel.Size = new Size(453, 417);
-            mainPanel.TabIndex = 4;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(453, 417);
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            uploadBtn.Dock = DockStyle.Right;
-            uploadBtn.Location = new Point(333, 0);
-            uploadBtn.Name = "uploadBtn";
-            uploadBtn.Size = new Size(120, 106);
-            uploadBtn.TabIndex = 1;
-            uploadBtn.Text = "Upload";
-            uploadBtn.UseVisualStyleBackColor = true;
-            Controls.Add(mainPanel);
-            Controls.Add(buttonPanel);
-            Controls.Add(rightPanel);
-            Controls.Add(leftPanel);
-            Controls.Add(bottomPanel);
-            removeBtn.Name = "removeBtn";
-            removeBtn.Size = new Size(121, 106);
-            bottomPanel.ResumeLayout(false);
-            buttonPanel.ResumeLayout(false);
-            mainPanel.ResumeLayout(false);
-            removeBtn.Text = "Remove";
-            removeBtn.UseVisualStyleBackColor = true;
-            // 
-            // mainPanel
-            // 
-            mainPanel.Controls.Add(pictureBox1);
-
-        private Panel bottomPanel;
-        private Button nextButton;
-        private Panel leftPanel;
-        private Panel rightPanel;
-        private Panel buttonPanel;
-        private Button uploadBtn;
-        private Button removeBtn;
-        private Panel mainPanel;
-            mainPanel.Size = new Size(453, 417);
-            mainPanel.TabIndex = 4;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(453, 417);
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            uploadBtn.Dock = DockStyle.Right;
-            uploadBtn.Location = new Point(333, 0);
-            uploadBtn.Name = "uploadBtn";
-            uploadBtn.Size = new Size(120, 106);
-            uploadBtn.TabIndex = 1;
-            uploadBtn.Text = "Upload";
-            uploadBtn.UseVisualStyleBackColor = true;
-            Controls.Add(mainPanel);
-            Controls.Add(buttonPanel);
-            Controls.Add(rightPanel);
-            Controls.Add(leftPanel);
-            Controls.Add(bottomPanel);
-            removeBtn.Name = "removeBtn";
-            removeBtn.Size = new Size(121, 106);
-            bottomPanel.ResumeLayout(false);
-            buttonPanel.ResumeLayout(false);
-            mainPanel.ResumeLayout(false);
-            removeBtn.Text = "Remove";
-            removeBtn.UseVisualStyleBackColor = true;
-            // 
-            // mainPanel
-            // 
-            mainPanel.Controls.Add(pictureBox1);
-
-        private Panel bottomPanel;
-        private Button nextButton;
-        private Panel leftPanel;
-        private Panel rightPanel;
-        private Panel buttonPanel;
-        private Button uploadBtn;
-        private Button removeBtn;
-        private Panel mainPanel;
-            mainPanel.Size = new Size(453, 417);
-            mainPanel.TabIndex = 4;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(453, 417);
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            progressBar.Location = new Point(340, 452);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(423, 22);
+            progressBar.Style = ProgressBarStyle.Continuous;
+            progressBar.TabIndex = 7;
+            progressBar.Visible = false;
             // 
             // UploadClothes
             // 
@@ -257,35 +106,20 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(244, 233, 233);
             ClientSize = new Size(1099, 627);
-            Controls.Add(mainPanel);
-            Controls.Add(buttonPanel);
-            Controls.Add(rightPanel);
-            Controls.Add(leftPanel);
-            Controls.Add(bottomPanel);
+            Controls.Add(progressBar);
+            Controls.Add(picReset);
+            Controls.Add(picBrowse);
+            Controls.Add(btnNext);
+            Controls.Add(lblTitle);
+            Controls.Add(pictureBoxPreview);
             Name = "UploadClothes";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "UploadClothes";
-            bottomPanel.ResumeLayout(false);
-            buttonPanel.ResumeLayout(false);
-            mainPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxPreview).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picBrowse).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picReset).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
-
-        #endregion
-
-        private Panel bottomPanel;
-        private Button nextButton;
-        private Panel leftPanel;
-        private Panel rightPanel;
-        private Panel buttonPanel;
-        private Button uploadBtn;
-        private Button removeBtn;
-        private Panel mainPanel;
-        private PictureBox pictureBox1;
-        private Label label1;
-        private Button btnBrowse;
-        private Button btnReset;
-        private Button btnNext;
     }
 }

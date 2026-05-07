@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
+﻿// ============================================================
+//  AllCloset.cs  —  shows every clothing item
+// ============================================================
 namespace Pormatics.ClosetForm
 {
-    public partial class AllCloset : Form
+    public partial class AllCloset : ClosetBase
     {
         public AllCloset()
         {
-            InitializeComponent();
+            CategoryFilter = null;   // null = all categories
+            LoadItems();
         }
     }
 }

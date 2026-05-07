@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-namespace Pormatics.ClosetForm
+﻿namespace Pormatics.ClosetForm
 {
-    public partial class BottomCloset : Form
+    public partial class BottomCloset : ClosetBase
     {
         public BottomCloset()
         {
-            InitializeComponent();
+            CategoryFilter = "BOTTOMS";
+            LoadItems();
         }
     }
 }

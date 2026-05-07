@@ -1,36 +1,171 @@
-﻿using Pormatics.FuctionalityForm.OutfitGenerationForm;
+﻿using Pormatics.FuctionalityForm.UploadForm;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Pormatics.FuctionalityForm
 {
     public partial class UploadClothes : Form
     {
+        private string _selectedImagePath = string.Empty;
+
         public UploadClothes()
         {
             InitializeComponent();
-            this.Show();
+            WireEvents();
         }
 
-        
-
-        private void label1_Click(object sender, EventArgs e)
+        private void WireEvents()
         {
+            pictureBoxPreview.AllowDrop = true;
+            pictureBoxPreview.DragEnter += PictureBox_DragEnter;
+            pictureBoxPreview.DragDrop += PictureBox_DragDrop;
 
+            this.AllowDrop = true;
+            this.DragEnter += PictureBox_DragEnter;
+            this.DragDrop += PictureBox_DragDrop;
+
+            picBrowse.MouseEnter += (s, e) =>
+                picBrowse.BackColor = Color.FromArgb(220, 210, 235);
+
+            picBrowse.MouseLeave += (s, e) =>
+                picBrowse.BackColor = Color.Transparent;
+
+            picReset.MouseEnter += (s, e) =>
+                picReset.BackColor = Color.FromArgb(220, 210, 235);
+
+            picReset.MouseLeave += (s, e) =>
+                picReset.BackColor = Color.Transparent;
         }
 
-        private void btnNext_Click(object sender, EventArgs e)
+        private void btnBrowse_Click(object? sender, EventArgs e)
         {
-            UploadFilter filter = new UploadFilter();
-            filter.Show();
+            using OpenFileDialog ofd = new OpenFileDialog
+            {
+                Title = "Select clothing image",
+                Filter = "Image files|*.jpg;*.jpeg;*.png;*.bmp;*.gif;*.webp|All files|*.*"
+            };
 
-            this.Hide();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                LoadPreview(ofd.FileName);
+            }
+        }
 
+        private void PictureBox_DragEnter(object? sender, DragEventArgs e)
+        {
+            e.Effect = e.Data != null && e.Data.GetDataPresent(DataFormats.FileDrop)
+                ? DragDropEffects.Copy
+                : DragDropEffects.None;
+        }
+
+        private void PictureBox_DragDrop(object? sender, DragEventArgs e)
+        {
+            if (e.Data == null)
+                return;
+
+            if (e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Length > 0)
+            {
+                LoadPreview(files[0]);
+            }
+        }
+
+        private async void LoadPreview(string path)
+        {
+            string[] validExtensions =
+            {
+            ".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp"
+            };
+
+            string extension = Path.GetExtension(path).ToLowerInvariant();
+
+            if (Array.IndexOf(validExtensions, extension) < 0)
+            {
+                MessageBox.Show(
+                    "Please select a valid image file.",
+                    "Invalid File",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            try
+            {
+                btnNext.Enabled = false;
+
+                progressBar.Visible = true;
+                progressBar.Style = ProgressBarStyle.Continuous;
+                progressBar.Minimum = 0;
+                progressBar.Maximum = 100;
+                progressBar.Value = 0;
+
+                progressBar.Value = 20;
+                await Task.Delay(150);
+
+                pictureBoxPreview.Image?.Dispose();
+
+                progressBar.Value = 50;
+                await Task.Delay(150);
+
+                pictureBoxPreview.Image = Image.FromFile(path);
+                pictureBoxPreview.SizeMode = PictureBoxSizeMode.Zoom;
+
+                progressBar.Value = 80;
+                await Task.Delay(150);
+
+                _selectedImagePath = path;
+
+                progressBar.Value = 100;
+                await Task.Delay(300);
+
+                btnNext.Enabled = true;
+
+                MessageBox.Show(
+                    "Image loaded successfully.",
+                    "Ready",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Could not load image:\n" + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            finally
+            {
+                progressBar.Visible = false;
+                progressBar.Value = 0;
+            }
+        }
+
+        private void btnNext_Click(object? sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(_selectedImagePath))
+                return;
+
+
+            UploadFilter filterForm = new UploadFilter(_selectedImagePath, this);
+            filterForm.ShowDialog();
+        }
+
+        private void btnReset_Click(object? sender, EventArgs e)
+        {
+            pictureBoxPreview.Image?.Dispose();
+            pictureBoxPreview.Image = null;
+
+            _selectedImagePath = string.Empty;
+            btnNext.Enabled = false;
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            pictureBoxPreview.Image?.Dispose();
+            base.OnFormClosing(e);
         }
     }
 }

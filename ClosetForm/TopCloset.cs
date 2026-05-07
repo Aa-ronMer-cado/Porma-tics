@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
+﻿// ============================================================
+//  TopCloset.cs
+// ============================================================
 namespace Pormatics.ClosetForm
 {
-    public partial class TopCloset : Form
+    public partial class TopCloset : ClosetBase
     {
         public TopCloset()
         {
-            InitializeComponent();
+            CategoryFilter = "TOPS";
+            LoadItems();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
             ConfirmGenerated nextForm = new ConfirmGenerated();
 
             // Show the next form
-            nextForm.Show();
+            nextForm.ShowDialog();
 
             // Optionally hide or close the current form
             this.Hide();   // hides current form
