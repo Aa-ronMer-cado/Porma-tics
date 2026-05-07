@@ -32,8 +32,6 @@ namespace Pormatics
             this.WindowState = FormWindowState.Maximized;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
 
-            closetTitle.MouseDown += closetTitle_MouseDown;
-
             // ── Add Hover Events to Bottom Panel PictureBoxes ───────
             foreach (PictureBox pb in bottomPanel.Controls.OfType<PictureBox>())
             {
@@ -388,41 +386,27 @@ namespace Pormatics
         }
 
         // ── Window Controls ──────────────────────────────────────────
-        private void closetTitle_MouseDown(
-            object? sender,
-            MouseEventArgs e)
-        {
-            ReleaseCapture();
+        // ── Window Controls via PictureBoxes ──────────────────────────
 
-            SendMessage(this.Handle, 0x112, 0xf012, 0);
-        }
-
-        private void closeBtn_Click(object sender, EventArgs e)
+        private void EkisBtn_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
-        private void maximizeBtn_Click(object sender, EventArgs e)
+        private void MaxiBtn_Click(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Normal)
             {
-                this.MaximizedBounds =
-                    Screen.FromHandle(this.Handle).WorkingArea;
-
-                this.WindowState =
-                    FormWindowState.Maximized;
+                this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+                this.WindowState = FormWindowState.Maximized;
             }
             else
             {
-                this.WindowState =
-                    FormWindowState.Normal;
+                this.WindowState = FormWindowState.Normal;
             }
         }
-
-        private void minimizeBtn_Click(object sender, EventArgs e)
+        private void MiniBtn_Click(object sender, EventArgs e)
         {
-            this.WindowState =
-                FormWindowState.Minimized;
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }
