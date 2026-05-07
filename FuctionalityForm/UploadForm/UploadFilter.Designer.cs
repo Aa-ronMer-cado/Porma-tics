@@ -193,8 +193,7 @@
             cmbTops.AccessibleDescription = "";
             cmbTops.AccessibleName = "";
             cmbTops.AccessibleRole = AccessibleRole.None;
-            cmbTops.CausesValidation = false;
-            cmbTops.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTops.BackColor = SystemColors.HighlightText;
             cmbTops.Font = new Font("Microsoft Sans Serif", 11F);
             cmbTops.Items.AddRange(new object[] { "T - shirt", "Polo shirt", "Blouse", "Tank top", "Cardigan", "Coat", "Hoodie", "Crop top" });
             cmbTops.Location = new Point(12, 353);
@@ -202,7 +201,7 @@
             cmbTops.Name = "cmbTops";
             cmbTops.Size = new Size(250, 30);
             cmbTops.TabIndex = 3;
-            cmbTops.Tag = "";
+            cmbTops.Text = "Tops";
             // 
             // panelColors
             // 
