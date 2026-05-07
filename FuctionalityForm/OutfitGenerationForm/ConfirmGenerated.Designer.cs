@@ -36,49 +36,48 @@
             lblTitle = new Label();
             lblSubtitle = new Label();
             outfitPanel = new Panel();
-
             picTop = new PictureBox();
             picBottom = new PictureBox();
             picShoes = new PictureBox();
             picAccessory = new PictureBox();
-
             lblTop = new Label();
             lblBottom = new Label();
             lblShoes = new Label();
             lblAccessory = new Label();
-
             btnGenerateAgain = new Button();
             btnFavorite = new Button();
             btnBack = new Button();
-
             outfitPanel.SuspendLayout();
-
             ((System.ComponentModel.ISupportInitialize)picTop).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBottom).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picShoes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picAccessory).BeginInit();
-
             SuspendLayout();
-
+            // 
             // lblTitle
+            // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Komikazoom", 32F, FontStyle.Bold);
             lblTitle.ForeColor = Color.Indigo;
             lblTitle.Location = new Point(30, 25);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(430, 70);
+            lblTitle.Size = new Size(406, 70);
+            lblTitle.TabIndex = 0;
             lblTitle.Text = "Generated Outfit";
-
+            // 
             // lblSubtitle
+            // 
             lblSubtitle.AutoSize = true;
             lblSubtitle.Font = new Font("Segoe UI", 12F);
             lblSubtitle.ForeColor = Color.Indigo;
-            lblSubtitle.Location = new Point(34, 95);
+            lblSubtitle.Location = new Point(48, 95);
             lblSubtitle.Name = "lblSubtitle";
-            lblSubtitle.Size = new Size(343, 28);
+            lblSubtitle.Size = new Size(326, 28);
+            lblSubtitle.TabIndex = 1;
             lblSubtitle.Text = "Review your generated outfit below.";
-
+            // 
             // outfitPanel
+            // 
             outfitPanel.BackColor = Color.FromArgb(242, 235, 240);
             outfitPanel.BorderStyle = BorderStyle.FixedSingle;
             outfitPanel.Controls.Add(picTop);
@@ -92,80 +91,98 @@
             outfitPanel.Location = new Point(70, 150);
             outfitPanel.Name = "outfitPanel";
             outfitPanel.Size = new Size(1050, 330);
-
+            outfitPanel.TabIndex = 2;
+            // 
             // picTop
+            // 
             picTop.BackColor = Color.FromArgb(237, 230, 245);
             picTop.BorderStyle = BorderStyle.FixedSingle;
             picTop.Location = new Point(45, 40);
             picTop.Name = "picTop";
             picTop.Size = new Size(210, 220);
             picTop.SizeMode = PictureBoxSizeMode.Zoom;
+            picTop.TabIndex = 0;
             picTop.TabStop = false;
-
+            // 
             // picBottom
+            // 
             picBottom.BackColor = Color.FromArgb(237, 230, 245);
             picBottom.BorderStyle = BorderStyle.FixedSingle;
             picBottom.Location = new Point(295, 40);
             picBottom.Name = "picBottom";
             picBottom.Size = new Size(210, 220);
             picBottom.SizeMode = PictureBoxSizeMode.Zoom;
+            picBottom.TabIndex = 1;
             picBottom.TabStop = false;
-
+            // 
             // picShoes
+            // 
             picShoes.BackColor = Color.FromArgb(237, 230, 245);
             picShoes.BorderStyle = BorderStyle.FixedSingle;
             picShoes.Location = new Point(545, 40);
             picShoes.Name = "picShoes";
             picShoes.Size = new Size(210, 220);
             picShoes.SizeMode = PictureBoxSizeMode.Zoom;
+            picShoes.TabIndex = 2;
             picShoes.TabStop = false;
-
+            // 
             // picAccessory
+            // 
             picAccessory.BackColor = Color.FromArgb(237, 230, 245);
             picAccessory.BorderStyle = BorderStyle.FixedSingle;
             picAccessory.Location = new Point(795, 40);
             picAccessory.Name = "picAccessory";
             picAccessory.Size = new Size(210, 220);
             picAccessory.SizeMode = PictureBoxSizeMode.Zoom;
+            picAccessory.TabIndex = 3;
             picAccessory.TabStop = false;
-
+            // 
             // lblTop
+            // 
             lblTop.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblTop.ForeColor = Color.Indigo;
             lblTop.Location = new Point(45, 270);
             lblTop.Name = "lblTop";
             lblTop.Size = new Size(210, 35);
+            lblTop.TabIndex = 4;
             lblTop.Text = "Top";
             lblTop.TextAlign = ContentAlignment.MiddleCenter;
-
+            // 
             // lblBottom
+            // 
             lblBottom.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblBottom.ForeColor = Color.Indigo;
             lblBottom.Location = new Point(295, 270);
             lblBottom.Name = "lblBottom";
             lblBottom.Size = new Size(210, 35);
+            lblBottom.TabIndex = 5;
             lblBottom.Text = "Bottom";
             lblBottom.TextAlign = ContentAlignment.MiddleCenter;
-
+            // 
             // lblShoes
+            // 
             lblShoes.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblShoes.ForeColor = Color.Indigo;
             lblShoes.Location = new Point(545, 270);
             lblShoes.Name = "lblShoes";
             lblShoes.Size = new Size(210, 35);
+            lblShoes.TabIndex = 6;
             lblShoes.Text = "Shoes";
             lblShoes.TextAlign = ContentAlignment.MiddleCenter;
-
+            // 
             // lblAccessory
+            // 
             lblAccessory.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblAccessory.ForeColor = Color.Indigo;
             lblAccessory.Location = new Point(795, 270);
             lblAccessory.Name = "lblAccessory";
             lblAccessory.Size = new Size(210, 35);
+            lblAccessory.TabIndex = 7;
             lblAccessory.Text = "Accessory";
             lblAccessory.TextAlign = ContentAlignment.MiddleCenter;
-
+            // 
             // btnGenerateAgain
+            // 
             btnGenerateAgain.BackColor = Color.Thistle;
             btnGenerateAgain.FlatStyle = FlatStyle.Flat;
             btnGenerateAgain.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -173,10 +190,12 @@
             btnGenerateAgain.Location = new Point(625, 525);
             btnGenerateAgain.Name = "btnGenerateAgain";
             btnGenerateAgain.Size = new Size(160, 42);
+            btnGenerateAgain.TabIndex = 3;
             btnGenerateAgain.Text = "Generate Again";
             btnGenerateAgain.UseVisualStyleBackColor = false;
-
+            // 
             // btnFavorite
+            // 
             btnFavorite.BackColor = Color.SlateBlue;
             btnFavorite.FlatStyle = FlatStyle.Flat;
             btnFavorite.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -184,10 +203,12 @@
             btnFavorite.Location = new Point(805, 525);
             btnFavorite.Name = "btnFavorite";
             btnFavorite.Size = new Size(140, 42);
+            btnFavorite.TabIndex = 4;
             btnFavorite.Text = "Favorite";
             btnFavorite.UseVisualStyleBackColor = false;
-
+            // 
             // btnBack
+            // 
             btnBack.BackColor = Color.White;
             btnBack.FlatStyle = FlatStyle.Flat;
             btnBack.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -195,10 +216,12 @@
             btnBack.Location = new Point(965, 525);
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(120, 42);
+            btnBack.TabIndex = 5;
             btnBack.Text = "Back";
             btnBack.UseVisualStyleBackColor = false;
-
+            // 
             // ConfirmGenerated
+            // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
@@ -214,14 +237,11 @@
             Name = "ConfirmGenerated";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Confirm Generated Outfit";
-
             outfitPanel.ResumeLayout(false);
-
             ((System.ComponentModel.ISupportInitialize)picTop).EndInit();
             ((System.ComponentModel.ISupportInitialize)picBottom).EndInit();
             ((System.ComponentModel.ISupportInitialize)picShoes).EndInit();
             ((System.ComponentModel.ISupportInitialize)picAccessory).EndInit();
-
             ResumeLayout(false);
             PerformLayout();
         }

@@ -108,6 +108,20 @@ namespace Pormatics.Data
             SaveAll(all);
         }
 
+        public static void UpdateItem(ClothingItem updatedItem)
+        {
+            List<ClothingItem> all = LoadAll();
+
+            int index = all.FindIndex(c => c.Id == updatedItem.Id);
+
+            if (index == -1)
+                return;
+
+            all[index] = updatedItem;
+
+            SaveAll(all);
+        }
+
         public static List<ClothingItem> LoadByCategory(string category)
         {
             return LoadAll()

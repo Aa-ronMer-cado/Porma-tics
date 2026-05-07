@@ -17,7 +17,6 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
         public GenerateFilter()
         {
             InitializeComponent();
-
             SetupEvents();
         }
 
