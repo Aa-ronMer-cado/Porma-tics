@@ -34,7 +34,7 @@
             btnSummer = new Button();
             btnRainy = new Button();
             lblGStyle = new Label();
-            button1 = new Button();
+            btnStyleSummer = new Button();
             btnMinimal = new Button();
             btnStWear = new Button();
             btnBusCasual = new Button();
@@ -55,10 +55,9 @@
             lblGenerateFilter.Font = new Font("Komikazoom", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblGenerateFilter.Location = new Point(12, 9);
             lblGenerateFilter.Name = "lblGenerateFilter";
-            lblGenerateFilter.Size = new Size(295, 79);
+            lblGenerateFilter.Size = new Size(291, 78);
             lblGenerateFilter.TabIndex = 0;
             lblGenerateFilter.Text = "Generator";
-            lblGenerateFilter.Click += label1_Click;
             // 
             // label1
             // 
@@ -76,7 +75,7 @@
             lblGSeason.Font = new Font("Komikazoom", 25.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblGSeason.Location = new Point(519, 93);
             lblGSeason.Name = "lblGSeason";
-            lblGSeason.Size = new Size(155, 57);
+            lblGSeason.Size = new Size(154, 55);
             lblGSeason.TabIndex = 2;
             lblGSeason.Text = "SEASON";
             // 
@@ -108,21 +107,20 @@
             lblGStyle.Font = new Font("Komikazoom", 25.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblGStyle.Location = new Point(538, 215);
             lblGStyle.Name = "lblGStyle";
-            lblGStyle.Size = new Size(124, 57);
+            lblGStyle.Size = new Size(123, 55);
             lblGStyle.TabIndex = 5;
             lblGStyle.Text = "STYLE";
-            lblGStyle.Click += label2_Click;
             // 
-            // button1
+            // btnStyleSummer
             // 
-            button1.BackColor = Color.Thistle;
-            button1.ForeColor = Color.Black;
-            button1.Location = new Point(273, 277);
-            button1.Name = "button1";
-            button1.Size = new Size(121, 61);
-            button1.TabIndex = 6;
-            button1.Text = "Summer";
-            button1.UseVisualStyleBackColor = false;
+            btnStyleSummer.BackColor = Color.Thistle;
+            btnStyleSummer.ForeColor = Color.Black;
+            btnStyleSummer.Location = new Point(273, 277);
+            btnStyleSummer.Name = "btnStyleSummer";
+            btnStyleSummer.Size = new Size(121, 61);
+            btnStyleSummer.TabIndex = 6;
+            btnStyleSummer.Text = "Summer";
+            btnStyleSummer.UseVisualStyleBackColor = false;
             // 
             // btnMinimal
             // 
@@ -229,7 +227,7 @@
             lblGColor.Font = new Font("Komikazoom", 25.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblGColor.Location = new Point(544, 417);
             lblGColor.Name = "lblGColor";
-            lblGColor.Size = new Size(130, 57);
+            lblGColor.Size = new Size(129, 55);
             lblGColor.TabIndex = 17;
             lblGColor.Text = "COLOR";
             // 
@@ -272,7 +270,7 @@
             Controls.Add(btnBusCasual);
             Controls.Add(btnStWear);
             Controls.Add(btnMinimal);
-            Controls.Add(button1);
+            Controls.Add(btnStyleSummer);
             Controls.Add(lblGStyle);
             Controls.Add(btnRainy);
             Controls.Add(btnSummer);
@@ -295,7 +293,7 @@
         private Button btnSummer;
         private Button btnRainy;
         private Label lblGStyle;
-        private Button button1;
+        private Button btnStyleSummer;
         private Button btnMinimal;
         private Button btnStWear;
         private Button btnBusCasual;

@@ -9,7 +9,6 @@ namespace Pormatics.Data
 {
     public static class StorageService
     {
-        // ── Paths ────────────────────────────────────────────────────
         private static readonly string RootFolder =
             Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
@@ -18,25 +17,26 @@ namespace Pormatics.Data
         public static readonly string ImagesFolder =
             Path.Combine(RootFolder, "Images");
 
-        private static readonly string JsonPath =
+        private static readonly string ClothesJsonPath =
             Path.Combine(RootFolder, "clothes.json");
 
-        // ── Ensure folders exist ─────────────────────────────────────
+        private static readonly string FavoritesJsonPath =
+            Path.Combine(RootFolder, "favoriteOutfits.json");
+
         static StorageService()
         {
             Directory.CreateDirectory(RootFolder);
             Directory.CreateDirectory(ImagesFolder);
         }
 
-        // ── Read all items ───────────────────────────────────────────
         public static List<ClothingItem> LoadAll()
         {
-            if (!File.Exists(JsonPath))
+            if (!File.Exists(ClothesJsonPath))
                 return new List<ClothingItem>();
 
             try
             {
-                string json = File.ReadAllText(JsonPath);
+                string json = File.ReadAllText(ClothesJsonPath);
 
                 return JsonConvert.DeserializeObject<List<ClothingItem>>(json)
                        ?? new List<ClothingItem>();
@@ -47,26 +47,20 @@ namespace Pormatics.Data
             }
         }
 
-        // ── Write all items ──────────────────────────────────────────
         private static void SaveAll(List<ClothingItem> items)
         {
             Directory.CreateDirectory(RootFolder);
 
-            string json = JsonConvert.SerializeObject(
-                items,
-                Formatting.Indented);
+            string json = JsonConvert.SerializeObject(items, Formatting.Indented);
 
-            File.WriteAllText(JsonPath, json);
+            File.WriteAllText(ClothesJsonPath, json);
         }
 
-        // ── Add one item + copy image ────────────────────────────────
-        public static ClothingItem AddItem(
-            ClothingItem item,
-            string sourceImagePath)
+        public static ClothingItem AddItem(ClothingItem item, string sourceImagePath)
         {
             Directory.CreateDirectory(ImagesFolder);
 
-            if (!string.IsNullOrEmpty(sourceImagePath) &&
+            if (!string.IsNullOrWhiteSpace(sourceImagePath) &&
                 File.Exists(sourceImagePath))
             {
                 string ext = Path.GetExtension(sourceImagePath);
@@ -87,7 +81,6 @@ namespace Pormatics.Data
             return item;
         }
 
-        // ── Delete one item ──────────────────────────────────────────
         public static void DeleteItem(string id)
         {
             List<ClothingItem> all = LoadAll();
@@ -97,57 +90,96 @@ namespace Pormatics.Data
             if (target == null)
                 return;
 
-            // Remove image file from Images folder
-            string imgPath = target.ImageFullPath;
-
             try
             {
-                if (!string.IsNullOrEmpty(imgPath) && File.Exists(imgPath))
+                if (!string.IsNullOrWhiteSpace(target.ImageFullPath) &&
+                    File.Exists(target.ImageFullPath))
                 {
-                    File.Delete(imgPath);
+                    File.Delete(target.ImageFullPath);
                 }
             }
             catch
             {
-                // Ignore file delete errors.
-                // This prevents crashes if the image is still locked.
+                // Avoid crash if file is locked.
             }
 
-            // Remove item from clothes.json
             all.Remove(target);
 
             SaveAll(all);
         }
 
-        // ── Filter helpers ───────────────────────────────────────────
         public static List<ClothingItem> LoadByCategory(string category)
         {
             return LoadAll()
-                .Where(c =>
-                    c.Category.Equals(
-                        category,
-                        StringComparison.OrdinalIgnoreCase))
+                .Where(c => c.Category.Equals(category, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
 
-        public static List<ClothingItem> LoadByStyle(string style)
+        public static List<ClothingItem> FilterItems(
+            string? category,
+            string? style,
+            string? season,
+            string? color)
         {
             return LoadAll()
                 .Where(c =>
-                    c.Style.Equals(
-                        style,
-                        StringComparison.OrdinalIgnoreCase))
+                    (string.IsNullOrWhiteSpace(category) ||
+                     c.Category.Equals(category, StringComparison.OrdinalIgnoreCase)) &&
+
+                    (string.IsNullOrWhiteSpace(style) ||
+                     c.Style.Equals(style, StringComparison.OrdinalIgnoreCase)) &&
+
+                    (string.IsNullOrWhiteSpace(season) ||
+                     c.Season.Equals(season, StringComparison.OrdinalIgnoreCase)) &&
+
+                    (string.IsNullOrWhiteSpace(color) ||
+                     c.Color.Equals(color, StringComparison.OrdinalIgnoreCase)))
                 .ToList();
         }
 
-        public static List<ClothingItem> LoadBySeason(string season)
+        public static List<FavoriteOutfitItem> LoadFavoriteOutfits()
         {
-            return LoadAll()
-                .Where(c =>
-                    c.Season.Equals(
-                        season,
-                        StringComparison.OrdinalIgnoreCase))
-                .ToList();
+            if (!File.Exists(FavoritesJsonPath))
+                return new List<FavoriteOutfitItem>();
+
+            try
+            {
+                string json = File.ReadAllText(FavoritesJsonPath);
+
+                return JsonConvert.DeserializeObject<List<FavoriteOutfitItem>>(json)
+                       ?? new List<FavoriteOutfitItem>();
+            }
+            catch
+            {
+                return new List<FavoriteOutfitItem>();
+            }
+        }
+
+        public static void SaveFavoriteOutfit(GeneratedOutfit outfit)
+        {
+            if (outfit.Top == null || outfit.Bottom == null || outfit.Shoes == null)
+                throw new InvalidOperationException("Cannot save an incomplete outfit.");
+
+            List<FavoriteOutfitItem> favorites = LoadFavoriteOutfits();
+
+            var favorite = new FavoriteOutfitItem
+            {
+                TopId = outfit.Top.Id,
+                BottomId = outfit.Bottom.Id,
+                ShoesId = outfit.Shoes.Id,
+                AccessoryId = outfit.Accessory?.Id ?? string.Empty
+            };
+
+            favorites.Add(favorite);
+
+            string json = JsonConvert.SerializeObject(favorites, Formatting.Indented);
+
+            File.WriteAllText(FavoritesJsonPath, json);
+        }
+
+        public static ClothingItem? FindClothingById(string id)
+        {
+            return LoadAll().FirstOrDefault(c => c.Id == id);
         }
     }
 }

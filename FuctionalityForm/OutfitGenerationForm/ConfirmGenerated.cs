@@ -10,7 +10,7 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
 {
     public partial class ConfirmGenerated : Form
     {
-        public ConfirmGenerated()
+        public ConfirmGenerated(Models.OutfitFilter filter, Models.GeneratedOutfit outfit)
         {
             InitializeComponent();
         }
