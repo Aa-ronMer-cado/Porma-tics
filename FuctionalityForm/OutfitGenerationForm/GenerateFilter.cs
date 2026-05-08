@@ -8,6 +8,8 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
 {
     public partial class GenerateFilter : Form
     {
+        public event Action<OutfitFilter, GeneratedOutfit>? OutfitGenerated;
+
         private string selectedSeason = string.Empty;
         private string selectedStyle = string.Empty;
 
@@ -115,11 +117,7 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
             {
                 GeneratedOutfit outfit = OutfitGeneratorService.GenerateOutfit(filter);
 
-                ConfirmGenerated confirmForm = new ConfirmGenerated(filter, outfit);
-
-                Hide();
-                confirmForm.ShowDialog();
-                Close();
+                OutfitGenerated?.Invoke(filter, outfit);
             }
             catch (Exception ex)
             {

@@ -240,7 +240,6 @@
             drpColor.Name = "drpColor";
             drpColor.Size = new Size(572, 28);
             drpColor.TabIndex = 18;
-            drpColor.Text = "sdad";
             // 
             // btnNext
             // 
@@ -280,6 +279,7 @@
             Controls.Add(lblGenerateFilter);
             ForeColor = Color.Indigo;
             Name = "GenerateFilter";
+            StartPosition = FormStartPosition.CenterScreen;
             Tag = "";
             Text = "GenerateFilter";
             Load += GenerateFilter_Load;

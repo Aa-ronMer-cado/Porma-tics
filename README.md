@@ -77,8 +77,8 @@ functionalities siguro sa mga dito
 └── 📂 Services/
     └── OutfitGeneratorService.cs
 └── 📂 Utilities/
-└──  StartForm.cs
-└──  ThemeColor.cs
+    └──  StartForm.cs
+    └──  ThemeColor.cs
 
 ```
 
