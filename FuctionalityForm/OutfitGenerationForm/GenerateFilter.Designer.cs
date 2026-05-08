@@ -73,7 +73,7 @@
             // 
             // mainLayout
             // 
-            mainLayout.BackColor = Color.WhiteSmoke;
+            mainLayout.BackColor = Color.FromArgb(244, 233, 233);
             mainLayout.ColumnCount = 1;
             mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             mainLayout.Controls.Add(headerLayout, 0, 0);
@@ -97,6 +97,7 @@
             mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 14F));
             mainLayout.Size = new Size(1514, 768);
             mainLayout.TabIndex = 0;
+            mainLayout.Paint += mainLayout_Paint;
             // 
             // headerLayout
             // 
@@ -416,6 +417,7 @@
             drpColor.Name = "drpColor";
             drpColor.Size = new Size(550, 31);
             drpColor.TabIndex = 0;
+            drpColor.SelectedIndexChanged += drpColor_SelectedIndexChanged;
             // 
             // btnNext
             // 

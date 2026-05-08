@@ -30,6 +30,7 @@
         {
             settingsLabel = new Label();
             panel1 = new Panel();
+            ReleaseDate = new Label();
             vScrollBar1 = new VScrollBar();
             panel2 = new Panel();
             panel1.SuspendLayout();
@@ -41,21 +42,32 @@
             settingsLabel.BorderStyle = BorderStyle.Fixed3D;
             settingsLabel.Dock = DockStyle.Top;
             settingsLabel.FlatStyle = FlatStyle.Flat;
-            settingsLabel.Font = new Font("Stencil", 30F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            settingsLabel.Font = new Font("Komikazoom", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            settingsLabel.ForeColor = Color.Indigo;
             settingsLabel.Location = new Point(0, 0);
             settingsLabel.Name = "settingsLabel";
-            settingsLabel.Size = new Size(257, 61);
+            settingsLabel.Size = new Size(249, 81);
             settingsLabel.TabIndex = 0;
             settingsLabel.Text = "SETTINGS";
             // 
             // panel1
             // 
+            panel1.Controls.Add(ReleaseDate);
             panel1.Controls.Add(vScrollBar1);
             panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 61);
+            panel1.Location = new Point(0, 81);
             panel1.Name = "panel1";
             panel1.Size = new Size(1108, 413);
             panel1.TabIndex = 1;
+            // 
+            // ReleaseDate
+            // 
+            ReleaseDate.AutoSize = true;
+            ReleaseDate.Location = new Point(27, 32);
+            ReleaseDate.Name = "ReleaseDate";
+            ReleaseDate.Size = new Size(96, 20);
+            ReleaseDate.TabIndex = 2;
+            ReleaseDate.Text = "Release Date";
             // 
             // vScrollBar1
             // 
@@ -85,6 +97,7 @@
             Name = "Settings";
             Text = "Settings";
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -95,5 +108,6 @@
         private Panel panel1;
         private Panel panel2;
         private VScrollBar vScrollBar1;
+        private Label ReleaseDate;
     }
 }

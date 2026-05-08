@@ -154,5 +154,15 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
         {
             drpColor.DropDownStyle = ComboBoxStyle.DropDownList;
         }
+
+        private void mainLayout_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void drpColor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

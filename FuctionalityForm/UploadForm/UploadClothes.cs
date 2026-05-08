@@ -67,7 +67,7 @@ namespace Pormatics.FuctionalityForm
             pictureBoxPreview.AllowDrop = !hasImage;
             AllowDrop = !hasImage;
 
-            
+
         }
 
         private void btnBrowse_Click(object? sender, EventArgs e)
@@ -192,6 +192,11 @@ namespace Pormatics.FuctionalityForm
         {
             pictureBoxPreview.Image?.Dispose();
             base.OnFormClosing(e);
+        }
+
+        private void progressBar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
