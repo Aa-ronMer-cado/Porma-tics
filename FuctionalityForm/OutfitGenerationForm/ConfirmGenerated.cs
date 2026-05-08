@@ -10,6 +10,7 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
 {
     public partial class ConfirmGenerated : Form
     {
+        public event Action? BackRequested;
         private readonly OutfitFilter currentFilter;
         private GeneratedOutfit currentOutfit;
 
@@ -102,7 +103,7 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            Close();
+            BackRequested?.Invoke();
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)

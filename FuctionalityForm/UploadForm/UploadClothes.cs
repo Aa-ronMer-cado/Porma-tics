@@ -167,20 +167,5 @@ namespace Pormatics.FuctionalityForm
             pictureBoxPreview.Image?.Dispose();
             base.OnFormClosing(e);
         }
-
-        private void lblTitle_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void progressBar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void UploadClothes_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
