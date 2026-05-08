@@ -32,10 +32,11 @@
             uploadClothes = new PictureBox();
             mainCloset = new PictureBox();
             settings = new PictureBox();
-            closetTitle = new Panel();
+            closetBtnCtrl = new Panel();
+            panelTitle = new Panel();
+            title = new Label();
             MiniBtn = new PictureBox();
             MaxiBtn = new PictureBox();
-            label1 = new Label();
             EkisBtn = new PictureBox();
             clothesBtnPanel = new Panel();
             accesoriesBtn = new Button();
@@ -50,7 +51,8 @@
             ((System.ComponentModel.ISupportInitialize)uploadClothes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)mainCloset).BeginInit();
             ((System.ComponentModel.ISupportInitialize)settings).BeginInit();
-            closetTitle.SuspendLayout();
+            closetBtnCtrl.SuspendLayout();
+            panelTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MiniBtn).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MaxiBtn).BeginInit();
             ((System.ComponentModel.ISupportInitialize)EkisBtn).BeginInit();
@@ -136,19 +138,41 @@
             settings.TabStop = false;
             settings.Click += settings_Click;
             // 
-            // closetTitle
+            // closetBtnCtrl
             // 
-            closetTitle.BackColor = Color.FromArgb(244, 233, 233);
-            closetTitle.BorderStyle = BorderStyle.FixedSingle;
-            closetTitle.Controls.Add(MiniBtn);
-            closetTitle.Controls.Add(MaxiBtn);
-            closetTitle.Controls.Add(label1);
-            closetTitle.Controls.Add(EkisBtn);
-            closetTitle.Dock = DockStyle.Top;
-            closetTitle.Location = new Point(0, 0);
-            closetTitle.Name = "closetTitle";
-            closetTitle.Size = new Size(1164, 75);
-            closetTitle.TabIndex = 1;
+            closetBtnCtrl.BackColor = Color.FromArgb(244, 233, 233);
+            closetBtnCtrl.BorderStyle = BorderStyle.FixedSingle;
+            closetBtnCtrl.Controls.Add(panelTitle);
+            closetBtnCtrl.Controls.Add(MiniBtn);
+            closetBtnCtrl.Controls.Add(MaxiBtn);
+            closetBtnCtrl.Controls.Add(EkisBtn);
+            closetBtnCtrl.Dock = DockStyle.Top;
+            closetBtnCtrl.Location = new Point(0, 0);
+            closetBtnCtrl.Name = "closetBtnCtrl";
+            closetBtnCtrl.Size = new Size(1164, 102);
+            closetBtnCtrl.TabIndex = 1;
+            // 
+            // panelTitle
+            // 
+            panelTitle.Controls.Add(title);
+            panelTitle.Dock = DockStyle.Left;
+            panelTitle.Location = new Point(0, 0);
+            panelTitle.Name = "panelTitle";
+            panelTitle.Size = new Size(260, 100);
+            panelTitle.TabIndex = 4;
+            // 
+            // title
+            // 
+            title.AutoSize = true;
+            title.Dock = DockStyle.Left;
+            title.Font = new Font("Komikazoom", 47.9999962F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            title.ForeColor = Color.FromArgb(59, 58, 90);
+            title.Location = new Point(0, 0);
+            title.Name = "title";
+            title.Size = new Size(266, 105);
+            title.TabIndex = 0;
+            title.Text = "CLOSET";
+            title.Click += label1_Click;
             // 
             // MiniBtn
             // 
@@ -156,7 +180,7 @@
             MiniBtn.Image = Properties.Resources.mini;
             MiniBtn.Location = new Point(1011, 0);
             MiniBtn.Name = "MiniBtn";
-            MiniBtn.Size = new Size(50, 73);
+            MiniBtn.Size = new Size(50, 100);
             MiniBtn.SizeMode = PictureBoxSizeMode.Zoom;
             MiniBtn.TabIndex = 3;
             MiniBtn.TabStop = false;
@@ -168,22 +192,11 @@
             MaxiBtn.Image = Properties.Resources.maxi;
             MaxiBtn.Location = new Point(1061, 0);
             MaxiBtn.Name = "MaxiBtn";
-            MaxiBtn.Size = new Size(51, 73);
+            MaxiBtn.Size = new Size(51, 100);
             MaxiBtn.SizeMode = PictureBoxSizeMode.Zoom;
             MaxiBtn.TabIndex = 1;
             MaxiBtn.TabStop = false;
             MaxiBtn.Click += MaxiBtn_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Komikazoom", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.FromArgb(59, 58, 90);
-            label1.Location = new Point(3, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(197, 78);
-            label1.TabIndex = 0;
-            label1.Text = "CLOSET";
             // 
             // EkisBtn
             // 
@@ -191,7 +204,7 @@
             EkisBtn.Image = Properties.Resources.close;
             EkisBtn.Location = new Point(1112, 0);
             EkisBtn.Name = "EkisBtn";
-            EkisBtn.Size = new Size(50, 73);
+            EkisBtn.Size = new Size(50, 100);
             EkisBtn.SizeMode = PictureBoxSizeMode.Zoom;
             EkisBtn.TabIndex = 2;
             EkisBtn.TabStop = false;
@@ -206,7 +219,7 @@
             clothesBtnPanel.Controls.Add(topBtn);
             clothesBtnPanel.Controls.Add(allClothesBtn);
             clothesBtnPanel.Dock = DockStyle.Top;
-            clothesBtnPanel.Location = new Point(0, 75);
+            clothesBtnPanel.Location = new Point(0, 102);
             clothesBtnPanel.Name = "clothesBtnPanel";
             clothesBtnPanel.Size = new Size(1164, 70);
             clothesBtnPanel.TabIndex = 2;
@@ -295,10 +308,11 @@
             // 
             closetPanel.BackColor = Color.FromArgb(244, 233, 233);
             closetPanel.Dock = DockStyle.Fill;
-            closetPanel.Location = new Point(0, 145);
+            closetPanel.Location = new Point(0, 172);
             closetPanel.Name = "closetPanel";
-            closetPanel.Size = new Size(1164, 419);
+            closetPanel.Size = new Size(1164, 392);
             closetPanel.TabIndex = 3;
+            closetPanel.Paint += closetPanel_Paint;
             // 
             // MainMenuForm
             // 
@@ -307,7 +321,7 @@
             ClientSize = new Size(1164, 644);
             Controls.Add(closetPanel);
             Controls.Add(clothesBtnPanel);
-            Controls.Add(closetTitle);
+            Controls.Add(closetBtnCtrl);
             Controls.Add(bottomPanel);
             Name = "MainMenuForm";
             Text = "MainMenuForm";
@@ -317,8 +331,9 @@
             ((System.ComponentModel.ISupportInitialize)uploadClothes).EndInit();
             ((System.ComponentModel.ISupportInitialize)mainCloset).EndInit();
             ((System.ComponentModel.ISupportInitialize)settings).EndInit();
-            closetTitle.ResumeLayout(false);
-            closetTitle.PerformLayout();
+            closetBtnCtrl.ResumeLayout(false);
+            panelTitle.ResumeLayout(false);
+            panelTitle.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)MiniBtn).EndInit();
             ((System.ComponentModel.ISupportInitialize)MaxiBtn).EndInit();
             ((System.ComponentModel.ISupportInitialize)EkisBtn).EndInit();
@@ -329,7 +344,7 @@
         #endregion
 
         private Panel bottomPanel;
-        private Panel closetTitle;
+        private Panel closetBtnCtrl;
         private Panel clothesBtnPanel;
         private Panel closetPanel;
 
@@ -339,7 +354,7 @@
         private Button topBtn;
         private Button allClothesBtn;
 
-        private Label label1;
+        private Label title;
 
         private PictureBox favBtn;
         private PictureBox generateOutfit;
@@ -349,6 +364,7 @@
         private PictureBox MiniBtn;
         private PictureBox EkisBtn;
         private PictureBox MaxiBtn;
+        private Panel panelTitle;
     }
 }
 

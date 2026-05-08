@@ -54,22 +54,22 @@
             mainLayout.Name = "mainLayout";
             mainLayout.Padding = new Padding(40, 25, 40, 25);
             mainLayout.RowCount = 5;
-            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 12F));
-            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 48F));
-            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 17F));
-            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 12.6516466F));
-            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 11.2651644F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 8.838821F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 47.4870033F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 29.462738F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 4.506066F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 9.532063F));
             mainLayout.Size = new Size(1099, 627);
             mainLayout.TabIndex = 0;
             // 
             // lblTitle
             // 
             lblTitle.Dock = DockStyle.Fill;
-            lblTitle.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold);
+            lblTitle.Font = new Font("Pontano Sans", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitle.ForeColor = Color.Indigo;
             lblTitle.Location = new Point(43, 25);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(1013, 68);
+            lblTitle.Size = new Size(1013, 51);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Upload your clothes here...";
             lblTitle.TextAlign = ContentAlignment.MiddleCenter;
@@ -78,9 +78,9 @@
             // 
             pictureBoxPreview.Anchor = AnchorStyles.None;
             pictureBoxPreview.BackColor = Color.White;
-            pictureBoxPreview.Location = new Point(339, 96);
+            pictureBoxPreview.Location = new Point(326, 79);
             pictureBoxPreview.Name = "pictureBoxPreview";
-            pictureBoxPreview.Size = new Size(420, 268);
+            pictureBoxPreview.Size = new Size(447, 268);
             pictureBoxPreview.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxPreview.TabIndex = 1;
             pictureBoxPreview.TabStop = false;
@@ -92,9 +92,9 @@
             buttonPanel.BackColor = Color.Transparent;
             buttonPanel.Controls.Add(picReset);
             buttonPanel.Controls.Add(picBrowse);
-            buttonPanel.Location = new Point(359, 370);
+            buttonPanel.Location = new Point(179, 353);
             buttonPanel.Name = "buttonPanel";
-            buttonPanel.Size = new Size(380, 91);
+            buttonPanel.Size = new Size(740, 164);
             buttonPanel.TabIndex = 2;
             buttonPanel.WrapContents = false;
             // 
@@ -105,7 +105,7 @@
             picReset.Location = new Point(35, 10);
             picReset.Margin = new Padding(35, 10, 35, 10);
             picReset.Name = "picReset";
-            picReset.Size = new Size(120, 80);
+            picReset.Size = new Size(321, 149);
             picReset.SizeMode = PictureBoxSizeMode.Zoom;
             picReset.TabIndex = 0;
             picReset.TabStop = false;
@@ -115,10 +115,10 @@
             // 
             picBrowse.Cursor = Cursors.Hand;
             picBrowse.Image = Properties.Resources.Upload;
-            picBrowse.Location = new Point(225, 10);
+            picBrowse.Location = new Point(426, 10);
             picBrowse.Margin = new Padding(35, 10, 35, 10);
             picBrowse.Name = "picBrowse";
-            picBrowse.Size = new Size(120, 80);
+            picBrowse.Size = new Size(279, 138);
             picBrowse.SizeMode = PictureBoxSizeMode.Zoom;
             picBrowse.TabIndex = 1;
             picBrowse.TabStop = false;
@@ -128,23 +128,24 @@
             // 
             progressBar.Anchor = AnchorStyles.None;
             progressBar.ForeColor = Color.PaleVioletRed;
-            progressBar.Location = new Point(324, 489);
+            progressBar.Location = new Point(324, 523);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(450, 22);
+            progressBar.Size = new Size(450, 20);
             progressBar.Style = ProgressBarStyle.Marquee;
             progressBar.TabIndex = 4;
             progressBar.Visible = false;
+            progressBar.Click += progressBar_Click;
             // 
             // btnNext
             // 
-            btnNext.Anchor = AnchorStyles.None;
             btnNext.BackColor = Color.SlateBlue;
+            btnNext.Dock = DockStyle.Right;
             btnNext.Enabled = false;
             btnNext.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
             btnNext.ForeColor = Color.White;
-            btnNext.Location = new Point(478, 551);
+            btnNext.Location = new Point(914, 549);
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(142, 35);
+            btnNext.Size = new Size(142, 50);
             btnNext.TabIndex = 3;
             btnNext.Text = "Next";
             btnNext.UseVisualStyleBackColor = false;

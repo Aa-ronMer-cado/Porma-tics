@@ -275,7 +275,7 @@ namespace Pormatics
                 }
             }
         }
-                
+
         // ── Auto-Load from StartForm ─────────────────────────────────
         public void LoadDefault()
         {
@@ -306,8 +306,9 @@ namespace Pormatics
             settingsCtrl.Show();
 
             clothesBtnPanel.Visible = false;
-            closetTitle.Visible = false;
+            closetBtnCtrl.Visible = true;
             bottomPanel.Enabled = true;
+            title.Visible = false;
         }
 
         private void mainCloset_Click(object sender, EventArgs e)
@@ -319,8 +320,9 @@ namespace Pormatics
             allClothesBtn.PerformClick();
 
             clothesBtnPanel.Visible = true;
-            closetTitle.Visible = true;
+            closetBtnCtrl.Visible = true;
             bottomPanel.Enabled = true;
+            title.Visible = true;
         }
 
         private void uploadClothes_Click(object sender, EventArgs e)
@@ -328,8 +330,9 @@ namespace Pormatics
             ActivateBottomButton(sender);
 
             clothesBtnPanel.Visible = false;
-            closetTitle.Visible = false;
+            closetBtnCtrl.Visible = true;
             bottomPanel.Enabled = true;
+            title.Visible = false;
 
             UploadClothes uploadForm = new UploadClothes();
 
@@ -346,8 +349,9 @@ namespace Pormatics
             ActivateBottomButton(sender);
 
             clothesBtnPanel.Visible = false;
-            closetTitle.Visible = false;
+            closetBtnCtrl.Visible = true;
             bottomPanel.Enabled = true;
+            title.Visible = false;
 
             GenerateFilter generateForm = new GenerateFilter();
 
@@ -389,11 +393,12 @@ namespace Pormatics
             favForm.Show();
 
             clothesBtnPanel.Visible = false;
-            closetTitle.Visible = false;
+            closetBtnCtrl.Visible = true;
             bottomPanel.Enabled = true;
+            title.Visible = false;
         }
 
-        
+
         // ── Top Category Buttons ─────────────────────────────────────
         private void allClothesBtn_Click(object sender, EventArgs e)
         {
@@ -452,6 +457,16 @@ namespace Pormatics
         private void MiniBtn_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void closetPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
