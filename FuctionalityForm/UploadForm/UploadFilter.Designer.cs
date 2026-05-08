@@ -172,6 +172,7 @@
             progressBar.Location = new Point(80, 629);
             progressBar.Name = "progressBar";
             progressBar.Size = new Size(504, 28);
+            progressBar.Style = ProgressBarStyle.Marquee;
             progressBar.TabIndex = 17;
             // 
             // clrButton

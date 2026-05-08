@@ -108,10 +108,11 @@
             // 
             // logoPic
             // 
-            logoPic.Image = Properties.Resources.LOGO1;
-            logoPic.Location = new Point(505, 186);
+            logoPic.Image = Properties.Resources.LogoRIl;
+            logoPic.Location = new Point(282, 12);
             logoPic.Name = "logoPic";
-            logoPic.Size = new Size(125, 62);
+            logoPic.Size = new Size(599, 411);
+            logoPic.SizeMode = PictureBoxSizeMode.CenterImage;
             logoPic.TabIndex = 0;
             logoPic.TabStop = false;
             // 

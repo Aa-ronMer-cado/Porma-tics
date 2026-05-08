@@ -22,9 +22,9 @@
         private Label lblShoes;
         private Label lblAccessory;
 
-        private Button btnGenerateAgain;
-        private Button btnFavorite;
-        private Button btnBack;
+        private PictureBox btnGenerateAgain;
+        private PictureBox btnFavorite;
+        private PictureBox btnBack;
 
         protected override void Dispose(bool disposing)
         {
@@ -56,6 +56,11 @@
             mainLayout.SuspendLayout();
             headerLayout.SuspendLayout();
             outfitGrid.SuspendLayout();
+
+            btnGenerateAgain = new PictureBox();
+            btnFavorite = new PictureBox();
+            btnBack = new PictureBox();
+
             ((System.ComponentModel.ISupportInitialize)picTop).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBottom).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picShoes).BeginInit();
@@ -65,6 +70,15 @@
             // 
             // mainLayout
             // 
+            ((System.ComponentModel.ISupportInitialize)btnGenerateAgain).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)btnFavorite).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)btnBack).BeginInit();
+
+            SuspendLayout();
+
+            mainLayout.Dock = DockStyle.Fill;
+            mainLayout.ColumnCount = 1;
+            mainLayout.RowCount = 3;
             mainLayout.BackColor = Color.WhiteSmoke;
             mainLayout.ColumnCount = 1;
             mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
@@ -84,6 +98,8 @@
             // 
             // headerLayout
             // 
+
+            headerLayout.Dock = DockStyle.Fill;
             headerLayout.ColumnCount = 1;
             headerLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             headerLayout.Controls.Add(lblTitle, 0, 0);
@@ -99,6 +115,7 @@
             // 
             // lblTitle
             // 
+
             lblTitle.Dock = DockStyle.Fill;
             lblTitle.Font = new Font("Komikazoom", 32F, FontStyle.Bold);
             lblTitle.ForeColor = Color.Indigo;
@@ -111,6 +128,7 @@
             // 
             // lblSubtitle
             // 
+
             lblSubtitle.Dock = DockStyle.Fill;
             lblSubtitle.Font = new Font("Segoe UI", 12F);
             lblSubtitle.ForeColor = Color.Indigo;
@@ -122,6 +140,12 @@
             // 
             // outfitGrid
             // 
+            lblSubtitle.TextAlign = ContentAlignment.TopLeft;
+
+            headerLayout.Controls.Add(lblTitle, 0, 0);
+            headerLayout.Controls.Add(lblSubtitle, 0, 1);
+
+            outfitGrid.Dock = DockStyle.Fill;
             outfitGrid.BackColor = Color.FromArgb(242, 235, 240);
             outfitGrid.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             outfitGrid.ColumnCount = 4;
@@ -286,16 +310,36 @@
             label.TextAlign = ContentAlignment.MiddleCenter;
         }
 
-        private void SetupActionButton(Button button, string text, Color backColor, Color foreColor)
+        private void SetupActionPicture(PictureBox pictureBox, Image image)
         {
-            button.BackColor = backColor;
-            button.ForeColor = foreColor;
-            button.FlatStyle = FlatStyle.Flat;
-            button.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            button.Size = new Size(160, 45);
-            button.Margin = new Padding(12);
-            button.Text = text;
-            button.UseVisualStyleBackColor = false;
+            pictureBox.Size = new Size(70, 70);
+            pictureBox.Margin = new Padding(25, 10, 25, 10);
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox.BackColor = Color.Transparent;
+            pictureBox.Cursor = Cursors.Hand;
+            pictureBox.Image = image;
+            pictureBox.Padding = new Padding(0);
+
+            pictureBox.MouseEnter += ActionHoverEnter;
+            pictureBox.MouseLeave += ActionHoverLeave;
+        }
+
+        private void ActionHoverEnter(object? sender, EventArgs e)
+        {
+            if (sender is PictureBox pb)
+            {
+                pb.BackColor = Color.FromArgb(225, 215, 240);
+                pb.Padding = new Padding(5);
+            }
+        }
+
+        private void ActionHoverLeave(object? sender, EventArgs e)
+        {
+            if (sender is PictureBox pb)
+            {
+                pb.BackColor = Color.Transparent;
+                pb.Padding = new Padding(0);
+            }
         }
     }
 }

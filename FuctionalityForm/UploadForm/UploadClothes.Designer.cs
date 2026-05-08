@@ -47,8 +47,8 @@
             mainLayout.Controls.Add(lblTitle, 0, 0);
             mainLayout.Controls.Add(pictureBoxPreview, 0, 1);
             mainLayout.Controls.Add(buttonPanel, 0, 2);
-            mainLayout.Controls.Add(progressBar, 0, 3);
             mainLayout.Controls.Add(btnNext, 0, 4);
+            mainLayout.Controls.Add(progressBar, 0, 3);
             mainLayout.Dock = DockStyle.Fill;
             mainLayout.Location = new Point(0, 0);
             mainLayout.Name = "mainLayout";
