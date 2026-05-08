@@ -35,11 +35,11 @@
             bottomPanel = new Panel();
             btnPanel = new Panel();
             logoPanel = new Panel();
-            pictureBox1 = new PictureBox();
+            logoPic = new PictureBox();
             leftPanel.SuspendLayout();
             btnPanel.SuspendLayout();
             logoPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)logoPic).BeginInit();
             SuspendLayout();
             // 
             // rightPanel
@@ -99,20 +99,21 @@
             // 
             // logoPanel
             // 
-            logoPanel.Controls.Add(pictureBox1);
+            logoPanel.Controls.Add(logoPic);
             logoPanel.Dock = DockStyle.Top;
             logoPanel.Location = new Point(0, 0);
             logoPanel.Name = "logoPanel";
             logoPanel.Size = new Size(1173, 450);
             logoPanel.TabIndex = 3;
             // 
-            // pictureBox1
+            // logoPic
             // 
-            pictureBox1.Location = new Point(493, 216);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(125, 62);
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            logoPic.Image = Properties.Resources.LOGO1;
+            logoPic.Location = new Point(505, 186);
+            logoPic.Name = "logoPic";
+            logoPic.Size = new Size(125, 62);
+            logoPic.TabIndex = 0;
+            logoPic.TabStop = false;
             // 
             // StartForm
             // 
@@ -130,7 +131,7 @@
             leftPanel.ResumeLayout(false);
             btnPanel.ResumeLayout(false);
             logoPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)logoPic).EndInit();
             ResumeLayout(false);
         }
 
@@ -142,6 +143,6 @@
         private Panel bottomPanel;
         private Panel btnPanel;
         private Panel logoPanel;
-        private PictureBox pictureBox1;
+        private PictureBox logoPic;
     }
 }

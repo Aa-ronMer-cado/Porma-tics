@@ -24,6 +24,18 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
             DisplayOutfit();
         }
 
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            int buttonWidth = Math.Max(130, ClientSize.Width / 9);
+            int buttonHeight = Math.Max(38, ClientSize.Height / 15);
+
+            btnGenerateAgain.Size = new Size(buttonWidth, buttonHeight);
+            btnFavorite.Size = new Size(buttonWidth, buttonHeight);
+            btnBack.Size = new Size(buttonWidth, buttonHeight);
+        }
+
         private void DisplayOutfit()
         {
             SetPicture(picTop, currentOutfit.Top);

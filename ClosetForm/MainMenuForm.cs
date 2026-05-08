@@ -275,15 +275,6 @@ namespace Pormatics
                 }
             }
         }
-
-        private bool IsClosetCurrentlyOpen()
-        {
-            return activeControl is AllCloset ||
-                   activeControl is TopCloset ||
-                   activeControl is BottomCloset ||
-                   activeControl is ShoesCloset ||
-                   activeControl is AccessoriesCloset;
-        }
                 
         // ── Auto-Load from StartForm ─────────────────────────────────
         public void LoadDefault()
@@ -402,34 +393,7 @@ namespace Pormatics
             bottomPanel.Enabled = true;
         }
 
-        private void RefreshCurrentCloset()
-        {
-            if (currentTopButton == allClothesBtn)
-            {
-                OpenChildControl(new AllCloset());
-            }
-            else if (currentTopButton == topBtn)
-            {
-                OpenChildControl(new TopCloset());
-            }
-            else if (currentTopButton == bottomBtn)
-            {
-                OpenChildControl(new BottomCloset());
-            }
-            else if (currentTopButton == shoesBtn)
-            {
-                OpenChildControl(new ShoesCloset());
-            }
-            else if (currentTopButton == accesoriesBtn)
-            {
-                OpenChildControl(new AccessoriesCloset());
-            }
-            else
-            {
-                allClothesBtn.PerformClick();
-            }
-        }
-
+        
         // ── Top Category Buttons ─────────────────────────────────────
         private void allClothesBtn_Click(object sender, EventArgs e)
         {

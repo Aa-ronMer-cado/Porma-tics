@@ -4,10 +4,13 @@
     {
         private System.ComponentModel.IContainer components = null;
 
+        private TableLayoutPanel mainLayout;
+        private TableLayoutPanel headerLayout;
+        private TableLayoutPanel outfitGrid;
+        private FlowLayoutPanel buttonPanel;
+
         private Label lblTitle;
         private Label lblSubtitle;
-
-        private Panel outfitPanel;
 
         private PictureBox picTop;
         private PictureBox picBottom;
@@ -33,217 +36,181 @@
 
         private void InitializeComponent()
         {
+            mainLayout = new TableLayoutPanel();
+            headerLayout = new TableLayoutPanel();
+            outfitGrid = new TableLayoutPanel();
+            buttonPanel = new FlowLayoutPanel();
+
             lblTitle = new Label();
             lblSubtitle = new Label();
-            outfitPanel = new Panel();
+
             picTop = new PictureBox();
             picBottom = new PictureBox();
             picShoes = new PictureBox();
             picAccessory = new PictureBox();
+
             lblTop = new Label();
             lblBottom = new Label();
             lblShoes = new Label();
             lblAccessory = new Label();
+
             btnGenerateAgain = new Button();
             btnFavorite = new Button();
             btnBack = new Button();
-            outfitPanel.SuspendLayout();
+
             ((System.ComponentModel.ISupportInitialize)picTop).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBottom).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picShoes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picAccessory).BeginInit();
+
             SuspendLayout();
-            // 
+
+            // mainLayout
+            mainLayout.Dock = DockStyle.Fill;
+            mainLayout.ColumnCount = 1;
+            mainLayout.RowCount = 3;
+            mainLayout.BackColor = Color.WhiteSmoke;
+            mainLayout.Padding = new Padding(40, 25, 40, 25);
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 18F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 62F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+
+            // headerLayout
+            headerLayout.Dock = DockStyle.Fill;
+            headerLayout.ColumnCount = 1;
+            headerLayout.RowCount = 2;
+            headerLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 65F));
+            headerLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 35F));
+
             // lblTitle
-            // 
-            lblTitle.AutoSize = true;
+            lblTitle.Dock = DockStyle.Fill;
             lblTitle.Font = new Font("Komikazoom", 32F, FontStyle.Bold);
             lblTitle.ForeColor = Color.Indigo;
-            lblTitle.Location = new Point(30, 25);
-            lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(406, 70);
-            lblTitle.TabIndex = 0;
             lblTitle.Text = "Generated Outfit";
-            // 
+            lblTitle.TextAlign = ContentAlignment.BottomLeft;
+
             // lblSubtitle
-            // 
-            lblSubtitle.AutoSize = true;
+            lblSubtitle.Dock = DockStyle.Fill;
             lblSubtitle.Font = new Font("Segoe UI", 12F);
             lblSubtitle.ForeColor = Color.Indigo;
-            lblSubtitle.Location = new Point(48, 95);
-            lblSubtitle.Name = "lblSubtitle";
-            lblSubtitle.Size = new Size(326, 28);
-            lblSubtitle.TabIndex = 1;
             lblSubtitle.Text = "Review your generated outfit below.";
-            // 
-            // outfitPanel
-            // 
-            outfitPanel.BackColor = Color.FromArgb(242, 235, 240);
-            outfitPanel.BorderStyle = BorderStyle.FixedSingle;
-            outfitPanel.Controls.Add(picTop);
-            outfitPanel.Controls.Add(picBottom);
-            outfitPanel.Controls.Add(picShoes);
-            outfitPanel.Controls.Add(picAccessory);
-            outfitPanel.Controls.Add(lblTop);
-            outfitPanel.Controls.Add(lblBottom);
-            outfitPanel.Controls.Add(lblShoes);
-            outfitPanel.Controls.Add(lblAccessory);
-            outfitPanel.Location = new Point(70, 150);
-            outfitPanel.Name = "outfitPanel";
-            outfitPanel.Size = new Size(1050, 330);
-            outfitPanel.TabIndex = 2;
-            // 
-            // picTop
-            // 
-            picTop.BackColor = Color.FromArgb(237, 230, 245);
-            picTop.BorderStyle = BorderStyle.FixedSingle;
-            picTop.Location = new Point(45, 40);
-            picTop.Name = "picTop";
-            picTop.Size = new Size(210, 220);
-            picTop.SizeMode = PictureBoxSizeMode.Zoom;
-            picTop.TabIndex = 0;
-            picTop.TabStop = false;
-            // 
-            // picBottom
-            // 
-            picBottom.BackColor = Color.FromArgb(237, 230, 245);
-            picBottom.BorderStyle = BorderStyle.FixedSingle;
-            picBottom.Location = new Point(295, 40);
-            picBottom.Name = "picBottom";
-            picBottom.Size = new Size(210, 220);
-            picBottom.SizeMode = PictureBoxSizeMode.Zoom;
-            picBottom.TabIndex = 1;
-            picBottom.TabStop = false;
-            // 
-            // picShoes
-            // 
-            picShoes.BackColor = Color.FromArgb(237, 230, 245);
-            picShoes.BorderStyle = BorderStyle.FixedSingle;
-            picShoes.Location = new Point(545, 40);
-            picShoes.Name = "picShoes";
-            picShoes.Size = new Size(210, 220);
-            picShoes.SizeMode = PictureBoxSizeMode.Zoom;
-            picShoes.TabIndex = 2;
-            picShoes.TabStop = false;
-            // 
-            // picAccessory
-            // 
-            picAccessory.BackColor = Color.FromArgb(237, 230, 245);
-            picAccessory.BorderStyle = BorderStyle.FixedSingle;
-            picAccessory.Location = new Point(795, 40);
-            picAccessory.Name = "picAccessory";
-            picAccessory.Size = new Size(210, 220);
-            picAccessory.SizeMode = PictureBoxSizeMode.Zoom;
-            picAccessory.TabIndex = 3;
-            picAccessory.TabStop = false;
-            // 
-            // lblTop
-            // 
-            lblTop.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            lblTop.ForeColor = Color.Indigo;
-            lblTop.Location = new Point(45, 270);
-            lblTop.Name = "lblTop";
-            lblTop.Size = new Size(210, 35);
-            lblTop.TabIndex = 4;
-            lblTop.Text = "Top";
-            lblTop.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // lblBottom
-            // 
-            lblBottom.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            lblBottom.ForeColor = Color.Indigo;
-            lblBottom.Location = new Point(295, 270);
-            lblBottom.Name = "lblBottom";
-            lblBottom.Size = new Size(210, 35);
-            lblBottom.TabIndex = 5;
-            lblBottom.Text = "Bottom";
-            lblBottom.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // lblShoes
-            // 
-            lblShoes.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            lblShoes.ForeColor = Color.Indigo;
-            lblShoes.Location = new Point(545, 270);
-            lblShoes.Name = "lblShoes";
-            lblShoes.Size = new Size(210, 35);
-            lblShoes.TabIndex = 6;
-            lblShoes.Text = "Shoes";
-            lblShoes.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // lblAccessory
-            // 
-            lblAccessory.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            lblAccessory.ForeColor = Color.Indigo;
-            lblAccessory.Location = new Point(795, 270);
-            lblAccessory.Name = "lblAccessory";
-            lblAccessory.Size = new Size(210, 35);
-            lblAccessory.TabIndex = 7;
-            lblAccessory.Text = "Accessory";
-            lblAccessory.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            lblSubtitle.TextAlign = ContentAlignment.TopLeft;
+
+            headerLayout.Controls.Add(lblTitle, 0, 0);
+            headerLayout.Controls.Add(lblSubtitle, 0, 1);
+
+            // outfitGrid
+            outfitGrid.Dock = DockStyle.Fill;
+            outfitGrid.BackColor = Color.FromArgb(242, 235, 240);
+            outfitGrid.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+            outfitGrid.ColumnCount = 4;
+            outfitGrid.RowCount = 2;
+            outfitGrid.Padding = new Padding(25);
+
+            outfitGrid.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            outfitGrid.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            outfitGrid.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            outfitGrid.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+
+            outfitGrid.RowStyles.Add(new RowStyle(SizeType.Percent, 82F));
+            outfitGrid.RowStyles.Add(new RowStyle(SizeType.Percent, 18F));
+
+            // PictureBoxes
+            SetupPictureBox(picTop);
+            SetupPictureBox(picBottom);
+            SetupPictureBox(picShoes);
+            SetupPictureBox(picAccessory);
+
+            // Labels
+            SetupItemLabel(lblTop, "Top");
+            SetupItemLabel(lblBottom, "Bottom");
+            SetupItemLabel(lblShoes, "Shoes");
+            SetupItemLabel(lblAccessory, "Accessory");
+
+            outfitGrid.Controls.Add(picTop, 0, 0);
+            outfitGrid.Controls.Add(picBottom, 1, 0);
+            outfitGrid.Controls.Add(picShoes, 2, 0);
+            outfitGrid.Controls.Add(picAccessory, 3, 0);
+
+            outfitGrid.Controls.Add(lblTop, 0, 1);
+            outfitGrid.Controls.Add(lblBottom, 1, 1);
+            outfitGrid.Controls.Add(lblShoes, 2, 1);
+            outfitGrid.Controls.Add(lblAccessory, 3, 1);
+
+            // buttonPanel
+            buttonPanel.Anchor = AnchorStyles.None;
+            buttonPanel.AutoSize = true;
+            buttonPanel.BackColor = Color.Transparent;
+            buttonPanel.FlowDirection = FlowDirection.LeftToRight;
+            buttonPanel.WrapContents = false;
+
             // btnGenerateAgain
-            // 
-            btnGenerateAgain.BackColor = Color.Thistle;
-            btnGenerateAgain.FlatStyle = FlatStyle.Flat;
-            btnGenerateAgain.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnGenerateAgain.ForeColor = Color.Black;
-            btnGenerateAgain.Location = new Point(625, 525);
-            btnGenerateAgain.Name = "btnGenerateAgain";
-            btnGenerateAgain.Size = new Size(160, 42);
-            btnGenerateAgain.TabIndex = 3;
-            btnGenerateAgain.Text = "Generate Again";
-            btnGenerateAgain.UseVisualStyleBackColor = false;
-            // 
+            SetupActionButton(btnGenerateAgain, "Generate Again", Color.Thistle, Color.Black);
+            btnGenerateAgain.Click += btnGenerateAgain_Click;
+
             // btnFavorite
-            // 
-            btnFavorite.BackColor = Color.SlateBlue;
-            btnFavorite.FlatStyle = FlatStyle.Flat;
-            btnFavorite.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnFavorite.ForeColor = Color.White;
-            btnFavorite.Location = new Point(805, 525);
-            btnFavorite.Name = "btnFavorite";
-            btnFavorite.Size = new Size(140, 42);
-            btnFavorite.TabIndex = 4;
-            btnFavorite.Text = "Favorite";
-            btnFavorite.UseVisualStyleBackColor = false;
-            // 
+            SetupActionButton(btnFavorite, "Favorite", Color.SlateBlue, Color.White);
+            btnFavorite.Click += btnFavorite_Click;
+
             // btnBack
-            // 
-            btnBack.BackColor = Color.White;
-            btnBack.FlatStyle = FlatStyle.Flat;
-            btnBack.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnBack.ForeColor = Color.Indigo;
-            btnBack.Location = new Point(965, 525);
-            btnBack.Name = "btnBack";
-            btnBack.Size = new Size(120, 42);
-            btnBack.TabIndex = 5;
-            btnBack.Text = "Back";
-            btnBack.UseVisualStyleBackColor = false;
-            // 
-            // ConfirmGenerated
-            // 
+            SetupActionButton(btnBack, "Back", Color.White, Color.Indigo);
+            btnBack.Click += btnBack_Click;
+
+            buttonPanel.Controls.Add(btnGenerateAgain);
+            buttonPanel.Controls.Add(btnFavorite);
+            buttonPanel.Controls.Add(btnBack);
+
+            mainLayout.Controls.Add(headerLayout, 0, 0);
+            mainLayout.Controls.Add(outfitGrid, 0, 1);
+            mainLayout.Controls.Add(buttonPanel, 0, 2);
+
+            Controls.Add(mainLayout);
+
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1197, 624);
-            Controls.Add(lblTitle);
-            Controls.Add(lblSubtitle);
-            Controls.Add(outfitPanel);
-            Controls.Add(btnGenerateAgain);
-            Controls.Add(btnFavorite);
-            Controls.Add(btnBack);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            MaximizeBox = false;
+            FormBorderStyle = FormBorderStyle.None;
             Name = "ConfirmGenerated";
-            StartPosition = FormStartPosition.CenterScreen;
             Text = "Confirm Generated Outfit";
-            outfitPanel.ResumeLayout(false);
+
             ((System.ComponentModel.ISupportInitialize)picTop).EndInit();
             ((System.ComponentModel.ISupportInitialize)picBottom).EndInit();
             ((System.ComponentModel.ISupportInitialize)picShoes).EndInit();
             ((System.ComponentModel.ISupportInitialize)picAccessory).EndInit();
+
             ResumeLayout(false);
-            PerformLayout();
+        }
+
+        private void SetupPictureBox(PictureBox pictureBox)
+        {
+            pictureBox.BackColor = Color.FromArgb(237, 230, 245);
+            pictureBox.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox.Dock = DockStyle.Fill;
+            pictureBox.Margin = new Padding(20);
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox.TabStop = false;
+        }
+
+        private void SetupItemLabel(Label label, string text)
+        {
+            label.Dock = DockStyle.Fill;
+            label.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label.ForeColor = Color.Indigo;
+            label.Text = text;
+            label.TextAlign = ContentAlignment.MiddleCenter;
+        }
+
+        private void SetupActionButton(Button button, string text, Color backColor, Color foreColor)
+        {
+            button.BackColor = backColor;
+            button.ForeColor = foreColor;
+            button.FlatStyle = FlatStyle.Flat;
+            button.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            button.Size = new Size(160, 45);
+            button.Margin = new Padding(12);
+            button.Text = text;
+            button.UseVisualStyleBackColor = false;
         }
     }
 }

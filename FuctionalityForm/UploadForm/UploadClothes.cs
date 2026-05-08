@@ -14,6 +14,7 @@ namespace Pormatics.FuctionalityForm
         {
             InitializeComponent();
             WireEvents();
+            SetUploadState(false);
         }
 
         private void WireEvents()
@@ -37,6 +38,36 @@ namespace Pormatics.FuctionalityForm
 
             picReset.MouseLeave += (s, e) =>
                 picReset.BackColor = Color.Transparent;
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            int previewW = Math.Max(260, ClientSize.Width / 3);
+            int previewH = Math.Max(220, ClientSize.Height / 2);
+
+            pictureBoxPreview.Size = new Size(previewW, previewH);
+
+            int iconSize = Math.Max(60, Math.Min(ClientSize.Width / 10, 120));
+
+            picReset.Size = new Size(iconSize, iconSize);
+            picBrowse.Size = new Size(iconSize, iconSize);
+
+            progressBar.Width = Math.Max(300, ClientSize.Width / 3);
+        }
+
+        private void SetUploadState(bool hasImage)
+        {
+            btnNext.Enabled = hasImage;
+
+            picBrowse.Enabled = !hasImage;
+            picBrowse.Visible = !hasImage;
+
+            pictureBoxPreview.AllowDrop = !hasImage;
+            AllowDrop = !hasImage;
+
+            
         }
 
         private void btnBrowse_Click(object? sender, EventArgs e)
@@ -120,13 +151,7 @@ namespace Pormatics.FuctionalityForm
                 progressBar.Value = 100;
                 await Task.Delay(300);
 
-                btnNext.Enabled = true;
-
-                MessageBox.Show(
-                    "Image loaded successfully.",
-                    "Ready",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                SetUploadState(true);
             }
             catch (Exception ex)
             {
@@ -159,7 +184,8 @@ namespace Pormatics.FuctionalityForm
             pictureBoxPreview.Image = null;
 
             _selectedImagePath = string.Empty;
-            btnNext.Enabled = false;
+
+            SetUploadState(false);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

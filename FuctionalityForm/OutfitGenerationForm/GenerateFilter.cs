@@ -22,6 +22,27 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
             SetupEvents();
         }
 
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            if (ClientSize.Width <= 0 || ClientSize.Height <= 0)
+                return;
+
+            int seasonButtonWidth = Math.Max(180, ClientSize.Width / 6);
+            int seasonButtonHeight = Math.Max(45, ClientSize.Height / 13);
+
+            btnSummer.Size = new Size(seasonButtonWidth, seasonButtonHeight);
+            btnRainy.Size = new Size(seasonButtonWidth, seasonButtonHeight);
+
+            btnNext.Size = new Size(
+                Math.Max(120, ClientSize.Width / 10),
+                Math.Max(40, ClientSize.Height / 14)
+            );
+
+            drpColor.Width = Math.Max(300, ClientSize.Width / 3);
+        }
+
         private void SetupEvents()
         {
             btnSummer.Click += (s, e) => SelectSeason("Summer", btnSummer);
@@ -132,11 +153,6 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
         private void GenerateFilter_Load(object sender, EventArgs e)
         {
             drpColor.DropDownStyle = ComboBoxStyle.DropDownList;
-        }
-
-        private void btnBusCasual_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
