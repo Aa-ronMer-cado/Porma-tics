@@ -391,5 +391,10 @@ namespace Pormatics.FuctionalityForm.UploadForm
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Warning);
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

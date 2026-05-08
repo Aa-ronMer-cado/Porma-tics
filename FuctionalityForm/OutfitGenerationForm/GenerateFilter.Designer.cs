@@ -73,7 +73,7 @@
             // 
             lblGSeason.AutoSize = true;
             lblGSeason.Font = new Font("Komikazoom", 25.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblGSeason.Location = new Point(630, 27);
+            lblGSeason.Location = new Point(673, 111);
             lblGSeason.Name = "lblGSeason";
             lblGSeason.Size = new Size(154, 55);
             lblGSeason.TabIndex = 2;
@@ -83,7 +83,7 @@
             // 
             btnSummer.BackColor = Color.Thistle;
             btnSummer.ForeColor = Color.Black;
-            btnSummer.Location = new Point(385, 113);
+            btnSummer.Location = new Point(428, 197);
             btnSummer.Name = "btnSummer";
             btnSummer.Size = new Size(319, 89);
             btnSummer.TabIndex = 3;
@@ -94,7 +94,7 @@
             // 
             btnRainy.BackColor = Color.Thistle;
             btnRainy.ForeColor = Color.Black;
-            btnRainy.Location = new Point(710, 113);
+            btnRainy.Location = new Point(753, 197);
             btnRainy.Name = "btnRainy";
             btnRainy.Size = new Size(308, 89);
             btnRainy.TabIndex = 4;
@@ -105,7 +105,7 @@
             // 
             lblGStyle.AutoSize = true;
             lblGStyle.Font = new Font("Komikazoom", 25.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblGStyle.Location = new Point(644, 215);
+            lblGStyle.Location = new Point(687, 299);
             lblGStyle.Name = "lblGStyle";
             lblGStyle.Size = new Size(123, 55);
             lblGStyle.TabIndex = 5;
@@ -115,7 +115,7 @@
             // 
             btnStyleSummer.BackColor = Color.Thistle;
             btnStyleSummer.ForeColor = Color.Black;
-            btnStyleSummer.Location = new Point(156, 273);
+            btnStyleSummer.Location = new Point(199, 357);
             btnStyleSummer.Name = "btnStyleSummer";
             btnStyleSummer.Size = new Size(233, 101);
             btnStyleSummer.TabIndex = 6;
@@ -126,7 +126,7 @@
             // 
             btnMinimal.BackColor = Color.Thistle;
             btnMinimal.ForeColor = Color.Black;
-            btnMinimal.Location = new Point(612, 273);
+            btnMinimal.Location = new Point(655, 357);
             btnMinimal.Name = "btnMinimal";
             btnMinimal.Size = new Size(233, 101);
             btnMinimal.TabIndex = 7;
@@ -137,7 +137,7 @@
             // 
             btnStWear.BackColor = Color.Thistle;
             btnStWear.ForeColor = Color.Black;
-            btnStWear.Location = new Point(385, 273);
+            btnStWear.Location = new Point(428, 357);
             btnStWear.Name = "btnStWear";
             btnStWear.Size = new Size(233, 101);
             btnStWear.TabIndex = 8;
@@ -148,7 +148,7 @@
             // 
             btnBusCasual.BackColor = Color.Thistle;
             btnBusCasual.ForeColor = Color.Black;
-            btnBusCasual.Location = new Point(1071, 273);
+            btnBusCasual.Location = new Point(1114, 357);
             btnBusCasual.Name = "btnBusCasual";
             btnBusCasual.Size = new Size(266, 101);
             btnBusCasual.TabIndex = 9;
@@ -160,7 +160,7 @@
             // 
             btnRetro.BackColor = Color.Thistle;
             btnRetro.ForeColor = Color.Black;
-            btnRetro.Location = new Point(836, 273);
+            btnRetro.Location = new Point(879, 357);
             btnRetro.Name = "btnRetro";
             btnRetro.Size = new Size(233, 101);
             btnRetro.TabIndex = 10;
@@ -171,7 +171,7 @@
             // 
             btnFormal.BackColor = Color.Thistle;
             btnFormal.ForeColor = Color.Black;
-            btnFormal.Location = new Point(156, 370);
+            btnFormal.Location = new Point(199, 454);
             btnFormal.Name = "btnFormal";
             btnFormal.Size = new Size(233, 101);
             btnFormal.TabIndex = 11;
@@ -182,7 +182,7 @@
             // 
             btnVaca.BackColor = Color.Thistle;
             btnVaca.ForeColor = Color.Black;
-            btnVaca.Location = new Point(385, 370);
+            btnVaca.Location = new Point(428, 454);
             btnVaca.Name = "btnVaca";
             btnVaca.Size = new Size(233, 101);
             btnVaca.TabIndex = 12;
@@ -193,7 +193,7 @@
             // 
             btnRomantic.BackColor = Color.Thistle;
             btnRomantic.ForeColor = Color.Black;
-            btnRomantic.Location = new Point(612, 370);
+            btnRomantic.Location = new Point(655, 454);
             btnRomantic.Name = "btnRomantic";
             btnRomantic.Size = new Size(233, 101);
             btnRomantic.TabIndex = 13;
@@ -204,7 +204,7 @@
             // 
             btnSporty.BackColor = Color.Thistle;
             btnSporty.ForeColor = Color.Black;
-            btnSporty.Location = new Point(836, 370);
+            btnSporty.Location = new Point(879, 454);
             btnSporty.Name = "btnSporty";
             btnSporty.Size = new Size(233, 101);
             btnSporty.TabIndex = 14;
@@ -215,7 +215,7 @@
             // 
             btnSmtCasual.BackColor = Color.Thistle;
             btnSmtCasual.ForeColor = Color.Black;
-            btnSmtCasual.Location = new Point(1071, 370);
+            btnSmtCasual.Location = new Point(1114, 454);
             btnSmtCasual.Name = "btnSmtCasual";
             btnSmtCasual.Size = new Size(266, 101);
             btnSmtCasual.TabIndex = 15;
@@ -226,7 +226,7 @@
             // 
             lblGColor.AutoSize = true;
             lblGColor.Font = new Font("Komikazoom", 25.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblGColor.Location = new Point(655, 487);
+            lblGColor.Location = new Point(698, 571);
             lblGColor.Name = "lblGColor";
             lblGColor.Size = new Size(129, 55);
             lblGColor.TabIndex = 17;
@@ -237,7 +237,7 @@
             drpColor.BackColor = Color.Thistle;
             drpColor.FormattingEnabled = true;
             drpColor.Items.AddRange(new object[] { "Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet", "Pink", "Black", "White" });
-            drpColor.Location = new Point(385, 545);
+            drpColor.Location = new Point(428, 629);
             drpColor.Name = "drpColor";
             drpColor.Size = new Size(684, 28);
             drpColor.TabIndex = 18;

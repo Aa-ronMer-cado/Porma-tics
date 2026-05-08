@@ -29,10 +29,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             picturePreview = new PictureBox();
             topPanel = new Panel();
             lblTitle = new Label();
             mainPanel = new Panel();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
+            label1 = new Label();
             progressBar = new ProgressBar();
             clrButton = new Button();
             cmbAccesories = new ComboBox();
@@ -48,6 +53,7 @@
             panelSeasons = new FlowLayoutPanel();
             btnBack = new Button();
             btnUpload = new Button();
+            contextMenuStrip1 = new ContextMenuStrip(components);
             ((System.ComponentModel.ISupportInitialize)picturePreview).BeginInit();
             topPanel.SuspendLayout();
             mainPanel.SuspendLayout();
@@ -95,6 +101,10 @@
             mainPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             mainPanel.AutoScroll = true;
             mainPanel.BackColor = Color.FromArgb(242, 235, 240);
+            mainPanel.Controls.Add(label4);
+            mainPanel.Controls.Add(label3);
+            mainPanel.Controls.Add(label2);
+            mainPanel.Controls.Add(label1);
             mainPanel.Controls.Add(progressBar);
             mainPanel.Controls.Add(clrButton);
             mainPanel.Controls.Add(cmbAccesories);
@@ -115,6 +125,47 @@
             mainPanel.Name = "mainPanel";
             mainPanel.Size = new Size(721, 776);
             mainPanel.TabIndex = 2;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = Color.Transparent;
+            label4.Location = new Point(382, 397);
+            label4.Name = "label4";
+            label4.Size = new Size(101, 20);
+            label4.TabIndex = 21;
+            label4.Text = "ACCESSORIES";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.FromArgb(242, 235, 240);
+            label3.ForeColor = SystemColors.ActiveCaptionText;
+            label3.Location = new Point(406, 329);
+            label3.Name = "label3";
+            label3.Size = new Size(55, 20);
+            label3.TabIndex = 20;
+            label3.Text = "SHOES";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Location = new Point(109, 397);
+            label2.Name = "label2";
+            label2.Size = new Size(67, 20);
+            label2.TabIndex = 19;
+            label2.Text = "BOTTOM";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Location = new Point(133, 329);
+            label1.Name = "label1";
+            label1.Size = new Size(43, 20);
+            label1.TabIndex = 18;
+            label1.Text = "TOPS";
             // 
             // progressBar
             // 
@@ -138,7 +189,7 @@
             cmbAccesories.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbAccesories.Font = new Font("Microsoft Sans Serif", 11F);
             cmbAccesories.Items.AddRange(new object[] { "Hats", "Belts", "Bags", "Jewelry", "Sunglass", "Watches" });
-            cmbAccesories.Location = new Point(307, 409);
+            cmbAccesories.Location = new Point(307, 421);
             cmbAccesories.Margin = new Padding(3, 4, 3, 4);
             cmbAccesories.Name = "cmbAccesories";
             cmbAccesories.Size = new Size(250, 30);
@@ -146,6 +197,7 @@
             // 
             // cmbShoes
             // 
+            cmbShoes.BackColor = SystemColors.Window;
             cmbShoes.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbShoes.Font = new Font("Microsoft Sans Serif", 11F);
             cmbShoes.Items.AddRange(new object[] { "Sneakers", "Boots", "Sandals", "Loafers", "Heels", "Flats" });
@@ -160,7 +212,7 @@
             cmbBottoms.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbBottoms.Font = new Font("Microsoft Sans Serif", 11F);
             cmbBottoms.Items.AddRange(new object[] { "Jeans", "Shorts", "Skirt", "Trousers", "Leggings", "Sweatpants" });
-            cmbBottoms.Location = new Point(12, 409);
+            cmbBottoms.Location = new Point(12, 421);
             cmbBottoms.Margin = new Padding(3, 4, 3, 4);
             cmbBottoms.Name = "cmbBottoms";
             cmbBottoms.Size = new Size(250, 30);
@@ -169,22 +221,22 @@
             // lblColors
             // 
             lblColors.AutoSize = true;
-            lblColors.Font = new Font("Pontano Sans", 10.2F, FontStyle.Bold);
+            lblColors.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             lblColors.ForeColor = Color.Indigo;
             lblColors.Location = new Point(12, 470);
             lblColors.Name = "lblColors";
-            lblColors.Size = new Size(69, 22);
+            lblColors.Size = new Size(74, 20);
             lblColors.TabIndex = 4;
             lblColors.Text = "COLOR";
             // 
             // lblCategory
             // 
             lblCategory.AutoSize = true;
-            lblCategory.Font = new Font("Pontano Sans", 10.2F, FontStyle.Bold);
+            lblCategory.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             lblCategory.ForeColor = Color.Indigo;
-            lblCategory.Location = new Point(12, 317);
+            lblCategory.Location = new Point(12, 309);
             lblCategory.Name = "lblCategory";
-            lblCategory.Size = new Size(52, 22);
+            lblCategory.Size = new Size(55, 20);
             lblCategory.TabIndex = 2;
             lblCategory.Text = "TYPE";
             // 
@@ -194,6 +246,7 @@
             cmbTops.AccessibleName = "";
             cmbTops.AccessibleRole = AccessibleRole.None;
             cmbTops.BackColor = SystemColors.HighlightText;
+            cmbTops.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbTops.Font = new Font("Microsoft Sans Serif", 11F);
             cmbTops.Items.AddRange(new object[] { "T - shirt", "Polo shirt", "Blouse", "Tank top", "Cardigan", "Coat", "Hoodie", "Crop top" });
             cmbTops.Location = new Point(12, 353);
@@ -201,7 +254,6 @@
             cmbTops.Name = "cmbTops";
             cmbTops.Size = new Size(250, 30);
             cmbTops.TabIndex = 3;
-            cmbTops.Text = "Tops";
             // 
             // panelColors
             // 
@@ -215,11 +267,11 @@
             // lblStyles
             // 
             lblStyles.AutoSize = true;
-            lblStyles.Font = new Font("Pontano Sans", 10.2F, FontStyle.Bold);
+            lblStyles.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             lblStyles.ForeColor = Color.Indigo;
             lblStyles.Location = new Point(12, 153);
             lblStyles.Name = "lblStyles";
-            lblStyles.Size = new Size(61, 22);
+            lblStyles.Size = new Size(66, 20);
             lblStyles.TabIndex = 6;
             lblStyles.Text = "STYLE";
             // 
@@ -235,11 +287,11 @@
             // lblSeasons
             // 
             lblSeasons.AutoSize = true;
-            lblSeasons.Font = new Font("Pontano Sans", 10.2F, FontStyle.Bold);
+            lblSeasons.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             lblSeasons.ForeColor = Color.Indigo;
             lblSeasons.Location = new Point(12, 13);
             lblSeasons.Name = "lblSeasons";
-            lblSeasons.Size = new Size(79, 22);
+            lblSeasons.Size = new Size(84, 20);
             lblSeasons.TabIndex = 8;
             lblSeasons.Text = "SEASON";
             // 
@@ -258,7 +310,7 @@
             btnBack.Cursor = Cursors.Hand;
             btnBack.FlatAppearance.BorderColor = Color.FromArgb(195, 180, 208);
             btnBack.FlatStyle = FlatStyle.Flat;
-            btnBack.Font = new Font("Pontano Sans", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnBack.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnBack.Location = new Point(30, 686);
             btnBack.Margin = new Padding(3, 4, 3, 4);
             btnBack.Name = "btnBack";
@@ -274,7 +326,7 @@
             btnUpload.Cursor = Cursors.Hand;
             btnUpload.FlatAppearance.BorderSize = 0;
             btnUpload.FlatStyle = FlatStyle.Flat;
-            btnUpload.Font = new Font("Pontano Sans", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnUpload.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnUpload.ForeColor = Color.White;
             btnUpload.Location = new Point(207, 686);
             btnUpload.Margin = new Padding(3, 4, 3, 4);
@@ -285,6 +337,12 @@
             btnUpload.UseVisualStyleBackColor = false;
             btnUpload.Click += btnUpload_Click;
             // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.ImageScalingSize = new Size(20, 20);
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
+            // 
             // UploadFilter
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -294,6 +352,7 @@
             Controls.Add(topPanel);
             Controls.Add(picturePreview);
             Controls.Add(mainPanel);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 4, 3, 4);
             MinimumSize = new Size(720, 663);
             Name = "UploadFilter";
@@ -324,5 +383,10 @@
         private ComboBox cmbAccesories;
         private Button clrButton;
         private ProgressBar progressBar;
+        private Label label1;
+        private Label label4;
+        private Label label3;
+        private Label label2;
+        private ContextMenuStrip contextMenuStrip1;
     }
 }

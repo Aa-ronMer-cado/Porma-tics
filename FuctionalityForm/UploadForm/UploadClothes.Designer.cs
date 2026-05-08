@@ -35,8 +35,7 @@
             // pictureBoxPreview
             // 
             pictureBoxPreview.BackColor = Color.Transparent;
-            pictureBoxPreview.BorderStyle = BorderStyle.FixedSingle;
-            pictureBoxPreview.Location = new Point(326, 98);
+            pictureBoxPreview.Location = new Point(349, 86);
             pictureBoxPreview.Name = "pictureBoxPreview";
             pictureBoxPreview.Size = new Size(423, 354);
             pictureBoxPreview.SizeMode = PictureBoxSizeMode.Zoom;
@@ -46,11 +45,11 @@
             // lblTitle
             // 
             lblTitle.AutoSize = true;
-            lblTitle.Font = new Font("Pontano Sans", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitle.ForeColor = Color.Indigo;
             lblTitle.Location = new Point(363, 47);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(372, 39);
+            lblTitle.Size = new Size(399, 36);
             lblTitle.TabIndex = 1;
             lblTitle.Text = "Upload your clothes here...";
             // 
@@ -58,11 +57,11 @@
             // 
             btnNext.BackColor = Color.SlateBlue;
             btnNext.Enabled = false;
-            btnNext.Font = new Font("Pontano Sans", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnNext.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnNext.ForeColor = Color.White;
-            btnNext.Location = new Point(971, 569);
+            btnNext.Location = new Point(970, 568);
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(94, 29);
+            btnNext.Size = new Size(100, 30);
             btnNext.TabIndex = 4;
             btnNext.Text = "Next";
             btnNext.UseVisualStyleBackColor = false;
@@ -72,7 +71,7 @@
             // 
             picBrowse.Cursor = Cursors.Hand;
             picBrowse.Image = Properties.Resources.Upload;
-            picBrowse.Location = new Point(519, 479);
+            picBrowse.Location = new Point(578, 479);
             picBrowse.Name = "picBrowse";
             picBrowse.Size = new Size(216, 119);
             picBrowse.SizeMode = PictureBoxSizeMode.Zoom;
@@ -84,7 +83,7 @@
             // 
             picReset.Cursor = Cursors.Hand;
             picReset.Image = Properties.Resources.Restart;
-            picReset.Location = new Point(363, 472);
+            picReset.Location = new Point(326, 479);
             picReset.Name = "picReset";
             picReset.Size = new Size(160, 126);
             picReset.SizeMode = PictureBoxSizeMode.Zoom;
@@ -95,9 +94,9 @@
             // progressBar
             // 
             progressBar.ForeColor = Color.PaleVioletRed;
-            progressBar.Location = new Point(326, 459);
+            progressBar.Location = new Point(326, 451);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(423, 22);
+            progressBar.Size = new Size(468, 22);
             progressBar.Style = ProgressBarStyle.Marquee;
             progressBar.TabIndex = 7;
             progressBar.Visible = false;

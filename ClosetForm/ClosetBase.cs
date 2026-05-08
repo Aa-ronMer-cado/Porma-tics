@@ -15,10 +15,10 @@ namespace Pormatics.ClosetForm
         private FlowLayoutPanel _flowPanel = null!;
         private Label _emptyLabel = null!;
 
-        private const int CardW = 180;
-        private const int CardH = 230;
-        private const int CardImgH = 160;
-        private const int CardPad = 14;
+        private const int CardW = 160;
+        private const int CardH = 210;
+        private const int CardImgH = 140;
+        private const int CardPad = 12;
 
         public ClosetBase()
         {
@@ -102,6 +102,19 @@ namespace Pormatics.ClosetForm
 
             LoadImageToPictureBox(imgBox, item);
 
+            Label editIcon = new Label
+            {
+                Text = "✎",
+                Font = new Font("Segoe UI", 11F, FontStyle.Bold),
+                ForeColor = Color.White,
+                BackColor = Color.FromArgb(99, 90, 131),
+                Size = new Size(28, 28),
+                Location = new Point(6, 6),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Visible = false,
+                Cursor = Cursors.Hand
+            };
+
             Label badge = new Label
             {
                 Text = GetBadgeText(item),
@@ -155,25 +168,37 @@ namespace Pormatics.ClosetForm
                 OpenDetails(item);
             }
 
-            card.Click += OpenItemDetails;
-            imgBox.Click += OpenItemDetails;
-            badge.Click += OpenItemDetails;
-            lblName.Click += OpenItemDetails;
-            lblMeta.Click += OpenItemDetails;
-            lblSeason.Click += OpenItemDetails;
-
-            card.MouseEnter += (s, e) =>
+            void ShowHover(object? sender, EventArgs e)
             {
                 card.BackColor = Color.FromArgb(250, 247, 252);
+                imgBox.BackColor = Color.FromArgb(220, 210, 235);
+                editIcon.Visible = true;
                 card.Invalidate();
-            };
+            }
 
-            card.MouseLeave += (s, e) =>
+            void HideHover(object? sender, EventArgs e)
             {
-                card.BackColor = Color.White;
-                card.Invalidate();
-            };
+                if (!card.ClientRectangle.Contains(card.PointToClient(Cursor.Position)))
+                {
+                    card.BackColor = Color.White;
+                    imgBox.BackColor = Color.FromArgb(237, 230, 245);
+                    editIcon.Visible = false;
+                    card.Invalidate();
+                }
+            }
 
+            foreach (Control control in new Control[]
+            {
+            card, imgBox, editIcon, badge, lblName, lblMeta, lblSeason
+            })
+
+            {
+                control.Click += OpenItemDetails;
+                control.MouseEnter += ShowHover;
+                control.MouseLeave += HideHover;
+            }
+
+            imgBox.Controls.Add(editIcon);
             imgBox.Controls.Add(badge);
 
             card.Controls.Add(imgBox);
