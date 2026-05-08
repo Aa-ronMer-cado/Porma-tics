@@ -52,6 +52,8 @@ namespace Pormatics
             int lParam);
 
         // ── Resize & Scaling ─────────────────────────────────────────
+
+
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
@@ -144,8 +146,44 @@ namespace Pormatics
         }
 
         // ── Open Child UserControl ───────────────────────────────────
+
+        private Form? activeEmbeddedForm;
+        private void OpenChildForm(Form childForm)
+        {
+            if (activeControl != null)
+            {
+                closetPanel.Controls.Remove(activeControl);
+                activeControl.Dispose();
+                activeControl = null;
+            }
+
+            if (activeEmbeddedForm != null)
+            {
+                closetPanel.Controls.Remove(activeEmbeddedForm);
+                activeEmbeddedForm.Dispose();
+                activeEmbeddedForm = null;
+            }
+
+            activeEmbeddedForm = childForm;
+
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+
+            closetPanel.Controls.Add(childForm);
+            childForm.BringToFront();
+            childForm.Show();
+        }
+
         private void OpenChildControl(UserControl childControl)
         {
+            if (activeEmbeddedForm != null)
+            {
+                closetPanel.Controls.Remove(activeEmbeddedForm);
+                activeEmbeddedForm.Dispose();
+                activeEmbeddedForm = null;
+            }
+
             if (activeControl != null)
             {
                 closetPanel.Controls.Remove(activeControl);
@@ -158,7 +196,6 @@ namespace Pormatics
             childControl.Dock = DockStyle.Fill;
 
             closetPanel.Controls.Add(childControl);
-
             childControl.BringToFront();
         }
 
@@ -247,7 +284,7 @@ namespace Pormatics
                    activeControl is ShoesCloset ||
                    activeControl is AccessoriesCloset;
         }
-
+                
         // ── Auto-Load from StartForm ─────────────────────────────────
         public void LoadDefault()
         {
@@ -297,56 +334,45 @@ namespace Pormatics
 
         private void uploadClothes_Click(object sender, EventArgs e)
         {
-            wasClosetOpenBeforePopup = IsClosetCurrentlyOpen();
+            ActivateBottomButton(sender);
+
+            clothesBtnPanel.Visible = false;
+            closetTitle.Visible = false;
+            bottomPanel.Enabled = true;
 
             UploadClothes uploadForm = new UploadClothes();
 
             uploadForm.FormClosed += (s, args) =>
             {
-                WindowState = FormWindowState.Maximized;
-                bottomPanel.Enabled = true;
-
-                if (wasClosetOpenBeforePopup)
-                {
-                    clothesBtnPanel.Visible = true;
-                    closetTitle.Visible = true;
-                    RefreshCurrentCloset();
-                }
-                else
-                {
-                    clothesBtnPanel.Visible = false;
-                    closetTitle.Visible = false;
-                }
+                mainCloset_Click(mainCloset, EventArgs.Empty);
             };
 
-            uploadForm.ShowDialog();
+            OpenChildForm(uploadForm);
         }
 
         private void generateOutfit_Click(object sender, EventArgs e)
         {
-            wasClosetOpenBeforePopup = IsClosetCurrentlyOpen();
+            ActivateBottomButton(sender);
+
+            clothesBtnPanel.Visible = false;
+            closetTitle.Visible = false;
+            bottomPanel.Enabled = true;
 
             GenerateFilter generateForm = new GenerateFilter();
 
-            generateForm.FormClosed += (s, args) =>
+            generateForm.OutfitGenerated += (filter, outfit) =>
             {
-                WindowState = FormWindowState.Maximized;
-                bottomPanel.Enabled = true;
+                ConfirmGenerated confirmForm = new ConfirmGenerated(filter, outfit);
 
-                if (wasClosetOpenBeforePopup)
+                confirmForm.BackRequested += () =>
                 {
-                    clothesBtnPanel.Visible = true;
-                    closetTitle.Visible = true;
-                    RefreshCurrentCloset();
-                }
-                else
-                {
-                    clothesBtnPanel.Visible = false;
-                    closetTitle.Visible = false;
-                }
+                    OpenChildForm(new GenerateFilter());
+                };
+
+                OpenChildForm(confirmForm);
             };
 
-            generateForm.ShowDialog();
+            OpenChildForm(generateForm);
         }
 
         private void favBtn_Click(object sender, EventArgs e)

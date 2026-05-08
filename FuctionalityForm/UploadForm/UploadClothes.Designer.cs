@@ -53,7 +53,6 @@
             lblTitle.Size = new Size(372, 39);
             lblTitle.TabIndex = 1;
             lblTitle.Text = "Upload your clothes here...";
-            lblTitle.Click += lblTitle_Click;
             // 
             // btnNext
             // 
@@ -102,7 +101,6 @@
             progressBar.Style = ProgressBarStyle.Marquee;
             progressBar.TabIndex = 7;
             progressBar.Visible = false;
-            progressBar.Click += progressBar_Click;
             // 
             // UploadClothes
             // 
@@ -119,7 +117,6 @@
             Name = "UploadClothes";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "UploadClothes";
-            Load += UploadClothes_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBoxPreview).EndInit();
             ((System.ComponentModel.ISupportInitialize)picBrowse).EndInit();
             ((System.ComponentModel.ISupportInitialize)picReset).EndInit();
