@@ -191,6 +191,8 @@ namespace Pormatics
             }
         }
 
+        private bool wasClosetOpenBeforePopup = false;
+
         // ── Top Panel Logic ──────────────────────────────────────────
         private void ActivateTopButton(object btnSender)
         {
@@ -235,6 +237,15 @@ namespace Pormatics
                         GraphicsUnit.Point);
                 }
             }
+        }
+
+        private bool IsClosetCurrentlyOpen()
+        {
+            return activeControl is AllCloset ||
+                   activeControl is TopCloset ||
+                   activeControl is BottomCloset ||
+                   activeControl is ShoesCloset ||
+                   activeControl is AccessoriesCloset;
         }
 
         // ── Auto-Load from StartForm ─────────────────────────────────
@@ -286,18 +297,26 @@ namespace Pormatics
 
         private void uploadClothes_Click(object sender, EventArgs e)
         {
-            clothesBtnPanel.Visible = false;
-            closetTitle.Visible = false;
+            wasClosetOpenBeforePopup = IsClosetCurrentlyOpen();
 
             UploadClothes uploadForm = new UploadClothes();
 
             uploadForm.FormClosed += (s, args) =>
             {
-                this.WindowState = FormWindowState.Maximized;
-
+                WindowState = FormWindowState.Maximized;
                 bottomPanel.Enabled = true;
 
-                mainCloset_Click(mainCloset, EventArgs.Empty);
+                if (wasClosetOpenBeforePopup)
+                {
+                    clothesBtnPanel.Visible = true;
+                    closetTitle.Visible = true;
+                    RefreshCurrentCloset();
+                }
+                else
+                {
+                    clothesBtnPanel.Visible = false;
+                    closetTitle.Visible = false;
+                }
             };
 
             uploadForm.ShowDialog();
@@ -305,18 +324,26 @@ namespace Pormatics
 
         private void generateOutfit_Click(object sender, EventArgs e)
         {
-            clothesBtnPanel.Visible = false;
-            closetTitle.Visible = false;
+            wasClosetOpenBeforePopup = IsClosetCurrentlyOpen();
 
             GenerateFilter generateForm = new GenerateFilter();
 
             generateForm.FormClosed += (s, args) =>
             {
-                this.WindowState = FormWindowState.Maximized;
-
+                WindowState = FormWindowState.Maximized;
                 bottomPanel.Enabled = true;
 
-                mainCloset_Click(mainCloset, EventArgs.Empty);
+                if (wasClosetOpenBeforePopup)
+                {
+                    clothesBtnPanel.Visible = true;
+                    closetTitle.Visible = true;
+                    RefreshCurrentCloset();
+                }
+                else
+                {
+                    clothesBtnPanel.Visible = false;
+                    closetTitle.Visible = false;
+                }
             };
 
             generateForm.ShowDialog();
@@ -347,6 +374,34 @@ namespace Pormatics
             clothesBtnPanel.Visible = false;
             closetTitle.Visible = false;
             bottomPanel.Enabled = true;
+        }
+
+        private void RefreshCurrentCloset()
+        {
+            if (currentTopButton == allClothesBtn)
+            {
+                OpenChildControl(new AllCloset());
+            }
+            else if (currentTopButton == topBtn)
+            {
+                OpenChildControl(new TopCloset());
+            }
+            else if (currentTopButton == bottomBtn)
+            {
+                OpenChildControl(new BottomCloset());
+            }
+            else if (currentTopButton == shoesBtn)
+            {
+                OpenChildControl(new ShoesCloset());
+            }
+            else if (currentTopButton == accesoriesBtn)
+            {
+                OpenChildControl(new AccessoriesCloset());
+            }
+            else
+            {
+                allClothesBtn.PerformClick();
+            }
         }
 
         // ── Top Category Buttons ─────────────────────────────────────

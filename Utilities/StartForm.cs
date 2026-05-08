@@ -5,6 +5,7 @@
         public StartForm()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private void startBtn_Click(object sender, EventArgs e)
@@ -13,26 +14,6 @@
             mainMenu.Show();
             mainMenu.LoadDefault(); // auto-selects closetBtn and loads ClosetForm
             this.Hide();
-        }
-
-        private void logoPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void logoPic_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void startPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

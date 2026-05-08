@@ -15,10 +15,10 @@ namespace Pormatics.ClosetForm
         private FlowLayoutPanel _flowPanel = null!;
         private Label _emptyLabel = null!;
 
-        private const int CardW = 160;
-        private const int CardH = 210;
-        private const int CardImgH = 140;
-        private const int CardPad = 12;
+        private const int CardW = 180;
+        private const int CardH = 230;
+        private const int CardImgH = 160;
+        private const int CardPad = 14;
 
         public ClosetBase()
         {

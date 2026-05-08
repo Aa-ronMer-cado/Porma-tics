@@ -46,10 +46,10 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(244, 233, 233);
-            ClientSize = new Size(1179, 632);
             Controls.Add(addLabel);
             Name = "BottomCloset";
-            Text = "BottomCloset";
+            Size = new Size(1565, 807);
+            Controls.SetChildIndex(addLabel, 0);
             ResumeLayout(false);
             PerformLayout();
         }

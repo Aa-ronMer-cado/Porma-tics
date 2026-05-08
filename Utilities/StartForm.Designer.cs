@@ -105,7 +105,6 @@
             logoPanel.Name = "logoPanel";
             logoPanel.Size = new Size(1173, 450);
             logoPanel.TabIndex = 3;
-            logoPanel.Paint += logoPanel_Paint;
             // 
             // pictureBox1
             // 
@@ -114,7 +113,6 @@
             pictureBox1.Size = new Size(125, 62);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
             // 
             // StartForm
             // 

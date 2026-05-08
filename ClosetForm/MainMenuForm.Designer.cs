@@ -181,7 +181,7 @@
             label1.ForeColor = Color.FromArgb(59, 58, 90);
             label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(201, 79);
+            label1.Size = new Size(197, 78);
             label1.TabIndex = 0;
             label1.Text = "CLOSET";
             // 
@@ -217,7 +217,7 @@
             accesoriesBtn.Dock = DockStyle.Left;
             accesoriesBtn.FlatAppearance.BorderSize = 0;
             accesoriesBtn.FlatStyle = FlatStyle.Flat;
-            accesoriesBtn.Font = new Font("Pontano Sans", 10.2F);
+            accesoriesBtn.Font = new Font("Microsoft Sans Serif", 10.2F);
             accesoriesBtn.ForeColor = Color.Indigo;
             accesoriesBtn.Location = new Point(932, 0);
             accesoriesBtn.Name = "accesoriesBtn";
@@ -233,7 +233,7 @@
             shoesBtn.Dock = DockStyle.Left;
             shoesBtn.FlatAppearance.BorderSize = 0;
             shoesBtn.FlatStyle = FlatStyle.Flat;
-            shoesBtn.Font = new Font("Pontano Sans", 10.2F);
+            shoesBtn.Font = new Font("Microsoft Sans Serif", 10.2F);
             shoesBtn.ForeColor = Color.Indigo;
             shoesBtn.Location = new Point(699, 0);
             shoesBtn.Name = "shoesBtn";
@@ -249,7 +249,7 @@
             bottomBtn.Dock = DockStyle.Left;
             bottomBtn.FlatAppearance.BorderSize = 0;
             bottomBtn.FlatStyle = FlatStyle.Flat;
-            bottomBtn.Font = new Font("Pontano Sans", 10.2F);
+            bottomBtn.Font = new Font("Microsoft Sans Serif", 10.2F);
             bottomBtn.ForeColor = Color.Indigo;
             bottomBtn.Location = new Point(466, 0);
             bottomBtn.Name = "bottomBtn";
@@ -265,7 +265,7 @@
             topBtn.Dock = DockStyle.Left;
             topBtn.FlatAppearance.BorderSize = 0;
             topBtn.FlatStyle = FlatStyle.Flat;
-            topBtn.Font = new Font("Pontano Sans", 10.2F);
+            topBtn.Font = new Font("Microsoft Sans Serif", 10.2F);
             topBtn.ForeColor = Color.Indigo;
             topBtn.Location = new Point(233, 0);
             topBtn.Name = "topBtn";
@@ -281,7 +281,7 @@
             allClothesBtn.Dock = DockStyle.Left;
             allClothesBtn.FlatAppearance.BorderSize = 0;
             allClothesBtn.FlatStyle = FlatStyle.Flat;
-            allClothesBtn.Font = new Font("Pontano Sans", 10.2F);
+            allClothesBtn.Font = new Font("Microsoft Sans Serif", 10.2F);
             allClothesBtn.ForeColor = Color.Indigo;
             allClothesBtn.Location = new Point(0, 0);
             allClothesBtn.Name = "allClothesBtn";

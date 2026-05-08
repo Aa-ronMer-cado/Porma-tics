@@ -49,7 +49,7 @@
             BackColor = Color.FromArgb(244, 233, 233);
             Controls.Add(addLabel);
             Name = "AccessoriesCloset";
-            Size = new Size(1494, 807);
+            Size = new Size(1565, 807);
             Controls.SetChildIndex(addLabel, 0);
             ResumeLayout(false);
             PerformLayout();
