@@ -173,7 +173,7 @@ namespace Pormatics.FuctionalityForm.UploadForm
 
             BuildTagGroup(panelSeasons, new[]
             {
-                "Sunny", "Rainy"
+                "Summer", "Rainy"
             }, TagType.Season);
         }
 

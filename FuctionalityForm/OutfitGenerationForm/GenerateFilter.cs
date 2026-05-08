@@ -135,5 +135,10 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
         {
             drpColor.DropDownStyle = ComboBoxStyle.DropDownList;
         }
+
+        private void btnBusCasual_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
