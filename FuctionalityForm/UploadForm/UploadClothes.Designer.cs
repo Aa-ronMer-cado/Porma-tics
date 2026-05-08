@@ -30,8 +30,8 @@
             buttonPanel = new FlowLayoutPanel();
             picReset = new PictureBox();
             picBrowse = new PictureBox();
-            btnNext = new Button();
             progressBar = new ProgressBar();
+            btnNext = new Button();
             mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPreview).BeginInit();
             buttonPanel.SuspendLayout();
@@ -47,8 +47,8 @@
             mainLayout.Controls.Add(lblTitle, 0, 0);
             mainLayout.Controls.Add(pictureBoxPreview, 0, 1);
             mainLayout.Controls.Add(buttonPanel, 0, 2);
-            mainLayout.Controls.Add(progressBar, 0, 3);
             mainLayout.Controls.Add(btnNext, 0, 4);
+            mainLayout.Controls.Add(progressBar, 0, 3);
             mainLayout.Dock = DockStyle.Fill;
             mainLayout.Location = new Point(0, 0);
             mainLayout.Name = "mainLayout";
@@ -124,6 +124,17 @@
             picBrowse.TabStop = false;
             picBrowse.Click += btnBrowse_Click;
             // 
+            // progressBar
+            // 
+            progressBar.Anchor = AnchorStyles.None;
+            progressBar.ForeColor = Color.PaleVioletRed;
+            progressBar.Location = new Point(324, 489);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(450, 22);
+            progressBar.Style = ProgressBarStyle.Marquee;
+            progressBar.TabIndex = 4;
+            progressBar.Visible = false;
+            // 
             // btnNext
             // 
             btnNext.Anchor = AnchorStyles.None;
@@ -138,17 +149,6 @@
             btnNext.Text = "Next";
             btnNext.UseVisualStyleBackColor = false;
             btnNext.Click += btnNext_Click;
-            // 
-            // progressBar
-            // 
-            progressBar.Anchor = AnchorStyles.None;
-            progressBar.ForeColor = Color.PaleVioletRed;
-            progressBar.Location = new Point(324, 489);
-            progressBar.Name = "progressBar";
-            progressBar.Size = new Size(450, 22);
-            progressBar.Style = ProgressBarStyle.Marquee;
-            progressBar.TabIndex = 4;
-            progressBar.Visible = false;
             // 
             // UploadClothes
             // 

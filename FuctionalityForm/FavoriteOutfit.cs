@@ -13,15 +13,21 @@ namespace Pormatics.FuctionalityForm
         public FavoriteOutfit()
         {
             InitializeComponent();
-
             LoadFavorites();
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            ResizeFavoriteCards();
         }
 
         private void LoadFavorites()
         {
             flowFavorites.Controls.Clear();
 
-            List<FavoriteOutfitItem> favorites = StorageService.LoadFavoriteOutfits();
+            List<FavoriteOutfitItem> favorites =
+                StorageService.LoadFavoriteOutfits();
 
             if (favorites.Count == 0)
             {
@@ -42,44 +48,72 @@ namespace Pormatics.FuctionalityForm
             {
                 flowFavorites.Controls.Add(BuildFavoriteCard(favorite));
             }
+
+            ResizeFavoriteCards();
         }
 
         private Panel BuildFavoriteCard(FavoriteOutfitItem favorite)
         {
             Panel card = new Panel
             {
-                Width = 520,
-                Height = 180,
+                Width = GetCardWidth(),
+                Height = GetCardHeight(),
                 BackColor = Color.White,
                 Margin = new Padding(12),
                 Padding = new Padding(10)
             };
 
-            ClothingItem? top = StorageService.FindClothingById(favorite.TopId);
-            ClothingItem? bottom = StorageService.FindClothingById(favorite.BottomId);
-            ClothingItem? shoes = StorageService.FindClothingById(favorite.ShoesId);
-            ClothingItem? accessory = StorageService.FindClothingById(favorite.AccessoryId);
+            ClothingItem? top =
+                StorageService.FindClothingById(favorite.TopId);
 
-            PictureBox picTop = CreatePictureBox(top, 10, 10);
-            PictureBox picBottom = CreatePictureBox(bottom, 135, 10);
-            PictureBox picShoes = CreatePictureBox(shoes, 260, 10);
-            PictureBox picAccessory = CreatePictureBox(accessory, 385, 10);
+            ClothingItem? bottom =
+                StorageService.FindClothingById(favorite.BottomId);
 
-            card.Controls.Add(picTop);
-            card.Controls.Add(picBottom);
-            card.Controls.Add(picShoes);
-            card.Controls.Add(picAccessory);
+            ClothingItem? shoes =
+                StorageService.FindClothingById(favorite.ShoesId);
+
+            ClothingItem? accessory =
+                StorageService.FindClothingById(favorite.AccessoryId);
+
+            TableLayoutPanel outfitLayout = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                ColumnCount = 4,
+                RowCount = 2,
+                BackColor = Color.White
+            };
+
+            outfitLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            outfitLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            outfitLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            outfitLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+
+            outfitLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 82F));
+            outfitLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 18F));
+
+            outfitLayout.Controls.Add(CreatePictureBox(top), 0, 0);
+            outfitLayout.Controls.Add(CreatePictureBox(bottom), 1, 0);
+            outfitLayout.Controls.Add(CreatePictureBox(shoes), 2, 0);
+            outfitLayout.Controls.Add(CreatePictureBox(accessory), 3, 0);
+
+            outfitLayout.Controls.Add(CreateLabel("Top"), 0, 1);
+            outfitLayout.Controls.Add(CreateLabel("Bottom"), 1, 1);
+            outfitLayout.Controls.Add(CreateLabel("Shoes"), 2, 1);
+            outfitLayout.Controls.Add(CreateLabel("Accessory"), 3, 1);
+
+            card.Controls.Add(outfitLayout);
 
             return card;
         }
 
-        private PictureBox CreatePictureBox(ClothingItem? item, int x, int y)
+        private PictureBox CreatePictureBox(ClothingItem? item)
         {
             PictureBox pictureBox = new PictureBox
             {
-                Location = new Point(x, y),
-                Size = new Size(110, 150),
+                Dock = DockStyle.Fill,
+                Margin = new Padding(8),
                 BackColor = Color.FromArgb(237, 230, 245),
+                BorderStyle = BorderStyle.FixedSingle,
                 SizeMode = PictureBoxSizeMode.Zoom
             };
 
@@ -102,6 +136,73 @@ namespace Pormatics.FuctionalityForm
             }
 
             return pictureBox;
+        }
+
+        private Label CreateLabel(string text)
+        {
+            return new Label
+            {
+                Dock = DockStyle.Fill,
+                Text = text,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                ForeColor = Color.Indigo
+            };
+        }
+
+        private void ResizeFavoriteCards()
+        {
+            foreach (Control control in flowFavorites.Controls)
+            {
+                if (control is Panel card)
+                {
+                    card.Width = GetCardWidth();
+                    card.Height = GetCardHeight();
+                }
+            }
+        }
+
+        private int GetCardWidth()
+        {
+            int width = flowFavorites.ClientSize.Width;
+
+            if (width <= 0)
+                return 520;
+
+            return Math.Max(420, width / 2 - 40);
+        }
+
+        private int GetCardHeight()
+        {
+            int height = flowFavorites.ClientSize.Height;
+
+            if (height <= 0)
+                return 200;
+
+            return Math.Max(180, height / 3);
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            DisposeImages(flowFavorites);
+            base.OnFormClosed(e);
+        }
+
+        private void DisposeImages(Control parent)
+        {
+            foreach (Control control in parent.Controls)
+            {
+                if (control is PictureBox pb)
+                {
+                    pb.Image?.Dispose();
+                    pb.Image = null;
+                }
+
+                if (control.HasChildren)
+                {
+                    DisposeImages(control);
+                }
+            }
         }
     }
 }
