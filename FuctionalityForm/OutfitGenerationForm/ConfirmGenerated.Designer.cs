@@ -22,9 +22,9 @@
         private Label lblShoes;
         private Label lblAccessory;
 
-        private Button btnGenerateAgain;
-        private Button btnFavorite;
-        private Button btnBack;
+        private PictureBox btnGenerateAgain;
+        private PictureBox btnFavorite;
+        private PictureBox btnBack;
 
         protected override void Dispose(bool disposing)
         {
@@ -54,18 +54,20 @@
             lblShoes = new Label();
             lblAccessory = new Label();
 
-            btnGenerateAgain = new Button();
-            btnFavorite = new Button();
-            btnBack = new Button();
+            btnGenerateAgain = new PictureBox();
+            btnFavorite = new PictureBox();
+            btnBack = new PictureBox();
 
             ((System.ComponentModel.ISupportInitialize)picTop).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBottom).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picShoes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picAccessory).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)btnGenerateAgain).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)btnFavorite).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)btnBack).BeginInit();
 
             SuspendLayout();
 
-            // mainLayout
             mainLayout.Dock = DockStyle.Fill;
             mainLayout.ColumnCount = 1;
             mainLayout.RowCount = 3;
@@ -75,21 +77,18 @@
             mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 62F));
             mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
 
-            // headerLayout
             headerLayout.Dock = DockStyle.Fill;
             headerLayout.ColumnCount = 1;
             headerLayout.RowCount = 2;
             headerLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 65F));
             headerLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 35F));
 
-            // lblTitle
             lblTitle.Dock = DockStyle.Fill;
             lblTitle.Font = new Font("Komikazoom", 32F, FontStyle.Bold);
             lblTitle.ForeColor = Color.Indigo;
             lblTitle.Text = "Generated Outfit";
             lblTitle.TextAlign = ContentAlignment.BottomLeft;
 
-            // lblSubtitle
             lblSubtitle.Dock = DockStyle.Fill;
             lblSubtitle.Font = new Font("Segoe UI", 12F);
             lblSubtitle.ForeColor = Color.Indigo;
@@ -99,7 +98,6 @@
             headerLayout.Controls.Add(lblTitle, 0, 0);
             headerLayout.Controls.Add(lblSubtitle, 0, 1);
 
-            // outfitGrid
             outfitGrid.Dock = DockStyle.Fill;
             outfitGrid.BackColor = Color.FromArgb(242, 235, 240);
             outfitGrid.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
@@ -115,13 +113,11 @@
             outfitGrid.RowStyles.Add(new RowStyle(SizeType.Percent, 82F));
             outfitGrid.RowStyles.Add(new RowStyle(SizeType.Percent, 18F));
 
-            // PictureBoxes
             SetupPictureBox(picTop);
             SetupPictureBox(picBottom);
             SetupPictureBox(picShoes);
             SetupPictureBox(picAccessory);
 
-            // Labels
             SetupItemLabel(lblTop, "Top");
             SetupItemLabel(lblBottom, "Bottom");
             SetupItemLabel(lblShoes, "Shoes");
@@ -137,23 +133,19 @@
             outfitGrid.Controls.Add(lblShoes, 2, 1);
             outfitGrid.Controls.Add(lblAccessory, 3, 1);
 
-            // buttonPanel
             buttonPanel.Anchor = AnchorStyles.None;
             buttonPanel.AutoSize = true;
             buttonPanel.BackColor = Color.Transparent;
             buttonPanel.FlowDirection = FlowDirection.LeftToRight;
             buttonPanel.WrapContents = false;
 
-            // btnGenerateAgain
-            SetupActionButton(btnGenerateAgain, "Generate Again", Color.Thistle, Color.Black);
+            SetupActionPicture(btnGenerateAgain, Properties.Resources.Restart);
             btnGenerateAgain.Click += btnGenerateAgain_Click;
 
-            // btnFavorite
-            SetupActionButton(btnFavorite, "Favorite", Color.SlateBlue, Color.White);
+            SetupActionPicture(btnFavorite, Properties.Resources.Heart);
             btnFavorite.Click += btnFavorite_Click;
 
-            // btnBack
-            SetupActionButton(btnBack, "Back", Color.White, Color.Indigo);
+            SetupActionPicture(btnBack, Properties.Resources.Back);
             btnBack.Click += btnBack_Click;
 
             buttonPanel.Controls.Add(btnGenerateAgain);
@@ -178,6 +170,9 @@
             ((System.ComponentModel.ISupportInitialize)picBottom).EndInit();
             ((System.ComponentModel.ISupportInitialize)picShoes).EndInit();
             ((System.ComponentModel.ISupportInitialize)picAccessory).EndInit();
+            ((System.ComponentModel.ISupportInitialize)btnGenerateAgain).EndInit();
+            ((System.ComponentModel.ISupportInitialize)btnFavorite).EndInit();
+            ((System.ComponentModel.ISupportInitialize)btnBack).EndInit();
 
             ResumeLayout(false);
         }
@@ -201,16 +196,36 @@
             label.TextAlign = ContentAlignment.MiddleCenter;
         }
 
-        private void SetupActionButton(Button button, string text, Color backColor, Color foreColor)
+        private void SetupActionPicture(PictureBox pictureBox, Image image)
         {
-            button.BackColor = backColor;
-            button.ForeColor = foreColor;
-            button.FlatStyle = FlatStyle.Flat;
-            button.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            button.Size = new Size(160, 45);
-            button.Margin = new Padding(12);
-            button.Text = text;
-            button.UseVisualStyleBackColor = false;
+            pictureBox.Size = new Size(70, 70);
+            pictureBox.Margin = new Padding(25, 10, 25, 10);
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox.BackColor = Color.Transparent;
+            pictureBox.Cursor = Cursors.Hand;
+            pictureBox.Image = image;
+            pictureBox.Padding = new Padding(0);
+
+            pictureBox.MouseEnter += ActionHoverEnter;
+            pictureBox.MouseLeave += ActionHoverLeave;
+        }
+
+        private void ActionHoverEnter(object? sender, EventArgs e)
+        {
+            if (sender is PictureBox pb)
+            {
+                pb.BackColor = Color.FromArgb(225, 215, 240);
+                pb.Padding = new Padding(5);
+            }
+        }
+
+        private void ActionHoverLeave(object? sender, EventArgs e)
+        {
+            if (sender is PictureBox pb)
+            {
+                pb.BackColor = Color.Transparent;
+                pb.Padding = new Padding(0);
+            }
         }
     }
 }

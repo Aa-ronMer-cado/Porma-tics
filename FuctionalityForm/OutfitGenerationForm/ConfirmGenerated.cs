@@ -28,12 +28,11 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
         {
             base.OnResize(e);
 
-            int buttonWidth = Math.Max(130, ClientSize.Width / 9);
-            int buttonHeight = Math.Max(38, ClientSize.Height / 15);
+            int iconSize = Math.Max(55, Math.Min(ClientSize.Width / 16, 90));
 
-            btnGenerateAgain.Size = new Size(buttonWidth, buttonHeight);
-            btnFavorite.Size = new Size(buttonWidth, buttonHeight);
-            btnBack.Size = new Size(buttonWidth, buttonHeight);
+            btnGenerateAgain.Size = new Size(iconSize, iconSize);
+            btnFavorite.Size = new Size(iconSize, iconSize);
+            btnBack.Size = new Size(iconSize, iconSize);
         }
 
         private void DisplayOutfit()
