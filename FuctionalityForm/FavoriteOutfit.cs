@@ -4,12 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Pormatics.FuctionalityForm
 {
     public partial class FavoriteOutfit : Form
     {
+        private List<FavoriteOutfitItem> favorites = new();
+
         public FavoriteOutfit()
         {
             InitializeComponent();
@@ -25,22 +28,19 @@ namespace Pormatics.FuctionalityForm
         private void LoadFavorites()
         {
             flowFavorites.Controls.Clear();
-
-            List<FavoriteOutfitItem> favorites =
-                StorageService.LoadFavoriteOutfits();
+            favorites = StorageService.LoadFavoriteOutfits();
 
             if (favorites.Count == 0)
             {
-                Label emptyLabel = new Label
+                flowFavorites.Controls.Add(new Label
                 {
                     Text = "No favorite outfits yet.",
                     AutoSize = true,
                     Font = new Font("Segoe UI", 12F),
                     ForeColor = Color.Gray,
                     Margin = new Padding(20)
-                };
+                });
 
-                flowFavorites.Controls.Add(emptyLabel);
                 return;
             }
 
@@ -60,8 +60,96 @@ namespace Pormatics.FuctionalityForm
                 Height = GetCardHeight(),
                 BackColor = Color.White,
                 Margin = new Padding(12),
-                Padding = new Padding(10)
+                Padding = new Padding(12),
+                BorderStyle = BorderStyle.FixedSingle
             };
+
+            TableLayoutPanel cardLayout = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                ColumnCount = 1,
+                RowCount = 2,
+                BackColor = Color.White
+            };
+
+            cardLayout.RowStyles.Add(
+                new RowStyle(SizeType.Absolute, 45F));
+
+            cardLayout.RowStyles.Add(
+                new RowStyle(SizeType.Percent, 100F));
+
+            // =========================
+            // TOP BAR
+            // =========================
+
+            Panel topPanel = new Panel
+            {
+                Dock = DockStyle.Fill,
+                BackColor = Color.White
+            };
+
+            Label lblDate = new Label
+            {
+                AutoSize = false,
+                Size = new Size(300, 35),
+                Location = new Point(0, 5),
+                Text = $"Saved: {favorite.DateSaved:MMMM dd, yyyy}",
+                Font = new Font("Segoe UI", 9F, FontStyle.Italic),
+                ForeColor = Color.DimGray,
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            Button btnDelete = new Button
+            {
+                Size = new Size(90, 30),
+                Text = "Delete",
+                BackColor = Color.FromArgb(190, 50, 50),
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand
+            };
+
+            btnDelete.FlatAppearance.BorderSize = 0;
+
+            // FIXED POSITION
+            btnDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+
+            btnDelete.Location = new Point(
+                topPanel.Width - btnDelete.Width - 10,
+                5);
+
+            topPanel.Resize += (s, e) =>
+            {
+                btnDelete.Location = new Point(
+                    topPanel.Width - btnDelete.Width - 10,
+                    5);
+            };
+
+            btnDelete.Click += (s, e) =>
+            {
+                DialogResult result = MessageBox.Show(
+                    "Remove this outfit from favorites?",
+                    "Delete Favorite",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result != DialogResult.Yes)
+                    return;
+
+                favorites.Remove(favorite);
+
+                StorageService.SaveFavoriteOutfits(favorites);
+
+                LoadFavorites();
+            };
+
+            topPanel.Controls.Add(lblDate);
+            topPanel.Controls.Add(btnDelete);
+
+            // =========================
+            // OUTFIT PICTURES
+            // =========================
 
             ClothingItem? top =
                 StorageService.FindClothingById(favorite.TopId);
@@ -79,29 +167,29 @@ namespace Pormatics.FuctionalityForm
             {
                 Dock = DockStyle.Fill,
                 ColumnCount = 4,
-                RowCount = 2,
-                BackColor = Color.White
+                RowCount = 1,
+                BackColor = Color.White,
+                Padding = new Padding(0, 8, 0, 0)
             };
 
-            outfitLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            outfitLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            outfitLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            outfitLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            for (int i = 0; i < 4; i++)
+            {
+                outfitLayout.ColumnStyles.Add(
+                    new ColumnStyle(SizeType.Percent, 25F));
+            }
 
-            outfitLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 82F));
-            outfitLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 18F));
+            outfitLayout.RowStyles.Add(
+                new RowStyle(SizeType.Percent, 100F));
 
             outfitLayout.Controls.Add(CreatePictureBox(top), 0, 0);
             outfitLayout.Controls.Add(CreatePictureBox(bottom), 1, 0);
             outfitLayout.Controls.Add(CreatePictureBox(shoes), 2, 0);
             outfitLayout.Controls.Add(CreatePictureBox(accessory), 3, 0);
 
-            outfitLayout.Controls.Add(CreateLabel("Top"), 0, 1);
-            outfitLayout.Controls.Add(CreateLabel("Bottom"), 1, 1);
-            outfitLayout.Controls.Add(CreateLabel("Shoes"), 2, 1);
-            outfitLayout.Controls.Add(CreateLabel("Accessory"), 3, 1);
+            cardLayout.Controls.Add(topPanel, 0, 0);
+            cardLayout.Controls.Add(outfitLayout, 0, 1);
 
-            card.Controls.Add(outfitLayout);
+            card.Controls.Add(cardLayout);
 
             return card;
         }
@@ -136,18 +224,22 @@ namespace Pormatics.FuctionalityForm
             }
 
             return pictureBox;
-        }
+        }   
 
-        private Label CreateLabel(string text)
+        private void DeleteFavorite(FavoriteOutfitItem favorite)
         {
-            return new Label
-            {
-                Dock = DockStyle.Fill,
-                Text = text,
-                TextAlign = ContentAlignment.MiddleCenter,
-                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
-                ForeColor = Color.Indigo
-            };
+            DialogResult result = MessageBox.Show(
+                "Remove this outfit from favorites?",
+                "Delete Favorite",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result != DialogResult.Yes)
+                return;
+
+            favorites.Remove(favorite);
+            StorageService.SaveFavoriteOutfits(favorites);
+            LoadFavorites();
         }
 
         private void ResizeFavoriteCards()
@@ -169,7 +261,7 @@ namespace Pormatics.FuctionalityForm
             if (width <= 0)
                 return 520;
 
-            return Math.Max(420, width / 2 - 40);
+            return Math.Max(460, width / 2 - 40);
         }
 
         private int GetCardHeight()
@@ -177,9 +269,9 @@ namespace Pormatics.FuctionalityForm
             int height = flowFavorites.ClientSize.Height;
 
             if (height <= 0)
-                return 200;
+                return 260;
 
-            return Math.Max(180, height / 3);
+            return Math.Max(260, height / 2);
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -199,9 +291,7 @@ namespace Pormatics.FuctionalityForm
                 }
 
                 if (control.HasChildren)
-                {
                     DisposeImages(control);
-                }
             }
         }
     }

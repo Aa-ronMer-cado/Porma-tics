@@ -48,7 +48,7 @@
             BackColor = Color.FromArgb(244, 233, 233);
             Controls.Add(addLabel);
             Name = "BottomCloset";
-            Size = new Size(1565, 807);
+            Size = new Size(1324, 732);
             Controls.SetChildIndex(addLabel, 0);
             ResumeLayout(false);
             PerformLayout();
