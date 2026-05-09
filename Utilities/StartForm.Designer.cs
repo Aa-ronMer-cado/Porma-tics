@@ -1,149 +1,100 @@
-﻿namespace Pormatics
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace Pormatics
 {
     partial class StartForm
     {
-        /// <summary>
-        ///  Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        ///  Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        private TableLayoutPanel mainLayout;
+        private PictureBox logoPic;
+        private Label lblTitle;
+        private Button startBtn;
+
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && components != null)
                 components.Dispose();
-            }
+
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            rightPanel = new Panel();
-            leftPanel = new Panel();
-            panel3 = new Panel();
-            startBtn = new Button();
-            bottomPanel = new Panel();
-            btnPanel = new Panel();
-            logoPanel = new Panel();
+            mainLayout = new TableLayoutPanel();
             logoPic = new PictureBox();
-            leftPanel.SuspendLayout();
-            btnPanel.SuspendLayout();
-            logoPanel.SuspendLayout();
+            lblTitle = new Label();
+            startBtn = new Button();
+
             ((System.ComponentModel.ISupportInitialize)logoPic).BeginInit();
             SuspendLayout();
-            // 
-            // rightPanel
-            // 
-            rightPanel.Dock = DockStyle.Right;
-            rightPanel.Location = new Point(680, 450);
-            rightPanel.Name = "rightPanel";
-            rightPanel.Size = new Size(493, 180);
-            rightPanel.TabIndex = 4;
-            // 
-            // leftPanel
-            // 
-            leftPanel.Controls.Add(panel3);
-            leftPanel.Dock = DockStyle.Left;
-            leftPanel.Location = new Point(0, 450);
-            leftPanel.Name = "leftPanel";
-            leftPanel.Size = new Size(505, 180);
-            leftPanel.TabIndex = 5;
-            // 
-            // panel3
-            // 
-            panel3.Location = new Point(250, 368);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(250, 125);
-            panel3.TabIndex = 7;
-            // 
+
+            // mainLayout
+            mainLayout.Dock = DockStyle.Fill;
+            mainLayout.BackColor = Color.FromArgb(244, 233, 233);
+            mainLayout.ColumnCount = 3;
+            mainLayout.RowCount = 5;
+            mainLayout.Padding = new Padding(40, 20, 40, 40);
+
+            mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 8F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 62F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 65F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 95F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 30F));
+
+            // logoPic
+            logoPic.Dock = DockStyle.Fill;
+            logoPic.BackColor = Color.FromArgb(244, 233, 233);
+            logoPic.Margin = new Padding(0);
+            logoPic.SizeMode = PictureBoxSizeMode.Normal;
+            logoPic.TabStop = false;
+
+            // lblTitle
+            lblTitle.Dock = DockStyle.Fill;
+            lblTitle.Text = "PORMATICS";
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
+            lblTitle.Font = new Font("Komikazoom", 28F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.Indigo;
+            lblTitle.Margin = new Padding(0);
+
             // startBtn
-            // 
-            startBtn.BackColor = Color.FromArgb(195, 180, 208);
             startBtn.Dock = DockStyle.Fill;
-            startBtn.FlatAppearance.BorderSize = 0;
-            startBtn.FlatStyle = FlatStyle.Flat;
-            startBtn.Location = new Point(0, 0);
-            startBtn.Name = "startBtn";
-            startBtn.Size = new Size(175, 85);
-            startBtn.TabIndex = 1;
             startBtn.Text = "Start";
+            startBtn.BackColor = Color.FromArgb(195, 180, 208);
+            startBtn.ForeColor = Color.FromArgb(45, 38, 64);
+            startBtn.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            startBtn.FlatStyle = FlatStyle.Flat;
+            startBtn.FlatAppearance.BorderSize = 0;
+            startBtn.Cursor = Cursors.Hand;
+            startBtn.Margin = new Padding(60, 15, 60, 15);
             startBtn.UseVisualStyleBackColor = false;
             startBtn.Click += startBtn_Click;
-            // 
-            // bottomPanel
-            // 
-            bottomPanel.Dock = DockStyle.Bottom;
-            bottomPanel.Location = new Point(505, 533);
-            bottomPanel.Name = "bottomPanel";
-            bottomPanel.Size = new Size(175, 97);
-            bottomPanel.TabIndex = 6;
-            // 
-            // btnPanel
-            // 
-            btnPanel.Controls.Add(startBtn);
-            btnPanel.Dock = DockStyle.Bottom;
-            btnPanel.Location = new Point(505, 448);
-            btnPanel.Name = "btnPanel";
-            btnPanel.Size = new Size(175, 85);
-            btnPanel.TabIndex = 7;
-            // 
-            // logoPanel
-            // 
-            logoPanel.Controls.Add(logoPic);
-            logoPanel.Dock = DockStyle.Top;
-            logoPanel.Location = new Point(0, 0);
-            logoPanel.Name = "logoPanel";
-            logoPanel.Size = new Size(1173, 450);
-            logoPanel.TabIndex = 3;
-            // 
-            // logoPic
-            // 
-            logoPic.Image = Properties.Resources.LogoRIl;
-            logoPic.Location = new Point(282, 12);
-            logoPic.Name = "logoPic";
-            logoPic.Size = new Size(599, 411);
-            logoPic.SizeMode = PictureBoxSizeMode.CenterImage;
-            logoPic.TabIndex = 0;
-            logoPic.TabStop = false;
-            // 
+            startBtn.MouseEnter += startBtn_MouseEnter;
+            startBtn.MouseLeave += startBtn_MouseLeave;
+
+            // add controls
+            mainLayout.Controls.Add(logoPic, 1, 1);
+            mainLayout.Controls.Add(lblTitle, 1, 2);
+            mainLayout.Controls.Add(startBtn, 1, 3);
+
             // StartForm
-            // 
-            AutoScaleMode = AutoScaleMode.Inherit;
-            AutoSize = true;
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(244, 233, 233);
             ClientSize = new Size(1173, 630);
-            Controls.Add(btnPanel);
-            Controls.Add(bottomPanel);
-            Controls.Add(leftPanel);
-            Controls.Add(rightPanel);
-            Controls.Add(logoPanel);
+            Controls.Add(mainLayout);
+            MinimumSize = new Size(900, 600);
             Name = "StartForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "PORMATICS";
-            leftPanel.ResumeLayout(false);
-            btnPanel.ResumeLayout(false);
-            logoPanel.ResumeLayout(false);
+
             ((System.ComponentModel.ISupportInitialize)logoPic).EndInit();
             ResumeLayout(false);
         }
-
-        #endregion
-        private Panel rightPanel;
-        private Panel leftPanel;
-        private Panel panel3;
-        private Button startBtn;
-        private Panel bottomPanel;
-        private Panel btnPanel;
-        private Panel logoPanel;
-        private PictureBox logoPic;
     }
 }
