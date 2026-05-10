@@ -33,7 +33,7 @@ The purpose of <u>PORMA-tics</u> is to provide users with a smart and organized 
 
 ## ✌︎㋡ 𝜚˚⋆ | UML DIAGRAM
 <p align = "center">
- <img src="resources/Cat.png" width="600" height="300" style="margin-right: 10px;"/>
+ <img src="resources/UML.png" width="600" height="300" style="margin-right: 10px;"/>
 
 ## ✌︎㋡ 𝜚˚⋆ | FEATURES
 <p align = "justify" >
@@ -175,10 +175,10 @@ Pres F5 or Start Debugging in Visual Studio
   
 |     | Name   |Roles    |
 |-----|--------|---------|
-| <div align="center"><img src="Resources/Xiamara.png" width="150"></div> | Bernardo, Xiamara <br> [![GitHub]( https://img.shields.io/badge/-GitHub-722F37?logo=github&style=flat-square)](https://github.com/Xiamara23)   | Narrative Designer|
-| <div align="center"><img src="Resources/miky.jpg" width="150"></div> |Carranceja, Mikyla <br> [![GitHub](https://img.shields.io/badge/-GitHub-6C3BAA?logo=github&style=flat-square)](https://github.com/kykylim) | UI Designer |
+| <div align="center"><img src="Resources/Xiamara.png" width="150"></div> | Bernardo, Xiamara <br> [![GitHub]( https://img.shields.io/badge/-GitHub-722F37?logo=github&style=flat-square)](https://github.com/Xiamara23)   | UML Planner    |
+| <div align="center"><img src="Resources/miky.jpg" width="150"></div> |Carranceja, Mikyla <br> [![GitHub](https://img.shields.io/badge/-GitHub-6C3BAA?logo=github&style=flat-square)](https://github.com/kykylim) | UI/UX Designer |
 | <div align="center"><img src="Resources/shanlee.jpg " width="150"></div> |Gupilan, Shanlee Yvonne <br> [![GitHub](https://img.shields.io/badge/-GitHub-2E6F40?logo=github&style=flat-square)](https://github.com/Shanleegupilan8) | Quality Assurance|
-| <div align="center"><img src="Resources/aaron.png" width="150"></div> | Mercado, Aaron Daniel <br> [![GitHub](https://img.shields.io/badge/-GitHub-48CAE4?logo=github&style=flat-square)](https://github.com/Aa-ronMer-cado) |Game Programmer  |
+| <div align="center"><img src="Resources/aaron.png" width="150"></div> | Mercado, Aaron Daniel <br> [![GitHub](https://img.shields.io/badge/-GitHub-48CAE4?logo=github&style=flat-square)](https://github.com/Aa-ronMer-cado) |Backend Programmer  |
 
 <h1 align="center">
   <b>THANK YOU FOR VISITING</b>
