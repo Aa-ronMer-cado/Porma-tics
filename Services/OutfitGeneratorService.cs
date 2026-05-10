@@ -41,7 +41,8 @@ namespace Pormatics.Services
                 .Where(item =>
                     item.Category.Equals(category, StringComparison.OrdinalIgnoreCase) &&
 
-                    item.Season.Equals(filter.Season, StringComparison.OrdinalIgnoreCase) &&
+                    filter.Seasons.Any(season =>
+                        item.Season.Equals(season, StringComparison.OrdinalIgnoreCase)) &&
 
                     filter.Styles.Any(style =>
                         item.Style.Equals(style, StringComparison.OrdinalIgnoreCase)) &&

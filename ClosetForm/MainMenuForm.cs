@@ -349,7 +349,7 @@ namespace Pormatics
             ActivateBottomButton(sender);
 
             clothesBtnPanel.Visible = false;
-            closetBtnCtrl.Visible = true;
+            closetBtnCtrl.Visible = false;
             bottomPanel.Enabled = true;
             title.Visible = false;
 
@@ -457,21 +457,6 @@ namespace Pormatics
         private void MiniBtn_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void closetPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void closetBtnCtrl_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

@@ -30,8 +30,8 @@
             buttonPanel = new FlowLayoutPanel();
             picReset = new PictureBox();
             picBrowse = new PictureBox();
-            progressBar = new ProgressBar();
             btnNext = new Button();
+            progressBar = new ProgressBar();
             mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPreview).BeginInit();
             buttonPanel.SuspendLayout();
@@ -65,7 +65,7 @@
             // lblTitle
             // 
             lblTitle.Dock = DockStyle.Fill;
-            lblTitle.Font = new Font("Pontano Sans", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitle.ForeColor = Color.Indigo;
             lblTitle.Location = new Point(43, 25);
             lblTitle.Name = "lblTitle";
@@ -77,7 +77,8 @@
             // pictureBoxPreview
             // 
             pictureBoxPreview.Anchor = AnchorStyles.None;
-            pictureBoxPreview.BackColor = Color.White;
+            pictureBoxPreview.BackColor = Color.Transparent;
+            pictureBoxPreview.BorderStyle = BorderStyle.FixedSingle;
             pictureBoxPreview.Location = new Point(326, 79);
             pictureBoxPreview.Name = "pictureBoxPreview";
             pictureBoxPreview.Size = new Size(447, 268);
@@ -124,18 +125,6 @@
             picBrowse.TabStop = false;
             picBrowse.Click += btnBrowse_Click;
             // 
-            // progressBar
-            // 
-            progressBar.Anchor = AnchorStyles.None;
-            progressBar.ForeColor = Color.PaleVioletRed;
-            progressBar.Location = new Point(324, 523);
-            progressBar.Name = "progressBar";
-            progressBar.Size = new Size(450, 20);
-            progressBar.Style = ProgressBarStyle.Marquee;
-            progressBar.TabIndex = 4;
-            progressBar.Visible = false;
-            progressBar.Click += progressBar_Click;
-            // 
             // btnNext
             // 
             btnNext.BackColor = Color.SlateBlue;
@@ -150,6 +139,18 @@
             btnNext.Text = "Next";
             btnNext.UseVisualStyleBackColor = false;
             btnNext.Click += btnNext_Click;
+            // 
+            // progressBar
+            // 
+            progressBar.Anchor = AnchorStyles.None;
+            progressBar.ForeColor = Color.PaleVioletRed;
+            progressBar.Location = new Point(324, 523);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(450, 20);
+            progressBar.Style = ProgressBarStyle.Marquee;
+            progressBar.TabIndex = 4;
+            progressBar.Visible = false;
+            progressBar.Click += progressBar_Click;
             // 
             // UploadClothes
             // 

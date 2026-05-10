@@ -11,7 +11,7 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
     {
         public event Action<OutfitFilter, GeneratedOutfit>? OutfitGenerated;
 
-        private string selectedSeason = string.Empty;
+        private readonly List<string> selectedSeasons = new();
         private readonly List<string> selectedStyles = new();
         private readonly List<string> selectedColors = new();
 
@@ -49,8 +49,8 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
 
         private void SetupEvents()
         {
-            btnSummer.Click += (s, e) => SelectSeason("Summer", btnSummer);
-            btnRainy.Click += (s, e) => SelectSeason("Rainy", btnRainy);
+            btnSummer.Click += (s, e) => ToggleSeason("Summer", btnSummer);
+            btnRainy.Click += (s, e) => ToggleSeason("Rainy", btnRainy);
 
             btnStyleSummer.Click += (s, e) => ToggleStyle("Casual", btnStyleSummer);
             btnStWear.Click += (s, e) => ToggleStyle("Streetwear", btnStWear);
@@ -65,17 +65,25 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
 
             btnColorDropdown.Click += btnColorDropdown_Click;
             clbColors.ItemCheck += clbColors_ItemCheck;
+
+            EkisBtn.Click += EkisBtn_Click;
+            MaxiBtn.Click += MaxiBtn_Click;
+            MiniBtn.Click += MiniBtn_Click;
         }
 
-        private void SelectSeason(string season, Button selectedButton)
+        private void ToggleSeason(string season, Button button)
         {
-            selectedSeason = season;
-
-            ResetButton(btnSummer);
-            ResetButton(btnRainy);
-
-            selectedButton.BackColor = selectedButtonColor;
-            selectedButton.ForeColor = Color.White;
+            if (selectedSeasons.Contains(season))
+            {
+                selectedSeasons.Remove(season);
+                ResetButton(button);
+            }
+            else
+            {
+                selectedSeasons.Add(season);
+                button.BackColor = selectedButtonColor;
+                button.ForeColor = Color.White;
+            }
         }
 
         private void ToggleStyle(string style, Button button)
@@ -99,14 +107,13 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
             button.ForeColor = Color.Black;
         }
 
-        private void btnColorDropdown_Click(object sender, EventArgs e)
+        private void btnColorDropdown_Click(object? sender, EventArgs e)
         {
             clbColors.Visible = !clbColors.Visible;
-
             colorDropdownPanel.Height = clbColors.Visible ? 170 : 45;
         }
 
-        private void clbColors_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void clbColors_ItemCheck(object? sender, ItemCheckEventArgs e)
         {
             BeginInvoke((MethodInvoker)delegate
             {
@@ -120,12 +127,12 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
 
                 btnColorDropdown.Text =
                     selectedColors.Count == 0
-                    ? "Select Colors ▼"
-                    : string.Join(", ", selectedColors) + " ▼";
+                        ? "Select Colors ▼"
+                        : string.Join(", ", selectedColors) + " ▼";
             });
         }
 
-        private void btnNext_Click(object sender, EventArgs e)
+        private void btnNext_Click(object? sender, EventArgs e)
         {
             selectedColors.Clear();
 
@@ -135,9 +142,9 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
                     selectedColors.Add(item.ToString()!);
             }
 
-            if (string.IsNullOrWhiteSpace(selectedSeason))
+            if (selectedSeasons.Count == 0)
             {
-                MessageBox.Show("Please select a season.");
+                MessageBox.Show("Please select at least one season.");
                 return;
             }
 
@@ -155,7 +162,7 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
 
             OutfitFilter filter = new OutfitFilter
             {
-                Season = selectedSeason,
+                Seasons = new List<string>(selectedSeasons),
                 Styles = new List<string>(selectedStyles),
                 Colors = new List<string>(selectedColors)
             };
@@ -175,29 +182,27 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
             }
         }
 
-        private void lblGenerateFilter_Click(object sender, EventArgs e)
+        private void EkisBtn_Click(object? sender, EventArgs e)
         {
-
+            Application.Exit();
         }
 
-        private void lblGSeason_Click(object sender, EventArgs e)
+        private void MaxiBtn_Click(object? sender, EventArgs e)
         {
-
+            if (WindowState == FormWindowState.Normal)
+            {
+                MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
+                WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                WindowState = FormWindowState.Normal;
+            }
         }
 
-        private void bottomColorPanel_Paint(object sender, PaintEventArgs e)
+        private void MiniBtn_Click(object? sender, EventArgs e)
         {
-
-        }
-
-        private void btnSummer_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void clbColors_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            WindowState = FormWindowState.Minimized;
         }
     }
 }
