@@ -1,5 +1,6 @@
 ﻿using Pormatics.Data;
 using Pormatics.Models;
+using Pormatics.Utility;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,9 +14,24 @@ namespace Pormatics.FuctionalityForm
     {
         private List<FavoriteOutfitItem> favorites = new();
 
+
         public FavoriteOutfit()
         {
             InitializeComponent();
+
+            CustomHeader.Create(
+                this,
+                "FAVORITES",
+                "View and manage your saved outfits."
+            );
+
+            mainLayout.Padding = new Padding(30, 170, 30, 30);
+
+            Shown += FavoriteOutfit_Shown;
+        }
+
+        private void FavoriteOutfit_Shown(object? sender, EventArgs e)
+        {
             LoadFavorites();
         }
 
@@ -50,6 +66,7 @@ namespace Pormatics.FuctionalityForm
             }
 
             ResizeFavoriteCards();
+            flowFavorites.PerformLayout();
         }
 
         private Panel BuildFavoriteCard(FavoriteOutfitItem favorite)

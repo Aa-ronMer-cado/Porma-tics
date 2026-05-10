@@ -267,7 +267,11 @@ namespace Pormatics
         private void settings_Click(object sender, EventArgs e)
         {
             ActivateBottomButton(sender);
-            SetClosetHeader(false);
+
+            clothesBtnPanel.Visible = false;
+            closetBtnCtrl.Visible = true;
+            bottomPanel.Enabled = true;
+            title.Visible = false;
 
             ShowCachedForm("Settings", () => new Settings());
         }
@@ -283,7 +287,11 @@ namespace Pormatics
         private void uploadClothes_Click(object sender, EventArgs e)
         {
             ActivateBottomButton(sender);
-            SetClosetHeader(false);
+
+            clothesBtnPanel.Visible = false;
+            closetBtnCtrl.Visible = true;
+            bottomPanel.Enabled = true;
+            title.Visible = false;
 
             UploadClothes uploadForm = new UploadClothes();
 
@@ -327,10 +335,15 @@ namespace Pormatics
         private void favBtn_Click(object sender, EventArgs e)
         {
             ActivateBottomButton(sender);
-            SetClosetHeader(false);
+
+            clothesBtnPanel.Visible = false;
+            closetBtnCtrl.Visible = false;
+            bottomPanel.Enabled = true;
+            title.Visible = false;
 
             ShowCachedForm("FavoriteOutfit", () => new FavoriteOutfit());
         }
+
 
         private void allClothesBtn_Click(object sender, EventArgs e)
         {
