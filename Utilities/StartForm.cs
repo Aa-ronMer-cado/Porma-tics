@@ -7,7 +7,7 @@ namespace Pormatics
 {
     public partial class StartForm : Form
     {
-        private readonly Image logoImage = Properties.Resources.LogoRIl;
+        private readonly Image logoImage = Properties.Resources.PormaLog;
 
         private bool isOpeningMainMenu;
 
@@ -80,7 +80,7 @@ namespace Pormatics
                 logoPic.Width,
                 logoPic.Height);
 
-            int logoSize = (int)(size * 0.95);
+            int logoSize = (int)(size * 1.5);
 
             g.TranslateTransform(
                 logoPic.Width / 2f,
