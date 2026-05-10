@@ -151,6 +151,7 @@
             closetBtnCtrl.Name = "closetBtnCtrl";
             closetBtnCtrl.Size = new Size(1164, 102);
             closetBtnCtrl.TabIndex = 1;
+            closetBtnCtrl.Paint += closetBtnCtrl_Paint;
             // 
             // panelTitle
             // 

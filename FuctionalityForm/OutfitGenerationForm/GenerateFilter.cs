@@ -174,5 +174,30 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
                     MessageBoxIcon.Warning);
             }
         }
+
+        private void lblGenerateFilter_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblGSeason_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bottomColorPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnSummer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void clbColors_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

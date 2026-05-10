@@ -1,7 +1,9 @@
 ﻿using Pormatics.Data;
 using Pormatics.Models;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,8 +15,9 @@ namespace Pormatics.FuctionalityForm.UploadForm
         private readonly UploadClothes _previousForm;
 
         private string _selectedColor = string.Empty;
-        private string _selectedStyle = string.Empty;
-        private string _selectedSeason = string.Empty;
+
+        private readonly List<string> _selectedStyles = new List<string>();
+        private readonly List<string> _selectedSeasons = new List<string>();
 
         public bool UploadSuccessful { get; private set; } = false;
 
@@ -86,7 +89,6 @@ namespace Pormatics.FuctionalityForm.UploadForm
 
             switch (clothingType)
             {
-                // TOPS
                 case "t-shirt":
                 case "t - shirt":
                 case "polo shirt":
@@ -98,7 +100,6 @@ namespace Pormatics.FuctionalityForm.UploadForm
                 case "crop top":
                     return "TOPS";
 
-                // BOTTOMS
                 case "jeans":
                 case "shorts":
                 case "skirt":
@@ -107,7 +108,6 @@ namespace Pormatics.FuctionalityForm.UploadForm
                 case "sweatpants":
                     return "BOTTOMS";
 
-                // SHOES
                 case "sneakers":
                 case "boots":
                 case "sandals":
@@ -116,7 +116,6 @@ namespace Pormatics.FuctionalityForm.UploadForm
                 case "flats":
                     return "SHOES";
 
-                // ACCESSORIES
                 case "hats":
                 case "belts":
                 case "bags":
@@ -167,7 +166,7 @@ namespace Pormatics.FuctionalityForm.UploadForm
 
             BuildTagGroup(panelStyles, new[]
             {
-                "Summer", "Formal", "Streetwear", "Minimalist",
+                "Casual", "Formal", "Streetwear", "Minimalist",
                 "Retro", "Smart Casual", "Athletic", "Business"
             }, TagType.Style);
 
@@ -177,10 +176,7 @@ namespace Pormatics.FuctionalityForm.UploadForm
             }, TagType.Season);
         }
 
-        private void BuildTagGroup(
-            FlowLayoutPanel panel,
-            string[] labels,
-            TagType tagType)
+        private void BuildTagGroup(FlowLayoutPanel panel, string[] labels, TagType tagType)
         {
             panel.Controls.Clear();
 
@@ -199,9 +195,7 @@ namespace Pormatics.FuctionalityForm.UploadForm
                     Tag = tagType
                 };
 
-                btn.FlatAppearance.BorderColor =
-                    Color.FromArgb(195, 180, 208);
-
+                btn.FlatAppearance.BorderColor = Color.FromArgb(195, 180, 208);
                 btn.Click += TagButton_Click;
 
                 panel.Controls.Add(btn);
@@ -214,47 +208,64 @@ namespace Pormatics.FuctionalityForm.UploadForm
                 return;
 
             TagType type = (TagType)clicked.Tag;
+            string value = clicked.Text.Trim();
 
-            FlowLayoutPanel parentPanel = type switch
+            if (type == TagType.Color)
             {
-                TagType.Color => panelColors,
-                TagType.Style => panelStyles,
-                _ => panelSeasons
-            };
+                SelectSingleColor(clicked, value);
+            }
+            else if (type == TagType.Style)
+            {
+                ToggleMultiSelect(clicked, value, _selectedStyles);
+            }
+            else if (type == TagType.Season)
+            {
+                ToggleMultiSelect(clicked, value, _selectedSeasons);
+            }
+        }
 
-            foreach (Control control in parentPanel.Controls)
+        private void SelectSingleColor(Button clicked, string color)
+        {
+            foreach (Control control in panelColors.Controls)
             {
                 if (control is Button btn)
-                {
-                    btn.BackColor = Color.White;
-                    btn.ForeColor = Color.FromArgb(99, 90, 131);
-                }
+                    SetButtonUnselected(btn);
             }
 
-            clicked.BackColor = Color.FromArgb(99, 90, 131);
-            clicked.ForeColor = Color.White;
+            SetButtonSelected(clicked);
+            _selectedColor = color;
+        }
 
-            switch (type)
+        private void ToggleMultiSelect(Button clicked, string value, List<string> selectedList)
+        {
+            if (selectedList.Contains(value))
             {
-                case TagType.Color:
-                    _selectedColor = clicked.Text;
-                    break;
-
-                case TagType.Style:
-                    _selectedStyle = clicked.Text;
-                    break;
-
-                case TagType.Season:
-                    _selectedSeason = clicked.Text;
-                    break;
+                selectedList.Remove(value);
+                SetButtonUnselected(clicked);
             }
+            else
+            {
+                selectedList.Add(value);
+                SetButtonSelected(clicked);
+            }
+        }
+
+        private void SetButtonSelected(Button btn)
+        {
+            btn.BackColor = Color.FromArgb(99, 90, 131);
+            btn.ForeColor = Color.White;
+        }
+
+        private void SetButtonUnselected(Button btn)
+        {
+            btn.BackColor = Color.White;
+            btn.ForeColor = Color.FromArgb(99, 90, 131);
         }
 
         private async void btnUpload_Click(object sender, EventArgs e)
         {
             string selectedClothingType = GetSelectedClothingType();
-            string mainCategory =
-                GetCategoryFromClothingType(selectedClothingType);
+            string mainCategory = GetCategoryFromClothingType(selectedClothingType);
 
             if (string.IsNullOrWhiteSpace(selectedClothingType))
             {
@@ -274,15 +285,15 @@ namespace Pormatics.FuctionalityForm.UploadForm
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(_selectedStyle))
+            if (_selectedStyles.Count == 0)
             {
-                ShowError("Please select a style.");
+                ShowError("Please select at least one style.");
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(_selectedSeason))
+            if (_selectedSeasons.Count == 0)
             {
-                ShowError("Please select a season.");
+                ShowError("Please select at least one season.");
                 return;
             }
 
@@ -297,8 +308,8 @@ namespace Pormatics.FuctionalityForm.UploadForm
                 Category = mainCategory,
                 ClothingType = selectedClothingType,
                 Color = _selectedColor,
-                Style = _selectedStyle,
-                Season = _selectedSeason
+                Style = string.Join(", ", _selectedStyles),
+                Season = string.Join(", ", _selectedSeasons)
             };
 
             btnUpload.Enabled = false;
@@ -365,6 +376,23 @@ namespace Pormatics.FuctionalityForm.UploadForm
                 cb.SelectedIndex = -1;
                 cb.Enabled = true;
             }
+
+            _selectedColor = string.Empty;
+            _selectedStyles.Clear();
+            _selectedSeasons.Clear();
+
+            ResetButtons(panelColors);
+            ResetButtons(panelStyles);
+            ResetButtons(panelSeasons);
+        }
+
+        private void ResetButtons(FlowLayoutPanel panel)
+        {
+            foreach (Control control in panel.Controls)
+            {
+                if (control is Button btn)
+                    SetButtonUnselected(btn);
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -393,6 +421,11 @@ namespace Pormatics.FuctionalityForm.UploadForm
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mainPanel_Paint(object sender, PaintEventArgs e)
         {
 
         }
