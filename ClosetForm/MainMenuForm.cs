@@ -349,7 +349,7 @@ namespace Pormatics
             ActivateBottomButton(sender);
 
             clothesBtnPanel.Visible = false;
-            closetBtnCtrl.Visible = true;
+            closetBtnCtrl.Visible = false;
             bottomPanel.Enabled = true;
             title.Visible = false;
 

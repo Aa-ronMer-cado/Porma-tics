@@ -12,29 +12,10 @@ namespace Pormatics.Services
 
         public static GeneratedOutfit GenerateOutfit(OutfitFilter filter)
         {
-            List<ClothingItem> tops = StorageService.FilterItems(
-                "TOPS",
-                filter.Style,
-                filter.Season,
-                filter.Color);
-
-            List<ClothingItem> bottoms = StorageService.FilterItems(
-                "BOTTOMS",
-                filter.Style,
-                filter.Season,
-                string.Empty);
-
-            List<ClothingItem> shoes = StorageService.FilterItems(
-                "SHOES",
-                filter.Style,
-                filter.Season,
-                string.Empty);
-
-            List<ClothingItem> accessories = StorageService.FilterItems(
-                "ACCESSORIES",
-                filter.Style,
-                filter.Season,
-                string.Empty);
+            List<ClothingItem> tops = FilterClothes("TOPS", filter);
+            List<ClothingItem> bottoms = FilterClothes("BOTTOMS", filter);
+            List<ClothingItem> shoes = FilterClothes("SHOES", filter);
+            List<ClothingItem> accessories = FilterClothes("ACCESSORIES", filter);
 
             if (tops.Count == 0)
                 throw new InvalidOperationException("No matching top found.");
@@ -52,6 +33,23 @@ namespace Pormatics.Services
                 Shoes = PickRandom(shoes),
                 Accessory = accessories.Count > 0 ? PickRandom(accessories) : null
             };
+        }
+
+        private static List<ClothingItem> FilterClothes(string category, OutfitFilter filter)
+        {
+            return StorageService.LoadAll()
+                .Where(item =>
+                    item.Category.Equals(category, StringComparison.OrdinalIgnoreCase) &&
+
+                    item.Season.Equals(filter.Season, StringComparison.OrdinalIgnoreCase) &&
+
+                    filter.Styles.Any(style =>
+                        item.Style.Equals(style, StringComparison.OrdinalIgnoreCase)) &&
+
+                    filter.Colors.Any(color =>
+                        item.Color.Equals(color, StringComparison.OrdinalIgnoreCase))
+                )
+                .ToList();
         }
 
         private static ClothingItem PickRandom(List<ClothingItem> items)

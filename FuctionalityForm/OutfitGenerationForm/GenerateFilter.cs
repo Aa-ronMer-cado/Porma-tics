@@ -1,6 +1,7 @@
 ﻿using Pormatics.Models;
 using Pormatics.Services;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -11,7 +12,8 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
         public event Action<OutfitFilter, GeneratedOutfit>? OutfitGenerated;
 
         private string selectedSeason = string.Empty;
-        private string selectedStyle = string.Empty;
+        private readonly List<string> selectedStyles = new();
+        private readonly List<string> selectedColors = new();
 
         private readonly Color defaultButtonColor = Color.Thistle;
         private readonly Color selectedButtonColor = Color.SlateBlue;
@@ -40,63 +42,55 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
                 Math.Max(40, ClientSize.Height / 14)
             );
 
-            drpColor.Width = Math.Max(300, ClientSize.Width / 3);
+            colorDropdownPanel.Width = Math.Max(300, ClientSize.Width / 3);
+            btnColorDropdown.Width = colorDropdownPanel.Width;
+            clbColors.Width = colorDropdownPanel.Width;
         }
 
         private void SetupEvents()
         {
             btnSummer.Click += (s, e) => SelectSeason("Summer", btnSummer);
             btnRainy.Click += (s, e) => SelectSeason("Rainy", btnRainy);
-            btnStyleSummer.Click += (s, e) => SelectStyle("Casual", btnStyleSummer);
-            btnStWear.Click += (s, e) => SelectStyle("Streetwear", btnStWear);
-            btnMinimal.Click += (s, e) => SelectStyle("Minimalist", btnMinimal);
-            btnRetro.Click += (s, e) => SelectStyle("Retro", btnRetro);
-            btnBusCasual.Click += (s, e) => SelectStyle("Business Casual", btnBusCasual);
-            btnFormal.Click += (s, e) => SelectStyle("Formal", btnFormal);
-            btnVaca.Click += (s, e) => SelectStyle("Vacation", btnVaca);
-            btnRomantic.Click += (s, e) => SelectStyle("Romantic", btnRomantic);
-            btnSporty.Click += (s, e) => SelectStyle("Sporty", btnSporty);
-            btnSmtCasual.Click += (s, e) => SelectStyle("Smart Casual", btnSmtCasual);
+
+            btnStyleSummer.Click += (s, e) => ToggleStyle("Casual", btnStyleSummer);
+            btnStWear.Click += (s, e) => ToggleStyle("Streetwear", btnStWear);
+            btnMinimal.Click += (s, e) => ToggleStyle("Minimalist", btnMinimal);
+            btnRetro.Click += (s, e) => ToggleStyle("Retro", btnRetro);
+            btnBusCasual.Click += (s, e) => ToggleStyle("Business Casual", btnBusCasual);
+            btnFormal.Click += (s, e) => ToggleStyle("Formal", btnFormal);
+            btnVaca.Click += (s, e) => ToggleStyle("Vacation", btnVaca);
+            btnRomantic.Click += (s, e) => ToggleStyle("Romantic", btnRomantic);
+            btnSporty.Click += (s, e) => ToggleStyle("Sporty", btnSporty);
+            btnSmtCasual.Click += (s, e) => ToggleStyle("Smart Casual", btnSmtCasual);
+
+            btnColorDropdown.Click += btnColorDropdown_Click;
+            clbColors.ItemCheck += clbColors_ItemCheck;
         }
 
         private void SelectSeason(string season, Button selectedButton)
         {
             selectedSeason = season;
 
-            ResetSeasonButtons();
-
-            selectedButton.BackColor = selectedButtonColor;
-            selectedButton.ForeColor = Color.White;
-        }
-
-        private void SelectStyle(string style, Button selectedButton)
-        {
-            selectedStyle = style;
-
-            ResetStyleButtons();
-
-            selectedButton.BackColor = selectedButtonColor;
-            selectedButton.ForeColor = Color.White;
-        }
-
-        private void ResetSeasonButtons()
-        {
             ResetButton(btnSummer);
             ResetButton(btnRainy);
+
+            selectedButton.BackColor = selectedButtonColor;
+            selectedButton.ForeColor = Color.White;
         }
 
-        private void ResetStyleButtons()
+        private void ToggleStyle(string style, Button button)
         {
-            ResetButton(btnStyleSummer);
-            ResetButton(btnStWear);
-            ResetButton(btnMinimal);
-            ResetButton(btnRetro);
-            ResetButton(btnBusCasual);
-            ResetButton(btnFormal);
-            ResetButton(btnVaca);
-            ResetButton(btnRomantic);
-            ResetButton(btnSporty);
-            ResetButton(btnSmtCasual);
+            if (selectedStyles.Contains(style))
+            {
+                selectedStyles.Remove(style);
+                ResetButton(button);
+            }
+            else
+            {
+                selectedStyles.Add(style);
+                button.BackColor = selectedButtonColor;
+                button.ForeColor = Color.White;
+            }
         }
 
         private void ResetButton(Button button)
@@ -105,9 +99,41 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
             button.ForeColor = Color.Black;
         }
 
+        private void btnColorDropdown_Click(object sender, EventArgs e)
+        {
+            clbColors.Visible = !clbColors.Visible;
+
+            colorDropdownPanel.Height = clbColors.Visible ? 170 : 45;
+        }
+
+        private void clbColors_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            BeginInvoke((MethodInvoker)delegate
+            {
+                selectedColors.Clear();
+
+                foreach (object item in clbColors.CheckedItems)
+                {
+                    if (item != null)
+                        selectedColors.Add(item.ToString()!);
+                }
+
+                btnColorDropdown.Text =
+                    selectedColors.Count == 0
+                    ? "Select Colors ▼"
+                    : string.Join(", ", selectedColors) + " ▼";
+            });
+        }
+
         private void btnNext_Click(object sender, EventArgs e)
         {
-            string selectedColor = drpColor.Text.Trim();
+            selectedColors.Clear();
+
+            foreach (object item in clbColors.CheckedItems)
+            {
+                if (item != null)
+                    selectedColors.Add(item.ToString()!);
+            }
 
             if (string.IsNullOrWhiteSpace(selectedSeason))
             {
@@ -115,29 +141,28 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(selectedStyle))
+            if (selectedStyles.Count == 0)
             {
-                MessageBox.Show("Please select a style.");
+                MessageBox.Show("Please select at least one style.");
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(selectedColor))
+            if (selectedColors.Count == 0)
             {
-                MessageBox.Show("Please select a color.");
+                MessageBox.Show("Please select at least one color.");
                 return;
             }
 
             OutfitFilter filter = new OutfitFilter
             {
                 Season = selectedSeason,
-                Style = selectedStyle,
-                Color = selectedColor
+                Styles = new List<string>(selectedStyles),
+                Colors = new List<string>(selectedColors)
             };
 
             try
             {
                 GeneratedOutfit outfit = OutfitGeneratorService.GenerateOutfit(filter);
-
                 OutfitGenerated?.Invoke(filter, outfit);
             }
             catch (Exception ex)
@@ -148,21 +173,6 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
             }
-        }
-
-        private void GenerateFilter_Load(object sender, EventArgs e)
-        {
-            drpColor.DropDownStyle = ComboBoxStyle.DropDownList;
-        }
-
-        private void mainLayout_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void drpColor_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

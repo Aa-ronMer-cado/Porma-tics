@@ -169,10 +169,10 @@
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(80, 629);
+            progressBar.Location = new Point(80, 647);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(504, 28);
-            progressBar.Style = ProgressBarStyle.Marquee;
+            progressBar.Size = new Size(504, 18);
+            progressBar.Style = ProgressBarStyle.Continuous;
             progressBar.TabIndex = 17;
             // 
             // clrButton
@@ -262,7 +262,7 @@
             panelColors.Location = new Point(12, 506);
             panelColors.Margin = new Padding(3, 4, 3, 4);
             panelColors.Name = "panelColors";
-            panelColors.Size = new Size(504, 100);
+            panelColors.Size = new Size(504, 134);
             panelColors.TabIndex = 5;
             // 
             // lblStyles
