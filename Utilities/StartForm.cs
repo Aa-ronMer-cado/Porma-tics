@@ -17,7 +17,7 @@ namespace Pormatics
 
             WindowState = FormWindowState.Maximized;
 
-            logoPic.Paint += logoPic_Paint;
+            logoPic.Paint += LogoPic_Paint;
             logoPic.Resize += LogoPic_Resize;
         }
 
@@ -32,10 +32,12 @@ namespace Pormatics
                 return;
 
             isOpeningMainMenu = true;
-
             startBtn.Enabled = false;
 
             MainMenuForm mainMenu = new MainMenuForm();
+
+            mainMenu.StartPosition = FormStartPosition.CenterScreen;
+            mainMenu.WindowState = FormWindowState.Maximized;
 
             mainMenu.LoadDefault();
 
@@ -61,43 +63,43 @@ namespace Pormatics
             startBtn.BackColor = Color.FromArgb(195, 180, 208);
         }
 
-        private void logoPic_Paint(object? sender, PaintEventArgs e)
+        private void LogoPic_Paint(object? sender, PaintEventArgs e)
         {
             if (logoImage == null)
                 return;
 
-            Graphics graphics = e.Graphics;
+            Graphics g = e.Graphics;
 
-            graphics.Clear(Color.FromArgb(244, 233, 233));
+            g.Clear(Color.FromArgb(244, 233, 233));
 
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            g.SmoothingMode = SmoothingMode.HighQuality;
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
-            int size = Math.Min(logoPic.Width, logoPic.Height);
+            int size = Math.Min(
+                logoPic.Width,
+                logoPic.Height);
 
             int logoSize = (int)(size * 0.95);
 
-            graphics.TranslateTransform(
+            g.TranslateTransform(
                 logoPic.Width / 2f,
                 logoPic.Height / 2f);
 
-            graphics.RotateTransform(12f);
+            g.RotateTransform(12f);
 
-            graphics.DrawImage(
+            g.DrawImage(
                 logoImage,
                 -logoSize / 2,
                 -logoSize / 2,
                 logoSize,
                 logoSize);
 
-            graphics.ResetTransform();
+            g.ResetTransform();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            logoImage?.Dispose();
-
             base.OnFormClosing(e);
         }
     }

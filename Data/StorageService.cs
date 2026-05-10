@@ -34,11 +34,17 @@ namespace Pormatics.Data
             Directory.CreateDirectory(ImagesFolder);
         }
 
+        // =========================================================
+        // CLOTHES
+        // =========================================================
+
         public static List<ClothingItem> LoadClothes()
         {
-            return LoadJson<List<ClothingItem>>(ClothesJsonPath) ?? new List<ClothingItem>();
+            return LoadJson<List<ClothingItem>>(ClothesJsonPath)
+                   ?? new List<ClothingItem>();
         }
 
+        // Backward compatibility
         public static List<ClothingItem> LoadAll()
         {
             return LoadClothes();
@@ -49,29 +55,22 @@ namespace Pormatics.Data
             SaveJson(ClothesJsonPath, clothes);
         }
 
-        public static ClothingItem AddItem(ClothingItem item, string sourceImagePath)
+        public static ClothingItem AddItem(
+            ClothingItem item,
+            string sourceImagePath)
         {
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
 
             EnsureFoldersExist();
 
-            if (string.IsNullOrWhiteSpace(item.Id))
-                item.Id = Guid.NewGuid().ToString();
+            NormalizeItem(item);
 
-            item.DateAdded = item.DateAdded == default
-                ? DateTime.Now
-                : item.DateAdded;
-
-            item.Category = item.Category.Trim();
-            item.ClothingType = item.ClothingType.Trim();
-            item.Color = item.Color.Trim();
-            item.Style = item.Style.Trim();
-            item.Season = item.Season.Trim();
-
-            item.ImageFileName = CopyImageToStorage(item.Id, sourceImagePath);
+            item.ImageFileName =
+                CopyImageToStorage(item.Id, sourceImagePath);
 
             List<ClothingItem> clothes = LoadClothes();
+
             clothes.Add(item);
 
             SaveClothes(clothes);
@@ -87,7 +86,8 @@ namespace Pormatics.Data
             List<ClothingItem> clothes = LoadClothes();
 
             ClothingItem? target = clothes
-                .FirstOrDefault(c => c.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefault(c =>
+                    TextEquals(c.Id, id));
 
             if (target == null)
                 return;
@@ -95,23 +95,30 @@ namespace Pormatics.Data
             DeleteImage(target.ImageFullPath);
 
             clothes.Remove(target);
+
             SaveClothes(clothes);
         }
 
         public static void UpdateItem(ClothingItem updatedItem)
         {
-            if (updatedItem == null || string.IsNullOrWhiteSpace(updatedItem.Id))
+            if (updatedItem == null ||
+                string.IsNullOrWhiteSpace(updatedItem.Id))
+            {
                 return;
+            }
+
+            NormalizeItem(updatedItem);
 
             List<ClothingItem> clothes = LoadClothes();
 
             int index = clothes.FindIndex(c =>
-                c.Id.Equals(updatedItem.Id, StringComparison.OrdinalIgnoreCase));
+                TextEquals(c.Id, updatedItem.Id));
 
-            if (index == -1)
+            if (index < 0)
                 return;
 
             clothes[index] = updatedItem;
+
             SaveClothes(clothes);
         }
 
@@ -122,7 +129,7 @@ namespace Pormatics.Data
 
             return LoadClothes()
                 .FirstOrDefault(c =>
-                    c.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
+                    TextEquals(c.Id, id));
         }
 
         public static List<ClothingItem> LoadByCategory(string category)
@@ -131,7 +138,8 @@ namespace Pormatics.Data
                 return new List<ClothingItem>();
 
             return LoadClothes()
-                .Where(c => TextEquals(c.Category, category))
+                .Where(c =>
+                    TextEquals(c.Category, category))
                 .ToList();
         }
 
@@ -141,7 +149,9 @@ namespace Pormatics.Data
             string? season,
             string? color)
         {
-            return LoadClothes()
+            List<ClothingItem> clothes = LoadClothes();
+
+            return clothes
                 .Where(c =>
                     MatchesSingle(c.Category, category) &&
                     MatchesMultiValue(c.Style, style) &&
@@ -150,63 +160,93 @@ namespace Pormatics.Data
                 .ToList();
         }
 
+        // =========================================================
+        // FAVORITES
+        // =========================================================
+
         public static List<FavoriteOutfitItem> LoadFavoriteOutfits()
         {
             return LoadJson<List<FavoriteOutfitItem>>(FavoritesJsonPath)
                    ?? new List<FavoriteOutfitItem>();
         }
 
-        public static void SaveFavoriteOutfit(GeneratedOutfit outfit)
+        public static void SaveFavoriteOutfit(
+            GeneratedOutfit outfit)
         {
             if (outfit == null)
                 throw new ArgumentNullException(nameof(outfit));
 
-            if (outfit.Top == null || outfit.Bottom == null || outfit.Shoes == null)
-                throw new InvalidOperationException("Cannot save incomplete outfit.");
+            if (outfit.Top == null ||
+                outfit.Bottom == null ||
+                outfit.Shoes == null)
+            {
+                throw new InvalidOperationException(
+                    "Cannot save incomplete outfit.");
+            }
 
-            List<FavoriteOutfitItem> favorites = LoadFavoriteOutfits();
+            List<FavoriteOutfitItem> favorites =
+                LoadFavoriteOutfits();
 
-            FavoriteOutfitItem favorite = new FavoriteOutfitItem
+            favorites.Add(new FavoriteOutfitItem
             {
                 TopId = outfit.Top.Id,
                 BottomId = outfit.Bottom.Id,
                 ShoesId = outfit.Shoes.Id,
                 AccessoryId = outfit.Accessory?.Id ?? string.Empty,
                 DateSaved = DateTime.Now
-            };
-
-            favorites.Add(favorite);
+            });
 
             SaveFavoriteOutfits(favorites);
         }
 
-        public static void SaveFavoriteOutfits(List<FavoriteOutfitItem> favorites)
+        public static void SaveFavoriteOutfits(
+            List<FavoriteOutfitItem> favorites)
         {
-            SaveJson(FavoritesJsonPath, favorites ?? new List<FavoriteOutfitItem>());
+            SaveJson(
+                FavoritesJsonPath,
+                favorites ?? new List<FavoriteOutfitItem>());
         }
 
-        private static string CopyImageToStorage(string itemId, string sourceImagePath)
-        {
-            if (string.IsNullOrWhiteSpace(sourceImagePath) || !File.Exists(sourceImagePath))
-                return string.Empty;
+        // =========================================================
+        // IMAGE HELPERS
+        // =========================================================
 
-            string extension = Path.GetExtension(sourceImagePath);
+        private static string CopyImageToStorage(
+            string itemId,
+            string sourceImagePath)
+        {
+            if (string.IsNullOrWhiteSpace(sourceImagePath) ||
+                !File.Exists(sourceImagePath))
+            {
+                return string.Empty;
+            }
+
+            string extension =
+                Path.GetExtension(sourceImagePath);
 
             if (string.IsNullOrWhiteSpace(extension))
                 extension = ".png";
 
             string fileName = itemId + extension;
-            string destinationPath = Path.Combine(ImagesFolder, fileName);
 
-            File.Copy(sourceImagePath, destinationPath, true);
+            string destinationPath =
+                Path.Combine(ImagesFolder, fileName);
+
+            File.Copy(
+                sourceImagePath,
+                destinationPath,
+                true);
 
             return fileName;
         }
 
         private static void DeleteImage(string imagePath)
         {
-            if (string.IsNullOrWhiteSpace(imagePath) || !File.Exists(imagePath))
+            if (string.IsNullOrWhiteSpace(imagePath) ||
+                !File.Exists(imagePath))
+            {
                 return;
+            }
 
             try
             {
@@ -214,9 +254,13 @@ namespace Pormatics.Data
             }
             catch
             {
-                // Ignore image delete errors to prevent app crash.
+                // Ignore image delete errors
             }
         }
+
+        // =========================================================
+        // JSON HELPERS
+        // =========================================================
 
         private static T? LoadJson<T>(string path)
         {
@@ -238,16 +282,27 @@ namespace Pormatics.Data
             }
         }
 
-        private static void SaveJson<T>(string path, T data)
+        private static void SaveJson<T>(
+            string path,
+            T data)
         {
             EnsureFoldersExist();
 
-            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            string json =
+                JsonConvert.SerializeObject(
+                    data,
+                    Formatting.Indented);
 
             File.WriteAllText(path, json);
         }
 
-        private static bool MatchesSingle(string itemValue, string? selectedValue)
+        // =========================================================
+        // FILTER HELPERS
+        // =========================================================
+
+        private static bool MatchesSingle(
+            string itemValue,
+            string? selectedValue)
         {
             if (string.IsNullOrWhiteSpace(selectedValue))
                 return true;
@@ -255,33 +310,63 @@ namespace Pormatics.Data
             return TextEquals(itemValue, selectedValue);
         }
 
-        private static bool MatchesMultiValue(string itemValue, string? selectedValue)
+        private static bool MatchesMultiValue(
+            string itemValue,
+            string? selectedValue)
         {
             if (string.IsNullOrWhiteSpace(selectedValue))
                 return true;
 
-            return SplitValues(itemValue)
-                .Any(value => TextEquals(value, selectedValue));
+            string[] values = SplitValues(itemValue);
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                if (TextEquals(values[i], selectedValue))
+                    return true;
+            }
+
+            return false;
         }
 
-        private static List<string> SplitValues(string value)
+        private static string[] SplitValues(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-                return new List<string>();
+                return Array.Empty<string>();
 
             return value
-                .Split(',')
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(v => v.Trim())
-                .Where(v => !string.IsNullOrWhiteSpace(v))
-                .ToList();
+                .ToArray();
         }
 
-        private static bool TextEquals(string first, string second)
+        private static bool TextEquals(
+            string first,
+            string second)
         {
             return string.Equals(
                 first?.Trim(),
                 second?.Trim(),
                 StringComparison.OrdinalIgnoreCase);
+        }
+
+        // =========================================================
+        // NORMALIZATION
+        // =========================================================
+
+        private static void NormalizeItem(ClothingItem item)
+        {
+            if (string.IsNullOrWhiteSpace(item.Id))
+                item.Id = Guid.NewGuid().ToString();
+
+            if (item.DateAdded == default)
+                item.DateAdded = DateTime.Now;
+
+            item.Name = item.Name?.Trim() ?? string.Empty;
+            item.Category = item.Category?.Trim() ?? string.Empty;
+            item.ClothingType = item.ClothingType?.Trim() ?? string.Empty;
+            item.Color = item.Color?.Trim() ?? string.Empty;
+            item.Style = item.Style?.Trim() ?? string.Empty;
+            item.Season = item.Season?.Trim() ?? string.Empty;
         }
     }
 }

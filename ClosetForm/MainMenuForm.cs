@@ -253,7 +253,15 @@ namespace Pormatics
 
         public void LoadDefault()
         {
-            mainCloset_Click(mainCloset, EventArgs.Empty);
+            ActivateBottomButton(mainCloset);
+
+            SetClosetHeader(true);
+
+            ActivateTopButton(allClothesBtn);
+
+            ShowCachedControl(
+                "AllCloset",
+                () => new AllCloset());
         }
 
         private void settings_Click(object sender, EventArgs e)

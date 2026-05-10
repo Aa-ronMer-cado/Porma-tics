@@ -169,11 +169,12 @@
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(81, 661);
+            progressBar.Location = new Point(77, 647);
             progressBar.Name = "progressBar";
             progressBar.Size = new Size(504, 18);
             progressBar.Style = ProgressBarStyle.Continuous;
             progressBar.TabIndex = 17;
+            progressBar.Visible = false;
             // 
             // clrButton
             // 
