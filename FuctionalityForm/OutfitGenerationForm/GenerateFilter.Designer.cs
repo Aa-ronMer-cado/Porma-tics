@@ -34,8 +34,6 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
         private Button btnBusCasual;
         private Button btnRetro;
         private Button btnFormal;
-        private Button btnVaca;
-        private Button btnRomantic;
         private Button btnSporty;
         private Button btnSmtCasual;
 
@@ -75,8 +73,6 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
             btnRetro = new Button();
             btnBusCasual = new Button();
             btnFormal = new Button();
-            btnVaca = new Button();
-            btnRomantic = new Button();
             btnSporty = new Button();
             btnSmtCasual = new Button();
             lblGColor = new Label();
@@ -85,6 +81,8 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
             btnColorDropdown = new Button();
             clbColors = new CheckedListBox();
             btnNext = new Button();
+            btnRomantic = new Button();
+            btnVaca = new Button();
             mainLayout.SuspendLayout();
             headerLayout.SuspendLayout();
             titleLayout.SuspendLayout();
@@ -420,38 +418,6 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
             btnFormal.Text = "Formal";
             btnFormal.UseVisualStyleBackColor = false;
             // 
-            // btnVaca
-            // 
-            btnVaca.BackColor = Color.Thistle;
-            btnVaca.Dock = DockStyle.Fill;
-            btnVaca.FlatAppearance.BorderSize = 0;
-            btnVaca.FlatStyle = FlatStyle.Flat;
-            btnVaca.Font = new Font("Segoe UI", 10F);
-            btnVaca.ForeColor = Color.Black;
-            btnVaca.Location = new Point(341, 106);
-            btnVaca.Margin = new Padding(4);
-            btnVaca.Name = "btnVaca";
-            btnVaca.Size = new Size(249, 95);
-            btnVaca.TabIndex = 6;
-            btnVaca.Text = "Vacation";
-            btnVaca.UseVisualStyleBackColor = false;
-            // 
-            // btnRomantic
-            // 
-            btnRomantic.BackColor = Color.Thistle;
-            btnRomantic.Dock = DockStyle.Fill;
-            btnRomantic.FlatAppearance.BorderSize = 0;
-            btnRomantic.FlatStyle = FlatStyle.Flat;
-            btnRomantic.Font = new Font("Segoe UI", 10F);
-            btnRomantic.ForeColor = Color.Black;
-            btnRomantic.Location = new Point(598, 106);
-            btnRomantic.Margin = new Padding(4);
-            btnRomantic.Name = "btnRomantic";
-            btnRomantic.Size = new Size(249, 95);
-            btnRomantic.TabIndex = 7;
-            btnRomantic.Text = "Romantic";
-            btnRomantic.UseVisualStyleBackColor = false;
-            // 
             // btnSporty
             // 
             btnSporty.BackColor = Color.Thistle;
@@ -465,7 +431,7 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
             btnSporty.Name = "btnSporty";
             btnSporty.Size = new Size(249, 95);
             btnSporty.TabIndex = 8;
-            btnSporty.Text = "Sporty";
+            btnSporty.Text = "Athletic";
             btnSporty.UseVisualStyleBackColor = false;
             // 
             // btnSmtCasual
@@ -565,6 +531,38 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
             btnNext.UseVisualStyleBackColor = false;
             btnNext.Click += btnNext_Click;
             // 
+            // btnRomantic
+            // 
+            btnRomantic.BackColor = Color.Thistle;
+            btnRomantic.Dock = DockStyle.Fill;
+            btnRomantic.FlatAppearance.BorderSize = 0;
+            btnRomantic.FlatStyle = FlatStyle.Flat;
+            btnRomantic.Font = new Font("Segoe UI", 10F);
+            btnRomantic.ForeColor = Color.Black;
+            btnRomantic.Location = new Point(598, 106);
+            btnRomantic.Margin = new Padding(4);
+            btnRomantic.Name = "btnRomantic";
+            btnRomantic.Size = new Size(249, 95);
+            btnRomantic.TabIndex = 7;
+            btnRomantic.Text = "Romantic";
+            btnRomantic.UseVisualStyleBackColor = false;
+            // 
+            // btnVaca
+            // 
+            btnVaca.BackColor = Color.Thistle;
+            btnVaca.Dock = DockStyle.Fill;
+            btnVaca.FlatAppearance.BorderSize = 0;
+            btnVaca.FlatStyle = FlatStyle.Flat;
+            btnVaca.Font = new Font("Segoe UI", 10F);
+            btnVaca.ForeColor = Color.Black;
+            btnVaca.Location = new Point(341, 106);
+            btnVaca.Margin = new Padding(4);
+            btnVaca.Name = "btnVaca";
+            btnVaca.Size = new Size(249, 95);
+            btnVaca.TabIndex = 6;
+            btnVaca.Text = "Vacation";
+            btnVaca.UseVisualStyleBackColor = false;
+            // 
             // GenerateFilter
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -590,5 +588,8 @@ namespace Pormatics.FuctionalityForm.OutfitGenerationForm
             colorDropdownPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
+
+        private Button btnVaca;
+        private Button btnRomantic;
     }
 }
