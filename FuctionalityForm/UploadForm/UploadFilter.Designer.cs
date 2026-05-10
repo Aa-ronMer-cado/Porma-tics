@@ -141,7 +141,7 @@
             label3.AutoSize = true;
             label3.BackColor = Color.FromArgb(242, 235, 240);
             label3.ForeColor = SystemColors.ActiveCaptionText;
-            label3.Location = new Point(406, 329);
+            label3.Location = new Point(397, 329);
             label3.Name = "label3";
             label3.Size = new Size(55, 20);
             label3.TabIndex = 20;
@@ -161,7 +161,7 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Location = new Point(133, 329);
+            label1.Location = new Point(120, 329);
             label1.Name = "label1";
             label1.Size = new Size(43, 20);
             label1.TabIndex = 18;
@@ -169,7 +169,7 @@
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(80, 647);
+            progressBar.Location = new Point(81, 661);
             progressBar.Name = "progressBar";
             progressBar.Size = new Size(504, 18);
             progressBar.Style = ProgressBarStyle.Continuous;
@@ -235,7 +235,7 @@
             lblCategory.AutoSize = true;
             lblCategory.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             lblCategory.ForeColor = Color.Indigo;
-            lblCategory.Location = new Point(12, 309);
+            lblCategory.Location = new Point(12, 305);
             lblCategory.Name = "lblCategory";
             lblCategory.Size = new Size(55, 20);
             lblCategory.TabIndex = 2;
@@ -270,7 +270,7 @@
             lblStyles.AutoSize = true;
             lblStyles.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             lblStyles.ForeColor = Color.Indigo;
-            lblStyles.Location = new Point(12, 153);
+            lblStyles.Location = new Point(12, 128);
             lblStyles.Name = "lblStyles";
             lblStyles.Size = new Size(66, 20);
             lblStyles.TabIndex = 6;
@@ -279,10 +279,10 @@
             // panelStyles
             // 
             panelStyles.BackColor = Color.Transparent;
-            panelStyles.Location = new Point(12, 187);
+            panelStyles.Location = new Point(12, 152);
             panelStyles.Margin = new Padding(3, 4, 3, 4);
             panelStyles.Name = "panelStyles";
-            panelStyles.Size = new Size(504, 100);
+            panelStyles.Size = new Size(504, 140);
             panelStyles.TabIndex = 7;
             // 
             // lblSeasons
@@ -299,7 +299,7 @@
             // panelSeasons
             // 
             panelSeasons.BackColor = Color.Transparent;
-            panelSeasons.Location = new Point(12, 50);
+            panelSeasons.Location = new Point(12, 37);
             panelSeasons.Margin = new Padding(3, 4, 3, 4);
             panelSeasons.Name = "panelSeasons";
             panelSeasons.Size = new Size(504, 75);

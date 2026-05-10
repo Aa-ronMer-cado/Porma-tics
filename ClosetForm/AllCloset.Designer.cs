@@ -48,7 +48,7 @@
             BackColor = Color.FromArgb(244, 233, 233);
             Controls.Add(addLabel);
             Name = "AllCloset";
-            Size = new Size(1494, 801);
+            Size = new Size(1254, 853);
             Controls.SetChildIndex(addLabel, 0);
             ResumeLayout(false);
             PerformLayout();

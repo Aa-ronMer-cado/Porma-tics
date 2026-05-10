@@ -7,6 +7,10 @@ namespace Pormatics
 {
     public partial class StartForm : Form
     {
+        private readonly Image logoImage = Properties.Resources.LogoRIl;
+
+        private bool isOpeningMainMenu;
+
         public StartForm()
         {
             InitializeComponent();
@@ -14,14 +18,37 @@ namespace Pormatics
             WindowState = FormWindowState.Maximized;
 
             logoPic.Paint += logoPic_Paint;
+            logoPic.Resize += LogoPic_Resize;
+        }
+
+        private void LogoPic_Resize(object? sender, EventArgs e)
+        {
+            logoPic.Invalidate();
         }
 
         private void startBtn_Click(object sender, EventArgs e)
         {
+            if (isOpeningMainMenu)
+                return;
+
+            isOpeningMainMenu = true;
+
+            startBtn.Enabled = false;
+
             MainMenuForm mainMenu = new MainMenuForm();
-            mainMenu.Show();
+
             mainMenu.LoadDefault();
+
+            mainMenu.FormClosed += MainMenu_FormClosed;
+
+            mainMenu.Show();
+
             Hide();
+        }
+
+        private void MainMenu_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            Close();
         }
 
         private void startBtn_MouseEnter(object sender, EventArgs e)
@@ -34,35 +61,44 @@ namespace Pormatics
             startBtn.BackColor = Color.FromArgb(195, 180, 208);
         }
 
-        private void logoPic_Paint(object sender, PaintEventArgs e)
+        private void logoPic_Paint(object? sender, PaintEventArgs e)
         {
-            e.Graphics.Clear(Color.FromArgb(244, 233, 233));
+            if (logoImage == null)
+                return;
 
-            e.Graphics.SmoothingMode = SmoothingMode.None;
-            e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
-            e.Graphics.PixelOffsetMode = PixelOffsetMode.Half;
+            Graphics graphics = e.Graphics;
 
-            Image logo = Properties.Resources.LogoRIl;
+            graphics.Clear(Color.FromArgb(244, 233, 233));
 
-            e.Graphics.TranslateTransform(
-                logoPic.Width / 2f,
-                logoPic.Height / 2f);
-
-            e.Graphics.RotateTransform(12f);
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
             int size = Math.Min(logoPic.Width, logoPic.Height);
 
-            int logoWidth = (int)(size * 0.95);
-            int logoHeight = (int)(size * 0.95);
+            int logoSize = (int)(size * 0.95);
 
-            e.Graphics.DrawImage(
-                logo,
-                -logoWidth / 2,
-                -logoHeight / 2,
-                logoWidth,
-                logoHeight);
+            graphics.TranslateTransform(
+                logoPic.Width / 2f,
+                logoPic.Height / 2f);
 
-            e.Graphics.ResetTransform();
+            graphics.RotateTransform(12f);
+
+            graphics.DrawImage(
+                logoImage,
+                -logoSize / 2,
+                -logoSize / 2,
+                logoSize,
+                logoSize);
+
+            graphics.ResetTransform();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            logoImage?.Dispose();
+
+            base.OnFormClosing(e);
         }
     }
 }
