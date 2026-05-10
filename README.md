@@ -33,7 +33,7 @@ The purpose of <u>PORMA-tics</u> is to provide users with a smart and organized 
 
 ## ✌︎㋡ 𝜚˚⋆ | UML DIAGRAM
 <p align = "center">
- <img src="resources/UML.png" width="600" height="300" style="margin-right: 10px;"/>
+ <img src="Resources/UML.png" width="600" height="300" style="margin-right: 10px;"/>
 
 ## ✌︎㋡ 𝜚˚⋆ | FEATURES
 <p align = "justify" >
@@ -69,9 +69,9 @@ The purpose of <u>PORMA-tics</u> is to provide users with a smart and organized 
 - Navigate through different closet categories
 - Organize clothing records efficiently
 <p align="center">
-  <img src="resources/Cat.png" width="200" height="200" style="margin-right: 10px;"/>
-  <img src="resources/cat.png" width="200" height="200" style="margin-right: 10px;"/>
-  <img src="resources/cat.png" width="200" height="200" style="margin-right: 10px;"/>
+  <img src="Resources/Cat.png" width="200" height="200" style="margin-right: 10px;"/>
+  <img src="Resources/cat.png" width="200" height="200" style="margin-right: 10px;"/>
+  <img src="Resources/cat.png" width="200" height="200" style="margin-right: 10px;"/>
 </p>
 
 ## **✌︎㋡ 𝜚˚⋆ | Program Structure** 
