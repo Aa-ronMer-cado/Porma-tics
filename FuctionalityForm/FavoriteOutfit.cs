@@ -27,6 +27,8 @@ namespace Pormatics.FuctionalityForm
 
             mainLayout.Padding = new Padding(30, 170, 30, 30);
 
+            LoadFavorites();
+
             Shown += FavoriteOutfit_Shown;
         }
 

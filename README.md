@@ -3,7 +3,7 @@
 </h1>
 
 <h3 align = "center">
-Something small description or tagline here
+<i>Organize Today. Slay Every Day.</i>
 </h3>
 
 <p align="center">
@@ -33,7 +33,7 @@ The purpose of <u>PORMA-tics</u> is to provide users with a smart and organized 
 
 ## ✌︎㋡ 𝜚˚⋆ | UML DIAGRAM
 <p align = "center">
- <img src="Resources/UML.png" width="600" height="300" style="margin-right: 10px;"/>
+ <img src="Resources/UMLfrr.png" width="600" height="2000" style="margin-right: 10px;"/>
 
 ## ✌︎㋡ 𝜚˚⋆ | FEATURES
 <p align = "justify" >
@@ -69,9 +69,9 @@ The purpose of <u>PORMA-tics</u> is to provide users with a smart and organized 
 - Navigate through different closet categories
 - Organize clothing records efficiently
 <p align="center">
-  <img src="Resources/Cat.png" width="200" height="200" style="margin-right: 10px;"/>
-  <img src="Resources/cat.png" width="200" height="200" style="margin-right: 10px;"/>
-  <img src="Resources/cat.png" width="200" height="200" style="margin-right: 10px;"/>
+  <img src="Resources/FT1.png" width="250" height="200" style="margin-right: 10px;"/>
+  <img src="Resources/FT2.png" width="250" height="200" style="margin-right: 10px;"/>
+  <img src="Resources/FT3.png" width="250" height="200" style="margin-right: 10px;"/>
 </p>
 
 ## **✌︎㋡ 𝜚˚⋆ | Program Structure** 
@@ -107,6 +107,7 @@ The purpose of <u>PORMA-tics</u> is to provide users with a smart and organized 
 └── 📂 Services/
     └── OutfitGeneratorService.cs
 └── 📂 Utilities/
+    └──  CustomHeader.cs
     └──  StartForm.cs
     └──  ThemeColor.cs
 
@@ -176,8 +177,8 @@ Pres F5 or Start Debugging in Visual Studio
 |     | Name   |Roles    |
 |-----|--------|---------|
 | <div align="center"><img src="Resources/Xiamara.png" width="150"></div> | Bernardo, Xiamara <br> [![GitHub]( https://img.shields.io/badge/-GitHub-722F37?logo=github&style=flat-square)](https://github.com/Xiamara23)   | UML Planner    |
-| <div align="center"><img src="Resources/miky.jpg" width="150"></div> |Carranceja, Mikyla <br> [![GitHub](https://img.shields.io/badge/-GitHub-6C3BAA?logo=github&style=flat-square)](https://github.com/kykylim) | UI/UX Designer |
-| <div align="center"><img src="Resources/shanlee.jpg " width="150"></div> |Gupilan, Shanlee Yvonne <br> [![GitHub](https://img.shields.io/badge/-GitHub-2E6F40?logo=github&style=flat-square)](https://github.com/Shanleegupilan8) | Quality Assurance|
+| <div align="center"><img src="Resources/miky.jpg" width="150"></div> |Carranceja, Mikyla <br> [![GitHub](https://img.shields.io/badge/-GitHub-6C3BAA?logo=github&style=flat-square)](https://github.com/kykylim) | UI/UX Designer & Quality Assurance|
+| <div align="center"><img src="Resources/shanlee.jpg " width="150"></div> |Gupilan, Shanlee Yvonne <br> [![GitHub](https://img.shields.io/badge/-GitHub-2E6F40?logo=github&style=flat-square)](https://github.com/Shanleegupilan8) | System Analyst|
 | <div align="center"><img src="Resources/aaron.png" width="150"></div> | Mercado, Aaron Daniel <br> [![GitHub](https://img.shields.io/badge/-GitHub-48CAE4?logo=github&style=flat-square)](https://github.com/Aa-ronMer-cado) |Backend Programmer  |
 
 <h1 align="center">
