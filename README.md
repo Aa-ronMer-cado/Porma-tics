@@ -177,7 +177,7 @@ Pres F5 or Start Debugging in Visual Studio
 |-----|--------|---------|
 | <div align="center"><img src="Resources/Xiamara.png" width="150"></div> | Bernardo, Xiamara <br> [![GitHub]( https://img.shields.io/badge/-GitHub-722F37?logo=github&style=flat-square)](https://github.com/Xiamara23)   | UML Planner    |
 | <div align="center"><img src="Resources/miky.jpg" width="150"></div> |Carranceja, Mikyla <br> [![GitHub](https://img.shields.io/badge/-GitHub-6C3BAA?logo=github&style=flat-square)](https://github.com/kykylim) | UI/UX Designer |
-| <div align="center"><img src="Resources/shanlee.jpg " width="150"></div> |Gupilan, Shanlee Yvonne <br> [![GitHub](https://img.shields.io/badge/-GitHub-2E6F40?logo=github&style=flat-square)](https://github.com/Shanleegupilan8) | Quality Assurance|
+| <div align="center"><img src="Resources/shanlee.jpg " width="150"></div> |Gupilan, Shanlee Yvonne <br> [![GitHub](https://img.shields.io/badge/-GitHub-2E6F40?logo=github&style=flat-square)](https://github.com/Shanleegupilan8) | System Analyst|
 | <div align="center"><img src="Resources/aaron.png" width="150"></div> | Mercado, Aaron Daniel <br> [![GitHub](https://img.shields.io/badge/-GitHub-48CAE4?logo=github&style=flat-square)](https://github.com/Aa-ronMer-cado) |Backend Programmer  |
 
 <h1 align="center">
