@@ -80,13 +80,13 @@ namespace Pormatics
                 logoPic.Width,
                 logoPic.Height);
 
-            int logoSize = (int)(size * 1.5);
+            int logoSize = (int)(size * 1.6);
 
             g.TranslateTransform(
                 logoPic.Width / 2f,
                 logoPic.Height / 2f);
 
-            g.RotateTransform(12f);
+            g.RotateTransform(-5f);
 
             g.DrawImage(
                 logoImage,
