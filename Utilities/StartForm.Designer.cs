@@ -69,7 +69,7 @@ namespace Pormatics
             // lblTitle
             // 
             lblTitle.Dock = DockStyle.Fill;
-            lblTitle.Font = new Font("Komikazoom", 28F, FontStyle.Bold);
+            lblTitle.Font = new Font("Komikazoom", 35F, FontStyle.Bold);
             lblTitle.ForeColor = Color.Indigo;
             lblTitle.Location = new Point(313, 306);
             lblTitle.Margin = new Padding(0);

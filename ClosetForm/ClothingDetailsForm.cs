@@ -3,13 +3,16 @@ using Pormatics.Models;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace Pormatics.ClosetForm
 {
     public partial class ClothingDetailsForm : Form
     {
-        private ClothingItem _item;
+        private readonly ClothingItem _item;
+        private bool isLoading = false;
 
         public bool ItemChanged { get; private set; } = false;
 
@@ -24,27 +27,158 @@ namespace Pormatics.ClosetForm
 
         private void LoadItem()
         {
+            isLoading = true;
+
             lblTitle.Text = _item.ClothingType;
-            cmbColor.Text = _item.Color;
-            cmbStyle.Text = _item.Style;
-            cmbSeason.Text = _item.Season;
+
+            LoadCheckedValues(clbSeason, _item.Season);
+            LoadCheckedValues(clbStyle, _item.Style);
+            LoadCheckedValues(clbColor, _item.Color);
+
+            UpdateDropdownText(btnSeasonDropdown, clbSeason, "Select Season");
+            UpdateDropdownText(btnStyleDropdown, clbStyle, "Select Style");
+            UpdateDropdownText(btnColorDropdown, clbColor, "Select Color");
 
             if (File.Exists(_item.ImageFullPath))
             {
-                using (Image temp = Image.FromFile(_item.ImageFullPath))
-                {
-                    picturePreview.Image = new Bitmap(temp);
-                }
+                using Image temp = Image.FromFile(_item.ImageFullPath);
+                picturePreview.Image = new Bitmap(temp);
             }
 
             picturePreview.SizeMode = PictureBoxSizeMode.Zoom;
+
+            isLoading = false;
+        }
+
+        private void LoadCheckedValues(CheckedListBox list, string savedValues)
+        {
+            string[] values = savedValues
+                .Split(',')
+                .Select(v => v.Trim())
+                .Where(v => !string.IsNullOrWhiteSpace(v))
+                .ToArray();
+
+            for (int i = 0; i < list.Items.Count; i++)
+            {
+                string itemText = list.Items[i].ToString()!;
+
+                if (values.Contains(itemText, StringComparer.OrdinalIgnoreCase))
+                    list.SetItemChecked(i, true);
+            }
+        }
+
+        private void ToggleDropdown(Panel panel, CheckedListBox list)
+        {
+            list.Visible = !list.Visible;
+            panel.Height = list.Visible ? 175 : 45;
+        }
+
+        private void UpdateDropdownText(Button button, CheckedListBox list, string defaultText)
+        {
+            string selectedText = string.Join(", ",
+                list.CheckedItems
+                    .Cast<object>()
+                    .Select(item => item.ToString()));
+
+            button.Text = string.IsNullOrWhiteSpace(selectedText)
+                ? $"{defaultText} ▼"
+                : $"{selectedText} ▼";
+        }
+
+        private string GetCheckedValues(CheckedListBox list)
+        {
+            return string.Join(", ",
+                list.CheckedItems
+                    .Cast<object>()
+                    .Select(item => item.ToString()));
+        }
+
+        private void btnSeasonDropdown_Click(object sender, EventArgs e)
+        {
+            ToggleDropdown(pnlSeason, clbSeason);
+        }
+
+        private void btnStyleDropdown_Click(object sender, EventArgs e)
+        {
+            ToggleDropdown(pnlStyle, clbStyle);
+        }
+
+        private void btnColorDropdown_Click(object sender, EventArgs e)
+        {
+            ToggleDropdown(pnlColor, clbColor);
+        }
+
+        private void clbSeason_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (isLoading)
+                return;
+
+            Timer timer = new Timer();
+            timer.Interval = 1;
+            timer.Tick += (s, args) =>
+            {
+                timer.Stop();
+                timer.Dispose();
+                UpdateDropdownText(btnSeasonDropdown, clbSeason, "Select Season");
+            };
+            timer.Start();
+        }
+
+        private void clbStyle_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (isLoading)
+                return;
+
+            Timer timer = new Timer();
+            timer.Interval = 1;
+            timer.Tick += (s, args) =>
+            {
+                timer.Stop();
+                timer.Dispose();
+                UpdateDropdownText(btnStyleDropdown, clbStyle, "Select Style");
+            };
+            timer.Start();
+        }
+
+        private void clbColor_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (isLoading)
+                return;
+
+            Timer timer = new Timer();
+            timer.Interval = 1;
+            timer.Tick += (s, args) =>
+            {
+                timer.Stop();
+                timer.Dispose();
+                UpdateDropdownText(btnColorDropdown, clbColor, "Select Color");
+            };
+            timer.Start();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            _item.Color = cmbColor.Text.Trim();
-            _item.Style = cmbStyle.Text.Trim();
-            _item.Season = cmbSeason.Text.Trim();
+            _item.Season = GetCheckedValues(clbSeason);
+            _item.Style = GetCheckedValues(clbStyle);
+            _item.Color = GetCheckedValues(clbColor);
+
+            if (string.IsNullOrWhiteSpace(_item.Season))
+            {
+                MessageBox.Show("Please select at least one season.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(_item.Style))
+            {
+                MessageBox.Show("Please select at least one style.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(_item.Color))
+            {
+                MessageBox.Show("Please select at least one color.");
+                return;
+            }
 
             StorageService.UpdateItem(_item);
 

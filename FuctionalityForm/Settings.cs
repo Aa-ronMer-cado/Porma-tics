@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
+﻿using Pormatics.Utility;
+using System;
 using System.Windows.Forms;
 
 namespace Pormatics.FuctionalityForm
@@ -13,7 +9,7 @@ namespace Pormatics.FuctionalityForm
         public Settings()
         {
             InitializeComponent();
-
+            
         }
     }
 }

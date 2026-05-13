@@ -153,6 +153,36 @@ namespace Pormatics.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap FT1 {
+            get {
+                object obj = ResourceManager.GetObject("FT1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FT2 {
+            get {
+                object obj = ResourceManager.GetObject("FT2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FT3 {
+            get {
+                object obj = ResourceManager.GetObject("FT3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LogoRIl {
             get {
                 object obj = ResourceManager.GetObject("LogoRIl", resourceCulture);
@@ -193,6 +223,16 @@ namespace Pormatics.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PormaLog {
+            get {
+                object obj = ResourceManager.GetObject("PormaLog", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Restart {
             get {
                 object obj = ResourceManager.GetObject("Restart", resourceCulture);
@@ -226,6 +266,16 @@ namespace Pormatics.Properties {
         internal static System.Drawing.Bitmap shanlee {
             get {
                 object obj = ResourceManager.GetObject("shanlee", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UMLfrr {
+            get {
+                object obj = ResourceManager.GetObject("UMLfrr", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

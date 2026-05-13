@@ -3,7 +3,6 @@ using Pormatics.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,10 +13,13 @@ namespace Pormatics.FuctionalityForm.UploadForm
         private readonly string _sourceImagePath;
         private readonly UploadClothes _previousForm;
 
-        private string _selectedColor = string.Empty;
+        private readonly List<string> _selectedColors = new();
+        private readonly List<string> _selectedStyles = new();
+        private readonly List<string> _selectedSeasons = new();
 
-        private readonly List<string> _selectedStyles = new List<string>();
-        private readonly List<string> _selectedSeasons = new List<string>();
+        private Panel colorDropdownPanel = null!;
+        private Button btnColorDropdown = null!;
+        private CheckedListBox clbColors = null!;
 
         public bool UploadSuccessful { get; private set; } = false;
 
@@ -31,6 +33,7 @@ namespace Pormatics.FuctionalityForm.UploadForm
             SetupComboBoxes();
             LoadImagePreview();
             BuildTagButtons();
+            BuildColorDropdown();
         }
 
         private void SetupComboBoxes()
@@ -136,11 +139,8 @@ namespace Pormatics.FuctionalityForm.UploadForm
             {
                 picturePreview.Image?.Dispose();
 
-                using (Image tempImage = Image.FromFile(_sourceImagePath))
-                {
-                    picturePreview.Image = new Bitmap(tempImage);
-                }
-
+                using Image tempImage = Image.FromFile(_sourceImagePath);
+                picturePreview.Image = new Bitmap(tempImage);
                 picturePreview.SizeMode = PictureBoxSizeMode.Zoom;
             }
             catch
@@ -151,29 +151,119 @@ namespace Pormatics.FuctionalityForm.UploadForm
 
         private enum TagType
         {
-            Color,
             Style,
             Season
         }
 
         private void BuildTagButtons()
         {
-            BuildTagGroup(panelColors, new[]
-            {
-                "White", "Black", "Blue", "Brown", "Pink",
-                "Green", "Red", "Gray", "Yellow", "Multi"
-            }, TagType.Color);
+            panelColors.Controls.Clear();
 
             BuildTagGroup(panelStyles, new[]
             {
-                "Casual", "Formal", "Streetwear", "Minimalist",
-                "Retro", "Smart Casual", "Athletic", "Business"
+                "Casual", "Formal", "Streetwear", "Minimalist", "Romantic",
+                "Retro", "Smart Casual", "Athletic", "Business", "Vacation"
             }, TagType.Style);
 
             BuildTagGroup(panelSeasons, new[]
             {
                 "Summer", "Rainy"
             }, TagType.Season);
+        }
+
+        private void BuildColorDropdown()
+        {
+            panelColors.Controls.Clear();
+
+            colorDropdownPanel = new Panel
+            {
+                Size = new Size(260, 45),
+                BackColor = Color.Transparent,
+                Margin = new Padding(4)
+            };
+
+            btnColorDropdown = new Button
+            {
+                Text = "Select Colors ▼",
+                Size = new Size(260, 38),
+                Location = new Point(0, 0),
+                BackColor = Color.White,
+                ForeColor = Color.FromArgb(99, 90, 131),
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Microsoft Sans Serif", 9F),
+                TextAlign = ContentAlignment.MiddleLeft,
+                Cursor = Cursors.Hand
+            };
+
+            btnColorDropdown.FlatAppearance.BorderColor = Color.FromArgb(195, 180, 208);
+
+            clbColors = new CheckedListBox
+            {
+                Size = new Size(260, 130),
+                Location = new Point(0, 40),
+                BackColor = Color.White,
+                ForeColor = Color.FromArgb(99, 90, 131),
+                BorderStyle = BorderStyle.FixedSingle,
+                CheckOnClick = true,
+                Font = new Font("Microsoft Sans Serif", 9F),
+                Visible = false
+            };
+
+            clbColors.Items.AddRange(new object[]
+            {
+                "White",
+                "Black",
+                "Blue",
+                "Brown",
+                "Pink",
+                "Green",
+                "Red",
+                "Gray",
+                "Yellow",
+                "Multi"
+            });
+
+            btnColorDropdown.Click += btnColorDropdown_Click;
+            clbColors.ItemCheck += clbColors_ItemCheck;
+
+            colorDropdownPanel.Controls.Add(btnColorDropdown);
+            colorDropdownPanel.Controls.Add(clbColors);
+
+            panelColors.Controls.Add(colorDropdownPanel);
+        }
+
+        private void btnColorDropdown_Click(object? sender, EventArgs e)
+        {
+            clbColors.Visible = !clbColors.Visible;
+            colorDropdownPanel.Height = clbColors.Visible ? 175 : 45;
+        }
+
+        private void clbColors_ItemCheck(object? sender, ItemCheckEventArgs e)
+        {
+            BeginInvoke((MethodInvoker)delegate
+            {
+                RefreshSelectedColors();
+                UpdateColorDropdownText();
+            });
+        }
+
+        private void RefreshSelectedColors()
+        {
+            _selectedColors.Clear();
+
+            foreach (object item in clbColors.CheckedItems)
+            {
+                if (item != null)
+                    _selectedColors.Add(item.ToString()!);
+            }
+        }
+
+        private void UpdateColorDropdownText()
+        {
+            btnColorDropdown.Text =
+                _selectedColors.Count == 0
+                    ? "Select Colors ▼"
+                    : string.Join(", ", _selectedColors) + " ▼";
         }
 
         private void BuildTagGroup(FlowLayoutPanel panel, string[] labels, TagType tagType)
@@ -202,7 +292,7 @@ namespace Pormatics.FuctionalityForm.UploadForm
             }
         }
 
-        private void TagButton_Click(object sender, EventArgs e)
+        private void TagButton_Click(object? sender, EventArgs e)
         {
             if (sender is not Button clicked)
                 return;
@@ -210,11 +300,7 @@ namespace Pormatics.FuctionalityForm.UploadForm
             TagType type = (TagType)clicked.Tag;
             string value = clicked.Text.Trim();
 
-            if (type == TagType.Color)
-            {
-                SelectSingleColor(clicked, value);
-            }
-            else if (type == TagType.Style)
+            if (type == TagType.Style)
             {
                 ToggleMultiSelect(clicked, value, _selectedStyles);
             }
@@ -222,18 +308,6 @@ namespace Pormatics.FuctionalityForm.UploadForm
             {
                 ToggleMultiSelect(clicked, value, _selectedSeasons);
             }
-        }
-
-        private void SelectSingleColor(Button clicked, string color)
-        {
-            foreach (Control control in panelColors.Controls)
-            {
-                if (control is Button btn)
-                    SetButtonUnselected(btn);
-            }
-
-            SetButtonSelected(clicked);
-            _selectedColor = color;
         }
 
         private void ToggleMultiSelect(Button clicked, string value, List<string> selectedList)
@@ -264,6 +338,8 @@ namespace Pormatics.FuctionalityForm.UploadForm
 
         private async void btnUpload_Click(object sender, EventArgs e)
         {
+            RefreshSelectedColors();
+
             string selectedClothingType = GetSelectedClothingType();
             string mainCategory = GetCategoryFromClothingType(selectedClothingType);
 
@@ -279,9 +355,9 @@ namespace Pormatics.FuctionalityForm.UploadForm
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(_selectedColor))
+            if (_selectedColors.Count == 0)
             {
-                ShowError("Please select a color.");
+                ShowError("Please select at least one color.");
                 return;
             }
 
@@ -307,7 +383,7 @@ namespace Pormatics.FuctionalityForm.UploadForm
             {
                 Category = mainCategory,
                 ClothingType = selectedClothingType,
-                Color = _selectedColor,
+                Color = string.Join(", ", _selectedColors),
                 Style = string.Join(", ", _selectedStyles),
                 Season = string.Join(", ", _selectedSeasons)
             };
@@ -377,13 +453,24 @@ namespace Pormatics.FuctionalityForm.UploadForm
                 cb.Enabled = true;
             }
 
-            _selectedColor = string.Empty;
+            _selectedColors.Clear();
             _selectedStyles.Clear();
             _selectedSeasons.Clear();
 
-            ResetButtons(panelColors);
             ResetButtons(panelStyles);
             ResetButtons(panelSeasons);
+
+            if (clbColors != null)
+            {
+                for (int i = 0; i < clbColors.Items.Count; i++)
+                {
+                    clbColors.SetItemChecked(i, false);
+                }
+
+                clbColors.Visible = false;
+                colorDropdownPanel.Height = 45;
+                btnColorDropdown.Text = "Select Colors ▼";
+            }
         }
 
         private void ResetButtons(FlowLayoutPanel panel)
@@ -418,16 +505,6 @@ namespace Pormatics.FuctionalityForm.UploadForm
                 "Required Field",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Warning);
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void mainPanel_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

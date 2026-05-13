@@ -151,7 +151,6 @@
             closetBtnCtrl.Name = "closetBtnCtrl";
             closetBtnCtrl.Size = new Size(1164, 102);
             closetBtnCtrl.TabIndex = 1;
-            closetBtnCtrl.Paint += closetBtnCtrl_Paint;
             // 
             // panelTitle
             // 
@@ -173,7 +172,6 @@
             title.Size = new Size(266, 105);
             title.TabIndex = 0;
             title.Text = "CLOSET";
-            title.Click += label1_Click;
             // 
             // MiniBtn
             // 
@@ -313,7 +311,6 @@
             closetPanel.Name = "closetPanel";
             closetPanel.Size = new Size(1164, 392);
             closetPanel.TabIndex = 3;
-            closetPanel.Paint += closetPanel_Paint;
             // 
             // MainMenuForm
             // 

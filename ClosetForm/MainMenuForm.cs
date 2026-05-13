@@ -1,38 +1,40 @@
 ﻿using Pormatics.ClosetForm;
 using Pormatics.FuctionalityForm;
 using Pormatics.FuctionalityForm.OutfitGenerationForm;
+using Pormatics.FuctionalityForm.UploadForm;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Pormatics.FuctionalityForm.UploadForm;
 
 namespace Pormatics
 {
     public partial class MainMenuForm : Form
     {
-        // ── Fields ───────────────────────────────────────────────────
         private PictureBox? currentBottomButton;
         private Button? currentTopButton;
-        private UserControl? activeControl;
 
-        // ── Constructor ──────────────────────────────────────────────
+        private Control? activePage;
+
+        private readonly Dictionary<string, UserControl> cachedControls = new();
+        private readonly Dictionary<string, Form> cachedForms = new();
+
         public MainMenuForm()
         {
             InitializeComponent();
 
-            this.Text = string.Empty;
-            this.ControlBox = false;
-            this.WindowState = FormWindowState.Maximized;
-            this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+            Text = string.Empty;
+            ControlBox = false;
+            WindowState = FormWindowState.Maximized;
+            MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
 
-            // ── Add Hover Events to Bottom Panel PictureBoxes ───────
+            DoubleBuffered = true;
+            EnableDoubleBuffering(closetPanel);
+            EnableDoubleBuffering(bottomPanel);
+            EnableDoubleBuffering(clothesBtnPanel);
+
             foreach (PictureBox pb in bottomPanel.Controls.OfType<PictureBox>())
             {
                 pb.MouseEnter += BottomButton_MouseEnter;
@@ -40,19 +42,11 @@ namespace Pormatics
             }
         }
 
-        // ── DLL Imports for Drag ─────────────────────────────────────
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
 
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(
-            System.IntPtr hWnd,
-            int wMsg,
-            int wParam,
-            int lParam);
-
-        // ── Resize & Scaling ─────────────────────────────────────────
-
+        private extern static void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
 
         protected override void OnResize(EventArgs e)
         {
@@ -60,6 +54,16 @@ namespace Pormatics
 
             ResizeBottomButtons();
             ResizeTopButtons();
+        }
+
+        private static void EnableDoubleBuffering(Control control)
+        {
+            typeof(Control)
+                .GetProperty(
+                    "DoubleBuffered",
+                    System.Reflection.BindingFlags.NonPublic |
+                    System.Reflection.BindingFlags.Instance)
+                ?.SetValue(control, true);
         }
 
         private void ResizeBottomButtons()
@@ -72,22 +76,18 @@ namespace Pormatics
             if (pictureBoxes.Count == 0)
                 return;
 
-            int totalWidth = bottomPanel.Width;
-            int btnWidth = totalWidth / pictureBoxes.Count;
-            int remainder = totalWidth % pictureBoxes.Count;
-
-            int xPos = 0;
+            int btnWidth = bottomPanel.Width / pictureBoxes.Count;
+            int remainder = bottomPanel.Width % pictureBoxes.Count;
+            int x = 0;
 
             for (int i = 0; i < pictureBoxes.Count; i++)
             {
-                int width = (i == pictureBoxes.Count - 1)
+                int width = i == pictureBoxes.Count - 1
                     ? btnWidth + remainder
                     : btnWidth;
 
-                pictureBoxes[i].Width = width;
-                pictureBoxes[i].Location = new Point(xPos, 0);
-
-                xPos += width;
+                pictureBoxes[i].Bounds = new Rectangle(x, 0, width, bottomPanel.Height);
+                x += width;
             }
         }
 
@@ -101,228 +101,187 @@ namespace Pormatics
             if (buttons.Count == 0)
                 return;
 
-            int totalWidth = clothesBtnPanel.Width;
-            int btnWidth = totalWidth / buttons.Count;
-            int remainder = totalWidth % buttons.Count;
-
-            int xPos = 0;
+            int btnWidth = clothesBtnPanel.Width / buttons.Count;
+            int remainder = clothesBtnPanel.Width % buttons.Count;
+            int x = 0;
 
             for (int i = 0; i < buttons.Count; i++)
             {
-                int width = (i == buttons.Count - 1)
+                int width = i == buttons.Count - 1
                     ? btnWidth + remainder
                     : btnWidth;
 
-                buttons[i].Width = width;
-                buttons[i].Location = new Point(xPos, 0);
-
-                xPos += width;
+                buttons[i].Bounds = new Rectangle(x, 0, width, clothesBtnPanel.Height);
+                x += width;
             }
         }
 
-        // ── Hover Effects for Bottom PictureBoxes ───────────────────
-        private void BottomButton_MouseEnter(object sender, EventArgs e)
+        private void BottomButton_MouseEnter(object? sender, EventArgs e)
         {
-            PictureBox hovered = (PictureBox)sender;
-
-            // Don't change active button color
-            if (hovered != currentBottomButton)
-            {
-                hovered.BackColor =
-                    ColorTranslator.FromHtml("#A89ABF");
-            }
+            if (sender is PictureBox hovered && hovered != currentBottomButton)
+                hovered.BackColor = ColorTranslator.FromHtml("#A89ABF");
         }
 
-        private void BottomButton_MouseLeave(object sender, EventArgs e)
+        private void BottomButton_MouseLeave(object? sender, EventArgs e)
         {
-            PictureBox hovered = (PictureBox)sender;
-
-            // Restore default color if not active
-            if (hovered != currentBottomButton)
-            {
-                hovered.BackColor =
-                    Color.FromArgb(195, 180, 208);
-            }
+            if (sender is PictureBox hovered && hovered != currentBottomButton)
+                hovered.BackColor = Color.FromArgb(195, 180, 208);
         }
 
-        // ── Open Child UserControl ───────────────────────────────────
-
-        private Form? activeEmbeddedForm;
-        private void OpenChildForm(Form childForm)
+        private void ShowCachedControl(string key, Func<UserControl> createControl)
         {
-            if (activeControl != null)
+            closetPanel.SuspendLayout();
+
+            if (!cachedControls.ContainsKey(key))
             {
-                closetPanel.Controls.Remove(activeControl);
-                activeControl.Dispose();
-                activeControl = null;
+                UserControl control = createControl();
+                control.Dock = DockStyle.Fill;
+                cachedControls[key] = control;
             }
 
-            if (activeEmbeddedForm != null)
-            {
-                closetPanel.Controls.Remove(activeEmbeddedForm);
-                activeEmbeddedForm.Dispose();
-                activeEmbeddedForm = null;
-            }
+            ShowPage(cachedControls[key]);
 
-            activeEmbeddedForm = childForm;
-
-            childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-
-            closetPanel.Controls.Add(childForm);
-            childForm.BringToFront();
-            childForm.Show();
+            closetPanel.ResumeLayout();
         }
 
-        private void OpenChildControl(UserControl childControl)
+        private void ShowCachedForm(string key, Func<Form> createForm)
         {
-            if (activeEmbeddedForm != null)
+            closetPanel.SuspendLayout();
+
+            if (!cachedForms.ContainsKey(key) || cachedForms[key].IsDisposed)
             {
-                closetPanel.Controls.Remove(activeEmbeddedForm);
-                activeEmbeddedForm.Dispose();
-                activeEmbeddedForm = null;
+                Form form = createForm();
+                form.TopLevel = false;
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Dock = DockStyle.Fill;
+                cachedForms[key] = form;
             }
 
-            if (activeControl != null)
-            {
-                closetPanel.Controls.Remove(activeControl);
-                activeControl.Dispose();
-                activeControl = null;
-            }
+            Form page = cachedForms[key];
 
-            activeControl = childControl;
+            if (!closetPanel.Controls.Contains(page))
+                closetPanel.Controls.Add(page);
 
-            childControl.Dock = DockStyle.Fill;
+            ShowPage(page);
 
-            closetPanel.Controls.Add(childControl);
-            childControl.BringToFront();
+            if (!page.Visible)
+                page.Show();
+
+            closetPanel.ResumeLayout();
         }
 
-        // ── Bottom Panel Logic ───────────────────────────────────────
-        private void ActivateBottomButton(object btnSender)
+        private void ShowTemporaryForm(Form form)
         {
-            if (btnSender != null)
-            {
-                if (currentBottomButton != (PictureBox)btnSender)
-                {
-                    DisableBottomButton();
+            closetPanel.SuspendLayout();
 
-                    currentBottomButton = (PictureBox)btnSender;
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
 
-                    currentBottomButton.BackColor =
-                        ColorTranslator.FromHtml("#635A83");
-                }
-            }
+            ShowPage(form);
+
+            form.Show();
+
+            closetPanel.ResumeLayout();
+        }
+
+        private void ShowPage(Control page)
+        {
+            if (activePage == page)
+                return;
+
+            foreach (Control control in closetPanel.Controls)
+                control.Visible = false;
+
+            if (!closetPanel.Controls.Contains(page))
+                closetPanel.Controls.Add(page);
+
+            page.Dock = DockStyle.Fill;
+            page.Visible = true;
+            page.BringToFront();
+
+            activePage = page;
+        }
+
+        private void ActivateBottomButton(object sender)
+        {
+            if (sender is not PictureBox selected)
+                return;
+
+            DisableBottomButton();
+
+            currentBottomButton = selected;
+            currentBottomButton.BackColor = ColorTranslator.FromHtml("#635A83");
         }
 
         private void DisableBottomButton()
         {
-            foreach (Control previousBtn in bottomPanel.Controls)
-            {
-                if (previousBtn is PictureBox pb)
-                {
-                    pb.BackColor =
-                        Color.FromArgb(195, 180, 208);
-                }
-            }
+            foreach (PictureBox pb in bottomPanel.Controls.OfType<PictureBox>())
+                pb.BackColor = Color.FromArgb(195, 180, 208);
         }
 
-        private bool wasClosetOpenBeforePopup = false;
-
-        // ── Top Panel Logic ──────────────────────────────────────────
-        private void ActivateTopButton(object btnSender)
+        private void ActivateTopButton(object sender)
         {
-            if (btnSender != null)
-            {
-                if (currentTopButton != (Button)btnSender)
-                {
-                    DisableTopButton();
+            if (sender is not Button selected)
+                return;
 
-                    currentTopButton = (Button)btnSender;
+            DisableTopButton();
 
-                    currentTopButton.BackColor =
-                        ColorTranslator.FromHtml("#C3B4D0");
-
-                    currentTopButton.ForeColor = Color.White;
-
-                    currentTopButton.Font = new Font(
-                        "Microsoft Sans Serif",
-                        12.5F,
-                        FontStyle.Regular,
-                        GraphicsUnit.Point);
-                }
-            }
+            currentTopButton = selected;
+            currentTopButton.BackColor = ColorTranslator.FromHtml("#C3B4D0");
+            currentTopButton.ForeColor = Color.White;
+            currentTopButton.Font = new Font("Microsoft Sans Serif", 12.5F);
         }
 
         private void DisableTopButton()
         {
-            foreach (Control previousBtn in clothesBtnPanel.Controls)
+            foreach (Button btn in clothesBtnPanel.Controls.OfType<Button>())
             {
-                if (previousBtn is Button btn)
-                {
-                    btn.BackColor =
-                        SystemColors.ButtonHighlight;
-
-                    btn.ForeColor =
-                        SystemColors.Desktop;
-
-                    btn.Font = new Font(
-                        "Microsoft Sans Serif",
-                        10.2F,
-                        FontStyle.Regular,
-                        GraphicsUnit.Point);
-                }
+                btn.BackColor = SystemColors.ButtonHighlight;
+                btn.ForeColor = SystemColors.Desktop;
+                btn.Font = new Font("Microsoft Sans Serif", 10.2F);
             }
         }
 
-        // ── Auto-Load from StartForm ─────────────────────────────────
-        public void LoadDefault()
+        private void SetClosetHeader(bool show)
         {
-            mainCloset_Click(mainCloset, EventArgs.Empty);
+            clothesBtnPanel.Visible = show;
+            closetBtnCtrl.Visible = true;
+            bottomPanel.Enabled = true;
+            title.Visible = show;
         }
 
-        // ── Bottom Panel PictureBox Clicks ───────────────────────────
+        public void LoadDefault()
+        {
+            ActivateBottomButton(mainCloset);
+
+            SetClosetHeader(true);
+
+            ActivateTopButton(allClothesBtn);
+
+            ShowCachedControl(
+                "AllCloset",
+                () => new AllCloset());
+        }
+
         private void settings_Click(object sender, EventArgs e)
         {
             ActivateBottomButton(sender);
-
-            if (activeControl != null)
-            {
-                closetPanel.Controls.Remove(activeControl);
-                activeControl.Dispose();
-                activeControl = null;
-            }
-
-            var settingsCtrl = new Settings();
-
-            settingsCtrl.TopLevel = false;
-            settingsCtrl.FormBorderStyle = FormBorderStyle.None;
-            settingsCtrl.Dock = DockStyle.Fill;
-
-            closetPanel.Controls.Add(settingsCtrl);
-
-            settingsCtrl.BringToFront();
-            settingsCtrl.Show();
 
             clothesBtnPanel.Visible = false;
             closetBtnCtrl.Visible = true;
             bottomPanel.Enabled = true;
             title.Visible = false;
+
+            ShowCachedForm("Settings", () => new Settings());
         }
 
         private void mainCloset_Click(object sender, EventArgs e)
         {
             ActivateBottomButton(sender);
-
-            OpenChildControl(new AllCloset());
+            SetClosetHeader(true);
 
             allClothesBtn.PerformClick();
-
-            clothesBtnPanel.Visible = true;
-            closetBtnCtrl.Visible = true;
-            bottomPanel.Enabled = true;
-            title.Visible = true;
         }
 
         private void uploadClothes_Click(object sender, EventArgs e)
@@ -338,10 +297,11 @@ namespace Pormatics
 
             uploadForm.FormClosed += (s, args) =>
             {
+                cachedControls.Remove("AllCloset");
                 mainCloset_Click(mainCloset, EventArgs.Empty);
             };
 
-            OpenChildForm(uploadForm);
+            ShowTemporaryForm(uploadForm);
         }
 
         private void generateOutfit_Click(object sender, EventArgs e)
@@ -349,129 +309,93 @@ namespace Pormatics
             ActivateBottomButton(sender);
 
             clothesBtnPanel.Visible = false;
-            closetBtnCtrl.Visible = true;
+            closetBtnCtrl.Visible = false;
             bottomPanel.Enabled = true;
             title.Visible = false;
 
+            OpenGenerateFilter();
+        }
+
+        private void OpenGenerateFilter()
+        {
             GenerateFilter generateForm = new GenerateFilter();
 
             generateForm.OutfitGenerated += (filter, outfit) =>
             {
                 ConfirmGenerated confirmForm = new ConfirmGenerated(filter, outfit);
 
-                confirmForm.BackRequested += () =>
-                {
-                    OpenChildForm(new GenerateFilter());
-                };
+                confirmForm.BackRequested += OpenGenerateFilter;
 
-                OpenChildForm(confirmForm);
+                ShowTemporaryForm(confirmForm);
             };
 
-            OpenChildForm(generateForm);
+            ShowTemporaryForm(generateForm);
         }
 
         private void favBtn_Click(object sender, EventArgs e)
         {
             ActivateBottomButton(sender);
 
-            if (activeControl != null)
-            {
-                closetPanel.Controls.Remove(activeControl);
-                activeControl.Dispose();
-                activeControl = null;
-            }
-
-            var favForm = new FavoriteOutfit();
-
-            favForm.TopLevel = false;
-            favForm.FormBorderStyle = FormBorderStyle.None;
-            favForm.Dock = DockStyle.Fill;
-
-            closetPanel.Controls.Add(favForm);
-
-            favForm.BringToFront();
-            favForm.Show();
-
             clothesBtnPanel.Visible = false;
-            closetBtnCtrl.Visible = true;
+            closetBtnCtrl.Visible = false;
             bottomPanel.Enabled = true;
             title.Visible = false;
+
+            ShowCachedForm("FavoriteOutfit", () => new FavoriteOutfit());
         }
 
 
-        // ── Top Category Buttons ─────────────────────────────────────
         private void allClothesBtn_Click(object sender, EventArgs e)
         {
             ActivateTopButton(sender);
-
-            OpenChildControl(new AllCloset());
+            ShowCachedControl("AllCloset", () => new AllCloset());
         }
 
         private void topBtn_Click(object sender, EventArgs e)
         {
             ActivateTopButton(sender);
-
-            OpenChildControl(new TopCloset());
+            ShowCachedControl("TopCloset", () => new TopCloset());
         }
 
         private void bottomBtn_Click(object sender, EventArgs e)
         {
             ActivateTopButton(sender);
-
-            OpenChildControl(new BottomCloset());
+            ShowCachedControl("BottomCloset", () => new BottomCloset());
         }
 
         private void shoesBtn_Click(object sender, EventArgs e)
         {
             ActivateTopButton(sender);
-
-            OpenChildControl(new ShoesCloset());
+            ShowCachedControl("ShoesCloset", () => new ShoesCloset());
         }
 
         private void accesoriesBtn_Click(object sender, EventArgs e)
         {
             ActivateTopButton(sender);
-
-            OpenChildControl(new AccessoriesCloset());
+            ShowCachedControl("AccessoriesCloset", () => new AccessoriesCloset());
         }
-
-        // ── Window Controls ──────────────────────────────────────────
-        // ── Window Controls via PictureBoxes ──────────────────────────
 
         private void EkisBtn_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+
         private void MaxiBtn_Click(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal)
             {
-                this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
-                this.WindowState = FormWindowState.Maximized;
+                MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
+                WindowState = FormWindowState.Maximized;
             }
             else
             {
-                this.WindowState = FormWindowState.Normal;
+                WindowState = FormWindowState.Normal;
             }
         }
+
         private void MiniBtn_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void closetPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void closetBtnCtrl_Paint(object sender, PaintEventArgs e)
-        {
-
+            WindowState = FormWindowState.Minimized;
         }
     }
 }
