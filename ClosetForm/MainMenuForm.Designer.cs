@@ -169,7 +169,7 @@
             title.ForeColor = Color.FromArgb(59, 58, 90);
             title.Location = new Point(0, 0);
             title.Name = "title";
-            title.Size = new Size(260, 104);
+            title.Size = new Size(266, 105);
             title.TabIndex = 0;
             title.Text = "CLOSET";
             // 
